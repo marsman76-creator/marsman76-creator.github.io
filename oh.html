@@ -1,0 +1,831 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><script>(function(){if(location.hash)return;var r=history.replaceState.bind(history),done=false;history.replaceState=function(s,t,u){if(!done&&typeof u==="string"&&u.charAt(0)==="#")return;return r(s,t,u)};addEventListener("load",function(){setTimeout(function(){done=true},0)})})();</script>
+<div style="font:13px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid rgba(127,127,127,.28);display:flex;gap:6px;flex-wrap:wrap;align-items:baseline"><a href="index.html" style="color:inherit;font-weight:600;text-decoration:none">Our Future Matters</a><span style="opacity:.65">&middot; 2026 midterms tracker by Marc Randolph</span></div>
+<title>Ohio Early Vote Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap">
+<style>
+  /* Layout: same system as the Georgia and Texas trackers - serif headline, tiles, tabbed pages of cards. */
+  :root {
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --bg: #fbfbfa; --panel: #ffffff; --fg: #1c2230; --muted: #626a7a; --line: #e3e5ea;
+    --grid: #eceef2; --axis: #c9ccd4; --ref: #8f95a3; --track: #f1f2f5;
+    --pop: #ffffff; --pop-border: #dfe2e8; --pop-shadow: 0 4px 16px rgba(20,24,36,.12);
+    --dem: #3b78d0; --rep: #d2473f; --y22: #8a6a9e; --y26: #d07a1c;
+    --h-early: #34548f; --h-eday: #8fa8d8; --h-none: #e0a040;
+    --seq-0: #e3eefc; --seq-1: #b7d3f6; --seq-2: #86b6ef; --seq-3: #5598e7; --seq-4: #2a78d6; --seq-5: #1c5cab;
+    --div-r3: #9e2b26; --div-r2: #d2473f; --div-r1: #e8908a; --div-r0: #f6d3d0;
+    --div-d0: #d4e3f7; --div-d1: #8fb6ea; --div-d2: #3b78d0; --div-d3: #1d4f96;
+    --gap-xs: 4px; --gap-sm: 8px; --gap-md: 14px; --gap-lg: 22px;
+    --pad-xs: 4px; --pad-sm: 8px; --pad-md: 12px; --pad-lg: 18px;
+    --radius: 8px; --fs-cap: 12px; --fs-body: 14px; --fs-head: 16px; --fs-title: 30px;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #14171d; --panel: #1b1f27; --fg: #e8eaef; --muted: #9aa2b1; --line: #2c323d;
+    --grid: #262b35; --axis: #3a414e; --ref: #8a92a2; --track: #232833;
+    --pop: #222733; --pop-border: #343b48; --pop-shadow: 0 4px 16px rgba(0,0,0,.4);
+    --dem: #5b93e0; --rep: #e2615a; --y22: #a98bbd; --y26: #e08a2e;
+    --h-early: #5f8ad6; --h-eday: #b3c6ec; --h-none: #e0a040;
+    --seq-0: #1e2a3d; --seq-1: #1d3d6b; --seq-2: #1f5aa3; --seq-3: #2f7bd8; --seq-4: #6aa3ea; --seq-5: #b2d0f5;
+    --div-r3: #f08b85; --div-r2: #d2473f; --div-r1: #8a3532; --div-r0: #4a2a2b;
+    --div-d0: #263750; --div-d1: #2c5a9a; --div-d2: #4f8fe0; --div-d3: #9ec5f4;
+    color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --bg: #14171d; --panel: #1b1f27; --fg: #e8eaef; --muted: #9aa2b1; --line: #2c323d;
+    --grid: #262b35; --axis: #3a414e; --ref: #8a92a2; --track: #232833;
+    --pop: #222733; --pop-border: #343b48; --pop-shadow: 0 4px 16px rgba(0,0,0,.4);
+    --dem: #5b93e0; --rep: #e2615a; --y22: #a98bbd; --y26: #e08a2e;
+    --h-early: #5f8ad6; --h-eday: #b3c6ec; --h-none: #e0a040;
+    --seq-0: #1e2a3d; --seq-1: #1d3d6b; --seq-2: #1f5aa3; --seq-3: #2f7bd8; --seq-4: #6aa3ea; --seq-5: #b2d0f5;
+    --div-r3: #f08b85; --div-r2: #d2473f; --div-r1: #8a3532; --div-r0: #4a2a2b;
+    --div-d0: #263750; --div-d1: #2c5a9a; --div-d2: #4f8fe0; --div-d3: #9ec5f4;
+    color-scheme: dark; }
+
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); }
+  #dash-root { max-width: 1120px; margin-inline: auto; padding-block: 24px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  :focus-visible { outline: 2px solid var(--dem); outline-offset: 2px; }
+  .ga { display: grid; gap: var(--gap-lg); font-size: var(--fs-body); }
+  .ga h1 { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-title); line-height: 1.15; margin: 0; text-wrap: balance; }
+  .ga h2 { font-size: var(--fs-head); font-weight: 500; margin: 0; text-wrap: balance; }
+  .ga h3 { font-size: var(--fs-body); font-weight: 600; margin: 0; }
+  .ga p { margin: 0; }
+  .snap-note { font-size: var(--fs-cap); color: var(--muted); }
+  .head { display: grid; gap: var(--gap-sm); }
+  .take { color: var(--muted); max-width: 70ch; line-height: 1.55; }
+  .take b { color: var(--fg); font-weight: 500; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--gap-md); }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-md) var(--pad-lg); display: grid; gap: var(--gap-xs); align-content: start; }
+  .tile .k { font-size: var(--fs-cap); color: var(--muted); }
+  .tile .v { font-family: var(--font-serif); font-size: var(--fs-title); line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .tile .v.y26 { color: var(--y26); }
+  .tile .s { font-size: var(--fs-cap); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-lg); display: grid; gap: var(--gap-md); min-width: 0; }
+  .note { font-size: var(--fs-cap); color: var(--muted); line-height: 1.55; max-width: 80ch; }
+  .note a, .sources a, .ga td a { color: inherit; text-decoration-color: var(--axis); text-underline-offset: 2px; }
+  .legend { display: flex; flex-wrap: wrap; gap: var(--gap-sm) var(--gap-lg); font-size: var(--fs-cap); color: var(--muted); align-items: center; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex: none; }
+  .legend i.line { height: 2px; border-radius: 1px; width: 14px; }
+  .legend i.dot { border-radius: 50%; }
+
+  .tabs { display: flex; gap: var(--gap-xs); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .tabs button { font: inherit; background: transparent; border: 0; border-bottom: 2px solid transparent; color: var(--muted); padding: var(--pad-sm) var(--pad-md); cursor: pointer; margin-bottom: -1px; }
+  .tabs button:hover { color: var(--fg); }
+  .tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--fg); font-weight: 500; }
+  .page { display: grid; gap: var(--gap-lg); }
+  .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .seg button { font: inherit; font-size: var(--fs-cap); background: transparent; color: var(--muted); border: 0; padding: var(--pad-xs) var(--pad-md); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--bg); color: var(--fg); font-weight: 500; }
+  .cardhead { display: flex; flex-wrap: wrap; gap: var(--gap-sm); align-items: center; justify-content: space-between; }
+
+  /* bars built in HTML */
+  .rel { position: relative; }
+  .rows { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) 3.6rem; gap: var(--gap-sm) var(--gap-md); align-items: center; }
+  .row .lab { font-size: var(--fs-cap); line-height: 1.35; min-width: 0; }
+  .row .lab b { font-weight: 500; font-size: var(--fs-body); display: block; }
+  .row .lab small { color: var(--muted); font-size: var(--fs-cap); font-variant-numeric: tabular-nums; }
+  .row .val { font-size: var(--fs-cap); font-variant-numeric: tabular-nums; text-align: right; }
+  .track { position: relative; height: 14px; }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; background: var(--y26); border-radius: 0 4px 4px 0; }
+  .refline { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px dashed var(--ref); }
+  .chip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .grp { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-top: var(--gap-sm); }
+  .grp:first-child { margin-top: 0; }
+  .stack { display: flex; gap: 2px; height: 20px; }
+  .stack div { position: relative; height: 100%; font-size: 11px; line-height: 20px; color: #fff; text-align: center; font-variant-numeric: tabular-nums; overflow: hidden; white-space: nowrap; }
+  .stack div:first-child { border-radius: 4px 0 0 4px; }
+  .stack div:last-child { border-radius: 0 4px 4px 0; }
+  .stack .s-eday { color: #1c2230; }
+  .stack .s-none { color: #1c2230; }
+  .row.hab { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); }
+  .pair { display: grid; gap: 3px; }
+  .pair .t { position: relative; height: 10px; display: flex; align-items: center; }
+  .pair .t .bar { border-radius: 0 3px 3px 0; }
+  .pair .t span { position: absolute; font-size: 11px; font-variant-numeric: tabular-nums; color: var(--muted); padding-left: 6px; white-space: nowrap; }
+  .row.nv { grid-template-columns: minmax(0, 7rem) minmax(0, 1fr); }
+
+  .tip { position: absolute; z-index: 5; pointer-events: none; background: var(--pop); border: 1px solid var(--pop-border); border-radius: var(--radius); box-shadow: var(--pop-shadow); padding: var(--pad-xs) var(--pad-sm); font-size: var(--fs-cap); line-height: 1.45; width: max-content; max-width: 15rem; }
+  .tip .h { font-weight: 500; margin-bottom: 2px; }
+  .tip .r { display: flex; justify-content: space-between; gap: var(--gap-md); font-variant-numeric: tabular-nums; }
+  .tip .r span:first-child { color: var(--muted); }
+
+  .tablewrap { overflow-x: auto; }
+  .ga table { border-collapse: collapse; width: 100%; font-size: var(--fs-cap); font-variant-numeric: tabular-nums; }
+  .ga th { text-align: right; font-weight: 500; color: var(--muted); padding: var(--pad-xs) var(--pad-sm); border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: bottom; }
+  .ga td { text-align: right; padding: 5px var(--pad-sm); border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .ga th:first-child, .ga td:first-child, .ga .l { text-align: left; }
+  .ga td.wrap { white-space: normal; min-width: 12rem; color: var(--muted); }
+  .ga th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; }
+  .ga th button:hover { color: var(--fg); }
+  .ga th[aria-sort] button { color: var(--fg); }
+  .ga th[aria-sort="descending"] button::after { content: " \2193"; }
+  .ga th[aria-sort="ascending"] button::after { content: " \2191"; }
+  .ga td.d { color: var(--dem); } .ga td.r { color: var(--rep); }
+  .ga tr.tot td { font-weight: 500; }
+  .ga td .mini { display: inline-block; vertical-align: middle; height: 6px; background: var(--y26); border-radius: 0 3px 3px 0; margin-left: 6px; }
+  .ga td.na { color: var(--muted); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--gap-sm) var(--gap-md); align-items: center; font-size: var(--fs-cap); color: var(--muted); }
+  .controls input { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px var(--pad-sm); width: 12rem; max-width: 100%; }
+  .btn { font: inherit; font-size: var(--fs-cap); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px var(--pad-md); cursor: pointer; justify-self: start; }
+  .btn:hover { border-color: var(--axis); }
+
+  svg text { fill: var(--muted); font-family: var(--font-sans); font-size: 11px; }
+  svg .gridl { stroke: var(--grid); stroke-width: 1; }
+  svg .axisl { stroke: var(--axis); stroke-width: 1; }
+  .mapwrap { position: relative; max-width: 560px; width: 100%; margin-inline: auto; }
+  .mapwrap svg { display: block; width: 100%; height: auto; }
+  .mapwrap path.c { stroke: var(--panel); stroke-width: .6; cursor: pointer; }
+  .mapwrap path.c.on { stroke: var(--fg); stroke-width: 1.6; }
+  .mapwrap path.o { fill: none; stroke: var(--axis); stroke-width: 1; pointer-events: none; }
+  .sources { margin: 0; padding-left: 1.1rem; display: grid; gap: 4px; font-size: var(--fs-cap); color: var(--muted); line-height: 1.5; }
+  .ga ul.notes { margin: 0; padding-left: 1.1rem; display: grid; gap: 6px; font-size: var(--fs-cap); color: var(--muted); line-height: 1.55; max-width: 80ch; }
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--gap-md); }
+  .proj { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-md) var(--pad-lg); display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .proj .top { display: flex; justify-content: space-between; align-items: baseline; gap: var(--gap-sm); flex-wrap: wrap; }
+  .pill { font-size: 11px; letter-spacing: .03em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--fg); background: var(--bg); white-space: nowrap; }
+  .cands { display: flex; justify-content: space-between; gap: var(--gap-md); }
+  .cand { display: grid; gap: 2px; }
+  .cand.r { text-align: right; }
+  .cand .nm { font-size: var(--fs-cap); color: var(--muted); }
+  .cand .pct { font-family: var(--font-serif); font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cand.d .pct { color: var(--dem); } .cand.r .pct { color: var(--rep); }
+  .split { position: relative; display: flex; gap: 2px; height: 14px; }
+  .split .sd { background: var(--dem); border-radius: 4px 0 0 4px; }
+  .split .sr { background: var(--rep); border-radius: 0 4px 4px 0; flex: 1 1 0; }
+  .split .half { position: absolute; left: 50%; top: -4px; bottom: -4px; border-left: 1.5px solid var(--fg); }
+  .pm { font-size: var(--fs-cap); color: var(--muted); line-height: 1.5; font-variant-numeric: tabular-nums; }
+  .pm b { color: var(--fg); font-weight: 500; }
+  .dials { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--gap-lg); }
+  .dial { display: grid; gap: 6px; min-width: 0; }
+  .dial svg { display: block; overflow: visible; }
+  .ga td.dm { color: var(--dem); } .ga td.rm { color: var(--rep); }
+  @media (max-width: 560px) {
+    .ga { --fs-title: 26px; }
+    .row { grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr) 3.2rem; }
+    .row.hab { grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr); }
+    .row.nv { grid-template-columns: minmax(0, 5.5rem) minmax(0, 1fr); }
+    .card { padding: var(--pad-md); }
+  }
+  .cands3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-sm); }
+  .cand.i .pct { color: var(--y22); }
+  .cand.c { text-align: center; }
+  .split .si { background: var(--y22); }
+  .split.three .sr { border-radius: 0 4px 4px 0; }
+  .grp-sub { font-size: var(--fs-cap); color: var(--muted); }
+  .bar.b22 { background: var(--y22); }
+  .bar.bfin { background: var(--axis); }
+  [hidden]:not([hidden=until-found i]) { display: none !important; }
+  .ga td.wrapl { white-space: normal; min-width: 13rem; color: var(--muted); text-align: left; }
+  .stale { color: var(--rep); }
+  .card > div, #who-cards, #poll-tables { min-width: 0; }
+  #poll-tables { display: grid; gap: var(--gap-sm); }
+  #who-cards { display: grid; gap: var(--gap-lg); }
+  .pair .t span { pointer-events: none; }
+</style>
+
+<div id="dash-root">
+<div class="ga">
+  <div class="head">
+    <p class="snap-note">Early-vote figures from Ohio Secretary of State counts for ballots through Friday 23 October, as copied by On Point Politics (24 October), covering early in-person and absentee voting from Tuesday 6 October through Friday 23 October, statewide count only. Absentee ballots returned plus early in-person votes (early voting opened Tuesday 6 October). Polls through 22 October. Page refreshed 25 October, 6:10 p.m. ET.</p>
+    <h1>Ohio early vote: who is turning out</h1>
+    <p class="take">Ohioans have cast <b>1.00 million</b> ballots so far, <b>30% more</b> through 20 October than at the same point in 2022, by AP's count and <b>24%</b> of 2022's entire vote. On the polls, the U.S. Senate race leans toward <b>Brown</b> and the governor's race leans toward <b>Acton</b>.</p>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><span class="k">Ballots cast so far</span><span class="v y26">1,004,070</span><span class="s">579,085 in person · 424,985 by mail</span></div>
+    <div class="tile"><span class="k">Against 2022, same point</span><span class="v">+30.0%</span><span class="s">AP: 156,000 more ballots through 20 Oct than in 2022</span></div>
+    <div class="tile"><span class="k">Share of 2022's total vote</span><span class="v">23.9%</span><span class="s">of about 4.20 million ballots</span></div>
+    <div class="tile" id="tile4"><span class="k">Voted by mail</span><span class="v">42.3%</span><span class="s">424,985 mail ballots</span></div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Tracker sections">
+    <button role="tab" id="tab-projection" aria-controls="projection" aria-selected="true" data-page="projection">Projection</button>
+    <button role="tab" id="tab-counties" aria-controls="counties" aria-selected="false" data-page="counties" tabindex="-1">Counties</button>
+    <button role="tab" id="tab-days" aria-controls="days" aria-selected="false" data-page="days" tabindex="-1">Day by day</button>
+    <button role="tab" id="tab-who" aria-controls="who" aria-selected="false" data-page="who" tabindex="-1">Who's voting</button>
+    <button role="tab" id="tab-districts" aria-controls="districts" aria-selected="false" data-page="districts" tabindex="-1">Districts</button>
+    <button role="tab" id="tab-map" aria-controls="map" aria-selected="false" data-page="map" tabindex="-1">Map</button>
+  </div>
+
+  <!-- PROJECTION -->
+  <section class="page" id="projection" role="tabpanel" aria-labelledby="tab-projection">
+    <div class="card">
+      <h2>Where the races stand<span id="stand-sub"></span></h2>
+      <p class="note" id="stand-note"></p>
+      <div class="proj-grid" id="proj-grid"></div>
+    </div>
+    <div class="card" id="ev-card">
+      <h2 id="ev-title">Three readings of the early vote</h2>
+      <p class="note" id="ev-note"></p>
+      <div class="tablewrap" id="scen-wrap"><table id="scen-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card" id="dial-card" hidden>
+      <h2>How each race moves with the electorate</h2>
+      <p class="note" id="dial-note"></p>
+      <div class="legend"><span><i class="dot" style="background:var(--fg)"></i>Reading of the early vote</span><span><i class="line" style="border-top:1.5px dashed var(--ref);height:0"></i>Full difference so far</span></div>
+      <div class="dials" id="dials"></div>
+    </div>
+    <div class="card" id="groups-card" hidden>
+      <h2>How each group is voting</h2>
+      <p class="note" id="groups-note"></p>
+      <div class="tablewrap"><table id="groups-table"><thead></thead><tbody></tbody></table></div>
+      <p class="note" id="groups-note2"></p>
+    </div>
+    <div class="card" id="lens-card" hidden>
+      <h2>Lenses on the ballots already cast</h2>
+      <p class="note" id="lens-note"></p>
+      <div class="tablewrap"><table id="lens-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>The polls</h2>
+      <p class="note" id="polls-note"></p>
+      <div id="poll-tables"></div>
+    </div>
+    <div class="card">
+      <h2>How this projection works</h2>
+      <ul class="notes" id="method"></ul>
+    </div>
+  </section>
+
+  <!-- COUNTIES -->
+  <section class="page" id="counties" role="tabpanel" aria-labelledby="tab-counties" hidden>
+    <div class="card">
+      <h2 id="bands-title">Turnout so far, by how each county voted in 2024</h2>
+      <p class="note" id="bands-note"></p>
+      <div class="legend"><span><i style="background:var(--y26)"></i>Share of 2022's vote already cast</span><span><i class="line" style="border-top:1.5px dashed var(--ref);height:0"></i>Statewide</span><span><i class="dot" style="background:var(--dem)"></i>Harris won</span><span><i class="dot" style="background:var(--rep)"></i>Trump won</span></div>
+      <div class="rel"><div class="rows" id="bands" role="img" aria-label="Share of 2022 vote cast so far, by 2024 result"></div></div>
+      <div class="tablewrap"><table id="bands-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>The numbers</h2>
+      <p class="note" id="ctable-note"></p>
+      <div class="controls"><label for="county-q" id="county-q-label">Find a county</label><input id="county-q" type="search" autocomplete="off"><span id="county-count"></span></div>
+      <div class="tablewrap"><table id="ctable"><thead><tr></tr></thead><tbody></tbody></table></div>
+      <button class="btn" id="county-more" type="button"></button>
+    </div>
+    <div class="card">
+      <h2 id="size-title">By county size</h2>
+      <p class="note" id="size-note"></p>
+      <div class="tablewrap"><table id="size-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- DAY BY DAY -->
+  <section class="page" id="days" role="tabpanel" aria-labelledby="tab-days" hidden>
+    <div class="card">
+      <h2>Ballots cast so far</h2>
+      <p class="note" id="days-note"></p>
+      <div class="legend"><span><i class="line" style="background:var(--y26)"></i>2026, all ballots</span><span id="leg22"><i class="dot" style="background:var(--y22)"></i>Same point in an earlier year</span></div>
+      <div class="rel" id="cp-chart" role="img" aria-label="Cumulative ballots cast at each reported checkpoint"></div>
+    </div>
+    <div class="card" id="pace-card" hidden>
+      <h2>Pace against 2022, day by day</h2>
+      <p class="note" id="pace-note"></p>
+      <div class="legend"><span><i class="line" style="background:var(--y26)"></i>2026</span><span><i class="line" style="background:var(--y22)"></i>2022, same day of early voting</span></div>
+      <div class="rel" id="pace-chart" role="img" aria-label="Cumulative in-person early votes as a share of registered voters, by day of early voting, 2026 against 2022"></div>
+    </div>
+    <div class="card">
+      <h2>The checkpoints</h2>
+      <div class="tablewrap"><table id="cp-table"><thead><tr><th>When</th><th>In person</th><th>Mail</th><th>All ballots</th><th id="cp-cmp-h">Earlier year, same point</th><th>Change</th><th class="l">Source</th></tr></thead><tbody></tbody></table></div>
+      <p class="note" id="cp-note"></p>
+    </div>
+  </section>
+
+  <!-- WHO -->
+  <section class="page" id="who" role="tabpanel" aria-labelledby="tab-who" hidden>
+    <div id="who-cards"></div>
+  </section>
+
+  <!-- DISTRICTS -->
+  <section class="page" id="districts" role="tabpanel" aria-labelledby="tab-districts" hidden>
+    <div class="card">
+      <h2 id="dist-title">Congressional districts</h2>
+      <p class="note" id="dist-note"></p>
+      <div class="rel"><div class="rows" id="cd-bars" role="img" aria-label="Ballots by district"></div></div>
+      <div class="tablewrap"><table id="cd-table"><thead><tr></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="page" id="map" role="tabpanel" aria-labelledby="tab-map" hidden>
+    <div class="card">
+      <div class="cardhead"><h2 id="map-title"></h2>
+        <div class="seg" role="group" aria-label="Map measure" id="map-seg"></div>
+      </div>
+      <div class="legend" id="map-legend"></div>
+      <div class="mapwrap" id="mapwrap"></div>
+      <p class="note" id="map-note"></p>
+    </div>
+    <div class="card">
+      <h2>Reading the map</h2>
+      <ul class="notes" id="map-read"></ul>
+    </div>
+  </section>
+
+  <div class="card">
+    <h2>How to read this</h2>
+    <ul class="notes" id="read-notes"></ul>
+    <h3>Sources</h3>
+    <ol class="sources" id="sources"></ol>
+  </div>
+</div>
+</div>
+
+<script>
+const D = {"st":{"name":"Ohio","abbr":"OH","unit":"county","units":"counties","unit_suffix":" County","ev_start":"2026-10-06","ev_end":"2026-11-01","count_start":"2026-10-06","base22":"2022 governor's race vote","pres24":"Statewide: Trump won by 11.2 points.","dist_label":"Congressional districts","dist_note":"","who_note":"","counties_note":"","map_note":"","days_note":"Statewide running counts from the Secretary of State's release, news reports and the state's dashboard as copied by civicAPI (On Point Politics). Ohio's early in-person voting is running far ahead of 2022: after the first week it was almost four times the 2022 count (194,841 against 50,368), and by 23 October it had passed the whole 2022 early in-person vote (549,771).","cp_note":"The 20 October figures were reported as \"over 400,000\" in person, \"nearly 300,000\" by mail and \"nearly 700,000\" in all (Spectrum News 1). The 2022 figure on 13 October is early in-person votes only, so it is compared with in-person votes.","notes_read":["Counts are absentee ballots returned plus early in-person votes, from the Ohio Secretary of State's county reports. The state's dashboard needs JavaScript this page cannot run, so the counts come from On Point Politics and Call the Map, which copy it through civicAPI (usually a day behind), and from the Secretary of State's releases.","Ohio has no party registration and records no race, and the dashboard's party and age layers cannot be read, so there is no group breakdown. News 5 Cleveland reported the first-week split (13 October): Democrats about 41%, unaffiliated 29%, Republicans 28%, against Republicans 36% and Democrats 26% at the same point in 2024.","AP counted 156,000 more Ohio ballots through 20 October than at the same point in 2022, up 30%. AP gave no 2022 count, so the page shows its percentage.","Early in-person voting runs 6 October to 1 November at each county board of elections, with longer hours in the final week. Absentee applications are due by 8:30 p.m. on 27 October, and mail ballots must arrive by 7:30 p.m. on Election Day: Ohio ended its postmark grace period.","Mail requests are down from 2022 (631,079 after the first week, against 871,041 at the same point in 2022, per the Ohio Capital Journal), while in-person voting is far ahead.","The Senate race is a special election: Jon Husted was appointed in January 2025 when JD Vance became vice president. Libertarian Bill Redpath and independent Greg Levy are also on the ballot, polling 1-5%, so the projection treats both races as two-way contests."],"sources":["<a href=\"https://www.ohiosos.gov/office/media-center/categories/press-releases/2026-10-13a\" target=\"_blank\" rel=\"noopener\">Ohio Secretary of State, 13 October release<\/a> and <a href=\"https://data.ohiosos.gov/portal/election-dashboards/absentee\" target=\"_blank\" rel=\"noopener\">absentee and early voting dashboard<\/a>; 2022 figures from the releases of <a href=\"https://www.ohiosos.gov/office/media-center/categories/press-releases/2022-10-18\" target=\"_blank\" rel=\"noopener\">18 October 2022<\/a> and <a href=\"https://www.ohiosos.gov/office/media-center/categories/press-releases/2022-11-07\" target=\"_blank\" rel=\"noopener\">7 November 2022<\/a>.","<a href=\"https://onpointpolitics.us/maps/early-vote\" target=\"_blank\" rel=\"noopener\">On Point Politics<\/a> and <a href=\"https://www.callthemap.com/early-vote\" target=\"_blank\" rel=\"noopener\">Call the Map<\/a> (state dashboard counts via civicAPI); <a href=\"https://spectrumnews1.com/oh/columbus/news/2026/10/20/licking-county-early-voting-turnout-nears-presidential-year-levels\" target=\"_blank\" rel=\"noopener\">Spectrum News 1<\/a>; <a href=\"https://www.wdbo.com/news/politics/many-states-deciding/CXHPAIJBBM7HRPINUMMH6BURQU/\" target=\"_blank\" rel=\"noopener\">AP<\/a> on the 2022 comparison; <a href=\"https://news5cleveland.com/news/politics/ohio-politics/one-week-into-early-voting-ohio-democrats-are-outperforming-republicans\" target=\"_blank\" rel=\"noopener\">News 5 Cleveland<\/a> on the first-week party split; <a href=\"https://www.newsfromthestates.com/node/432828\" target=\"_blank\" rel=\"noopener\">Ohio Capital Journal<\/a> on requests.","Polls: each poll links to its release or the news report used; <a href=\"https://www.realclearpolling.com/polls/senate/special-election/2026/ohio/husted-vs-brown\" target=\"_blank\" rel=\"noopener\">RealClearPolitics<\/a>, <a href=\"https://www.270towin.com/2026-senate-polls/ohio\" target=\"_blank\" rel=\"noopener\">270toWin<\/a> and <a href=\"https://en.wikipedia.org/wiki/2026_United_States_Senate_special_election_in_Ohio\" target=\"_blank\" rel=\"noopener\">Wikipedia<\/a> poll lists and ratings.","Voting by group: <a href=\"https://abcnews.com/Elections/ohio-exit-polls-2022-us-senate-election-results-analysis\" target=\"_blank\" rel=\"noopener\">2022 Senate exit poll (ABC News)<\/a>, <a href=\"https://en.wikipedia.org/wiki/2022_Ohio_gubernatorial_election\" target=\"_blank\" rel=\"noopener\">2022 governor exit poll (CNN, via Wikipedia)<\/a>, <a href=\"https://abcnews.com/Elections/ohio-exit-polls-2024-us-senate-election-results-analysis\" target=\"_blank\" rel=\"noopener\">2024 Senate exit poll (ABC News)<\/a> and <a href=\"https://en.wikipedia.org/wiki/2024_United_States_presidential_election_in_Ohio\" target=\"_blank\" rel=\"noopener\">2024 presidential exit poll (via Wikipedia)<\/a>.","Pollster quality: <a href=\"https://github.com/fivethirtyeight/data/tree/master/pollster-ratings\" target=\"_blank\" rel=\"noopener\">538 pollster ratings<\/a> (last published ratings; leans computed for this page)."],"method_extra":[],"no_signal_note":"Ohio has no party registration (a voter's party is the last party primary ballot they took) and does not record race, and the Secretary of State's dashboard, the only source with the party split, cannot be read by this page. The one published split, from the first week, had Democrats ahead (about 41% to 28%), but there is no 2022 benchmark for it, so the projection rests on the polls alone.","election_rule":"The most votes wins; there is no runoff.","other_views":"As of 25 October, RealClearPolitics averages Brown +3.3 for Senate (polls 22 Sep–22 Oct) and Acton +4.4 for governor (29 Sep–19 Oct); 270toWin's averages are Brown 48.9–44.9 (7 polls, 16–23 Oct, including ActiVote) and Acton 49.0–45.8 (6 polls, 16–22 Oct). In the latest ratings that could be confirmed (Wikipedia, mid/late September), Cook, Sabato's Crystal Ball and Inside Elections all rated the Senate race a toss-up; for governor, Cook and Sabato said toss-up and Inside Elections tilt Republican, while Silver Bulletin leaned Democratic in both races.","excluded":"Rasmussen Reports (Ohio polls 22–23 Sep and 12–14 Oct), Wedgewood Polls (11–13 Aug) and ActiVote (26 Sep–18/19 Oct) are left out under the Georgia rules","window_start":"2026-09-14","half_life":28.0,"prior":2.0,"sd":5.0,"checked":"2026-10-25"},"races":[{"key":"sen","office":"U.S. Senate","seat_note":"special election for the last two years of JD Vance's term (Husted was appointed in 2025)","D":{"name":"Sherrod Brown","short":"Brown"},"R":{"name":"Jon Husted","short":"Husted"}},{"key":"gov","office":"Governor","seat_note":"open seat (DeWine term-limited)","D":{"name":"Amy Acton","short":"Acton"},"R":{"name":"Vivek Ramaswamy","short":"Ramaswamy"}}],"total":1004070,"ip":579085,"mail":424985,"same":null,"tot22":4201368,"reg":null,"vs":30,"of22":23.89864444152476,"counties":[],"has":{"reg":false,"ip":false,"mail":false,"party":false,"map":false,"districts":false},"county_sum":null,"districts":[],"groups":{},"cps":[{"t":"2026-10-13T12:00","when":"Tue 13 Oct, SOS release (first week of early voting, 6–12 Oct)","ip":194841,"mail":33629,"all":228470,"c22":50368,"c22k":"in person","src":"Ohio Secretary of State","href":"https://www.ohiosos.gov/office/media-center/categories/press-releases/2026-10-13a","c22href":"https://www.ohiosos.gov/office/media-center/categories/press-releases/2022-10-18","c22y":2022,"c22note":"early in-person ballots after the first week of 2022 early voting (SOS, 18 Oct 2022)"},{"t":"2026-10-20T17:00","when":"Tue 20 Oct (third week)","ip":400000,"ipFloor":true,"mail":300000,"all":700000,"c22":null,"c22k":null,"note":"Spectrum News: 'nearly 700,000' in all, 'over 400,000' in person, 'nearly 300,000' mail; about 90,000 voted in person Fri 16 to Mon 19 Oct","src":"Spectrum News 1","href":"https://spectrumnews1.com/oh/columbus/news/2026/10/20/licking-county-early-voting-turnout-nears-presidential-year-levels","mailNear":true,"allNear":true},{"t":"2026-10-23T23:59","when":"Fri 23 Oct, close","ip":579085,"mail":424985,"all":1004070,"c22":null,"c22k":null,"note":"Ohio SOS dashboard counts as compiled by civicAPI; Call the Map shows the same numbers, rounded, 'through Oct 23' (+81K on the day). FOX19 read 579,084 early votes on the SOS site at noon Sat 24 Oct, which matches the in-person count","src":"On Point Politics (civicAPI)","href":"https://onpointpolitics.us/maps/early-vote"}],"proj":{"sen":{"key":"sen","office":"U.S. Senate","polls":[{"p":"InsiderAdvantage","d":"21–22 Oct","end":"2026-10-22","n":1200,"pop":"LV","D":47.0,"R":44.0,"src":"https://insideradvantage.com/insideradvantage-senate-surveys-mi-el-sayed-47-rogers-46-ia-hinson-47-turek-45-oh-brown-47-husted-44/","note":"multi-state release (MI, IA, OH); others/undecided not published","m":3.0,"tp":51.64835164835166,"err":-0.68,"grade":2.0,"aligned":"R","why":"Marked (R) in Wikipedia's 2026 Ohio Senate poll table (September poll)","lean":-1.18,"lean_src":"538 record (80 polls)","age":3,"w":0.30947497138917524,"m2":3.2967032967033134,"adj":4.476703296703313,"share":5.956543108743758},{"p":"Verasight for VoteHub","d":"1–20 Oct","end":"2026-10-20","n":531,"pop":"LV","D":45.4,"R":40.7,"src":"https://cdn.votehub.com/pdfs/VoteHub_Verasight_Oct_2026_Ohio_Report_D1CB7735.pdf","note":"without leaners; with leaners Brown 47.5, Husted 43.6; n is the effective LV sample","m":4.699999999999996,"tp":52.72938443670151,"err":0.0,"grade":null,"aligned":null,"why":"Nonpartisan online panel firm polling for VoteHub, a nonpartisan data site; no 538 rating","lean":0.0,"lean_src":"no record","age":5,"w":0.2945258302491783,"m2":5.458768873403017,"adj":5.458768873403017,"share":5.668813205290243},{"p":"Fox News (Beacon/Shaw)","d":"15–19 Oct","end":"2026-10-19","n":1592,"pop":"LV","D":52.0,"R":47.0,"src":"https://static.foxnews.com/foxnews.com/content/uploads/2026/10/fox_october-15-19-2026_ohio_topline_october-21-release.pdf","note":"with leaners (undecideds asked which way they lean); RV: Brown 53, Husted 46","m":5.0,"tp":52.52525252525253,"err":1.59,"grade":2.8,"aligned":null,"why":"Bipartisan Beacon (D)/Shaw (R) team for Fox News; 538 partisan_work 0","lean":0.0,"lean_src":"538 record (84 polls)","age":6,"w":0.8045079664971791,"m2":5.050505050505066,"adj":5.050505050505066,"share":15.484568468517656},{"p":"Marist","d":"15–18 Oct","end":"2026-10-18","n":null,"pop":"LV","D":48.0,"R":44.0,"src":"https://maristpoll.marist.edu/polls/midterm-elections-in-ohio-october-2026/","note":"LV sample size not published (1,176 RV, LV MoE ±4.5); RV margin Brown +9","m":4.0,"tp":52.17391304347826,"err":2.49,"grade":2.9,"aligned":null,"why":"Nonpartisan university poll","lean":1.0,"lean_src":"538 record (96 polls)","age":7,"w":0.8128665347452574,"m2":4.347826086956516,"adj":3.347826086956516,"share":15.645447947312224},{"p":"Cook Political Report (New River/GS Strategy)","d":"9–13 Oct","end":"2026-10-13","n":959,"pop":"LV","D":49.0,"R":43.0,"src":"https://www.cookpolitical.com/analysis/survey-research/battleground-district-project/new-cpr-battleground-polls-dem-senate","note":"Battleground District Project; fielded by New River Strategies (D) with GS Strategy Group (R); n from the CPR methodology PDF","m":6.0,"tp":53.2608695652174,"err":0.0,"grade":null,"aligned":null,"why":"Fielded by New River Strategies (D, unrated by 538) with GS Strategy Group (R) for the nonpartisan Cook Political Report; bipartisan team treated as nonpartisan","lean":0.0,"lean_src":"no record","age":12,"w":0.24766571485615807,"m2":6.521739130434796,"adj":6.521739130434796,"share":4.766884703071485},{"p":"Bowling Green State University/YouGov","d":"29 Sep–9 Oct","end":"2026-10-09","n":1000,"pop":"LV","D":48.0,"R":42.0,"src":"https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1030&context=depo","note":"Levy (I) 5, Redpath (L) 3, someone else 2","m":6.0,"tp":53.333333333333336,"err":0.0,"grade":null,"aligned":null,"why":"Nonpartisan university poll (BGSU Democracy and Public Policy Network) fielded by YouGov; 538 never rated Bowling Green, and it rates sponsor/YouGov pairs separately (e.g. UMass/YouGov), so left unrated. Use 'YouGov' if the owner prefers the fieldwork firm's grade","lean":0.0,"lean_src":"no record","age":16,"w":0.22431669877205934,"m2":6.666666666666671,"adj":6.666666666666671,"share":4.31748028038947},{"p":"co/efficient","d":"5–6 Oct","end":"2026-10-06","n":925,"pop":"LV","D":43.0,"R":44.0,"src":"https://battlegrounds.coefficient.org/oh/","note":"full ballot (Levy 3, Redpath 1, undecided 9); head-to-head question: Husted 46, Brown 45","m":-1.0,"tp":49.42528735632184,"err":-1.96,"grade":1.1,"aligned":null,"why":"Self-described independent public poll, no sponsor; 538 partisan_work 0.2 (below 0.5); not in Wikipedia's Ohio table yet","lean":-1.56,"lean_src":"538 record (21 polls)","age":19,"w":0.22908733298417117,"m2":-1.1494252873563227,"adj":0.4105747126436774,"share":4.409301884614638},{"p":"CNN/SSRS","d":"29 Sep–5 Oct","end":"2026-10-05","n":760,"pop":"LV","D":49.0,"R":43.0,"src":"https://www.newsweek.com/trump-husted-ramaswamy-ohio-rally-polls-show-12559293","note":"CNN release (https://www.cnn.com/2026/10/08/politics/cnn-polls-ohio-iowa-senate-governor-midterms) not readable by the fetch tool; toplines from Newsweek, matching Political Wire","m":6.0,"tp":53.2608695652174,"err":3.35,"grade":2.4,"aligned":null,"why":"Media poll fielded by SSRS; rated under the fieldwork firm (538 'SSRS': 2.4 stars, lean record of 54 polls). 538 also has a 'CNN' entry (2.8 stars) with no lean record","lean":1.93,"lean_src":"538 record (54 polls)","age":20,"w":0.4876054616817901,"m2":6.521739130434796,"adj":4.591739130434796,"share":9.385065743859622},{"p":"NYT/Siena","d":"22 Sep–1 Oct","end":"2026-10-01","n":616,"pop":"LV","D":49.0,"R":46.0,"src":"https://www.newsweek.com/trump-husted-ramaswamy-ohio-rally-polls-show-12559293","note":"NYT toplines page (https://www.nytimes.com/interactive/2026/10/03/polls/times-siena-ohio-poll-toplines.html) blocked to the fetch tool; toplines from Newsweek","m":3.0,"tp":51.578947368421055,"err":1.13,"grade":3.0,"aligned":null,"why":"Nonpartisan media/university poll","lean":0.13,"lean_src":"538 record (189 polls)","age":24,"w":0.5520447568369062,"m2":3.1578947368421098,"adj":3.02789473684211,"share":10.625345168607758},{"p":"YouGov","d":"18–30 Sep","end":"2026-09-30","n":3780,"pop":"LV","D":49.0,"R":45.0,"src":"https://d3nkl3psvxxpe9.cloudfront.net/documents/ttw_oh_20260921_lv.pdf","note":"sponsor not named in the PDF; Newsweek and 270toWin give n = 3,777","m":4.0,"tp":52.12765957446809,"err":2.89,"grade":3.0,"aligned":null,"why":"Nonpartisan online pollster","lean":0.03,"lean_src":"538 record (278 polls)","age":25,"w":0.5385465128844867,"m2":4.255319148936181,"adj":4.2253191489361805,"share":10.365541050575168},{"p":"Suffolk/USA Today Network Ohio","d":"23–27 Sep","end":"2026-09-27","n":500,"pop":"LV","D":46.6,"R":44.0,"src":"https://www.suffolk.edu/-/media/suffolk/documents/academics/research-at-suffolk/suprc/polls/other-states/2026/9_30_2026_ohio_statewide_marginals_embargoed_part_2.pdf","note":"Redpath (L) 2.0, Levy (I) 1.0, undecided 6.0","m":2.6000000000000014,"tp":51.43487858719647,"err":1.47,"grade":2.9,"aligned":null,"why":"Nonpartisan university poll for a newspaper group","lean":0.1,"lean_src":"538 record (75 polls)","age":28,"w":0.48333333333333334,"m2":2.8697571743929444,"adj":2.7697571743929443,"share":9.302839008174207},{"p":"Big Data Poll","d":"26–27 Sep","end":"2026-09-27","n":680,"pop":"LV","D":45.5,"R":41.6,"src":"https://www.bigdatapoll.com/blog/buckeye-state-poll-sherrod-brown-leads-jon-husted-for-us-senate-in-ohio/","note":"initial ballot; with leaners Brown 46.3, Husted 42.6; crowdfunded (Public Polling Project)","m":3.8999999999999986,"tp":52.23880597014926,"err":0.0,"grade":1.1,"aligned":"R","why":"Marked (R) in Wikipedia's 2026 Georgia poll tables (same treatment as the Georgia kit); Ohio's Wikipedia tables do not list this poll yet","lean":-2.0,"lean_src":"no record: average for aligned pollsters","age":28,"w":0.09166666666666667,"m2":4.477611940298516,"adj":6.477611940298516,"share":1.7643315360330396},{"p":"Quantus Insights","d":"21–23 Sep","end":"2026-09-23","n":695,"pop":"LV","D":45.6,"R":45.3,"src":"https://quantusinsights.org/polling/f/brown-and-husted-deadlocked-in-ohio-senate-race","note":"initial-ballot toplines from the Quantus release (45.6–45.3); dates and n from Wikipedia/270toWin (not on the release page). Wikipedia shows 47–47 for this poll, apparently after pushing undecideds, plus an unattributed 45–46 row that matches the release","m":0.30000000000000426,"tp":50.165016501650165,"err":0.0,"grade":null,"aligned":"R","why":"Marked (R) in Wikipedia's 2026 Ohio Senate poll table; no 538 rating","lean":-2.0,"lean_src":"no record: average for aligned pollsters","age":32,"w":0.07547697202199222,"m2":0.33003300330032914,"adj":2.330033003300329,"share":1.4527243852656464},{"p":"Trafalgar Group","d":"14–16 Sep","end":"2026-09-16","n":1085,"pop":"LV","D":45.4,"R":41.5,"src":"https://www.thetrafalgargroup.org/wp-content/uploads/2026/09/OH-Midterms-Full-Report-0917.pdf","note":"other 6.0, undecided 7.1; 270toWin lists n = 1,200 and rounded 45–42","m":3.8999999999999986,"tp":52.24395857307249,"err":-2.52,"grade":0.7,"aligned":"R","why":"538 partisan_work 1.0; marked (R) in Wikipedia's 2026 Ohio Senate poll table","lean":-3.28,"lean_src":"538 record (150 polls)","age":39,"w":0.044427820645248715,"m2":4.48791714614498,"adj":7.767917146144979,"share":0.8551135095450768}],"M":4.161620016887557,"plainM":4.020932578404493,"altM":2.9358879610120767,"nonpart":89.97128746041247,"I":null,"avg_D":47.32142857142857,"avg_R":43.65,"avg_I":null,"raw":3.6714285714285713,"n":14,"scen":[{"name":"Polls","k":0.0,"m":4.161620016887557,"D":52.08081000844378,"R":47.91918999155622,"pD":0.7973869572850283,"pR":0.20261304271497171}],"head":{"name":"Polls","k":0.0,"m":4.161620016887557,"D":52.08081000844378,"R":47.91918999155622,"pD":0.7973869572850283,"pR":0.20261304271497171}},"gov":{"key":"gov","office":"Governor","polls":[{"p":"Verasight for VoteHub","d":"1–20 Oct","end":"2026-10-20","n":531,"pop":"LV","D":44.4,"R":43.6,"src":"https://cdn.votehub.com/pdfs/VoteHub_Verasight_Oct_2026_Ohio_Report_D1CB7735.pdf","note":"without leaners; with leaners Acton 46.2, Ramaswamy 45.4","m":0.7999999999999972,"tp":50.45454545454545,"err":0.0,"grade":null,"aligned":null,"why":"Nonpartisan online panel firm polling for VoteHub, a nonpartisan data site; no 538 rating","lean":0.0,"lean_src":"no record","age":5,"w":0.2945258302491783,"m2":0.9090909090909065,"adj":0.9090909090909065,"share":6.179511586998604},{"p":"Fox News (Beacon/Shaw)","d":"15–19 Oct","end":"2026-10-19","n":1592,"pop":"LV","D":50.0,"R":48.0,"src":"https://static.foxnews.com/foxnews.com/content/uploads/2026/10/fox_october-15-19-2026_ohio_topline_october-21-release.pdf","note":"with leaners; RV: Acton 51, Ramaswamy 47","m":2.0,"tp":51.02040816326531,"err":1.59,"grade":2.8,"aligned":null,"why":"Bipartisan Beacon (D)/Shaw (R) team for Fox News; 538 partisan_work 0","lean":0.0,"lean_src":"538 record (84 polls)","age":6,"w":0.8045079664971791,"m2":2.040816326530617,"adj":2.040816326530617,"share":16.879559584284962},{"p":"Marist","d":"15–18 Oct","end":"2026-10-18","n":null,"pop":"LV","D":50.0,"R":43.0,"src":"https://maristpoll.marist.edu/polls/midterm-elections-in-ohio-october-2026/","note":"LV sample size not published (1,176 RV)","m":7.0,"tp":53.76344086021505,"err":2.49,"grade":2.9,"aligned":null,"why":"Nonpartisan university poll","lean":1.0,"lean_src":"538 record (96 polls)","age":7,"w":0.8128665347452574,"m2":7.526881720430097,"adj":6.526881720430097,"share":17.054932553426646},{"p":"Cook Political Report (New River/GS Strategy)","d":"9–13 Oct","end":"2026-10-13","n":959,"pop":"LV","D":49.0,"R":44.0,"src":"https://www.cookpolitical.com/analysis/survey-research/battleground-district-project/new-cpr-battleground-polls-dem-senate","note":"fielded by New River Strategies (D) with GS Strategy Group (R)","m":5.0,"tp":52.68817204301075,"err":0.0,"grade":null,"aligned":null,"why":"Fielded by New River Strategies (D, unrated by 538) with GS Strategy Group (R) for the nonpartisan Cook Political Report; bipartisan team treated as nonpartisan","lean":0.0,"lean_src":"no record","age":12,"w":0.24766571485615807,"m2":5.376344086021504,"adj":5.376344086021504,"share":5.196329141525919},{"p":"Bowling Green State University/YouGov","d":"29 Sep–9 Oct","end":"2026-10-09","n":1000,"pop":"LV","D":50.0,"R":44.0,"src":"https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1030&context=depo","note":"Kissick (L) 4, someone else 2","m":6.0,"tp":53.191489361702125,"err":0.0,"grade":null,"aligned":null,"why":"Nonpartisan university poll (BGSU Democracy and Public Policy Network) fielded by YouGov; 538 never rated Bowling Green, and it rates sponsor/YouGov pairs separately (e.g. UMass/YouGov), so left unrated. Use 'YouGov' if the owner prefers the fieldwork firm's grade","lean":0.0,"lean_src":"no record","age":16,"w":0.22431669877205934,"m2":6.38297872340425,"adj":6.38297872340425,"share":4.706438270784175},{"p":"co/efficient","d":"5–6 Oct","end":"2026-10-06","n":925,"pop":"LV","D":43.0,"R":45.0,"src":"https://battlegrounds.coefficient.org/oh/","note":"Kissick (L) 3, undecided 8","m":-2.0,"tp":48.86363636363637,"err":-1.96,"grade":1.1,"aligned":null,"why":"Self-described independent public poll, no sponsor; 538 partisan_work 0.2 (below 0.5); not in Wikipedia's Ohio table yet","lean":-1.56,"lean_src":"538 record (21 polls)","age":19,"w":0.22908733298417117,"m2":-2.2727272727272663,"adj":-0.7127272727272662,"share":4.806532002346313},{"p":"CNN/SSRS","d":"29 Sep–5 Oct","end":"2026-10-05","n":760,"pop":"LV","D":50.0,"R":42.0,"src":"https://www.newsweek.com/trump-husted-ramaswamy-ohio-rally-polls-show-12559293","note":"toplines from Newsweek (CNN page not readable by the fetch tool)","m":8.0,"tp":54.347826086956516,"err":3.35,"grade":2.4,"aligned":null,"why":"Media poll fielded by SSRS; rated under the fieldwork firm (538 'SSRS': 2.4 stars, lean record of 54 polls). 538 also has a 'CNN' entry (2.8 stars) with no lean record","lean":1.93,"lean_src":"538 record (54 polls)","age":20,"w":0.4876054616817901,"m2":8.695652173913032,"adj":6.765652173913033,"share":10.230558038991667},{"p":"NYT/Siena","d":"22 Sep–1 Oct","end":"2026-10-01","n":616,"pop":"LV","D":49.0,"R":45.0,"src":"https://www.newsweek.com/trump-husted-ramaswamy-ohio-rally-polls-show-12559293","note":"toplines from Newsweek (NYT blocked to the fetch tool)","m":4.0,"tp":52.12765957446809,"err":1.13,"grade":3.0,"aligned":null,"why":"Nonpartisan media/university poll","lean":0.13,"lean_src":"538 record (189 polls)","age":24,"w":0.5520447568369062,"m2":4.255319148936181,"adj":4.125319148936181,"share":11.582573143175127},{"p":"YouGov","d":"18–30 Sep","end":"2026-09-30","n":3780,"pop":"LV","D":48.0,"R":44.0,"src":"https://d3nkl3psvxxpe9.cloudfront.net/documents/ttw_oh_20260921_lv.pdf","m":4.0,"tp":52.17391304347826,"err":2.89,"grade":3.0,"aligned":null,"why":"Nonpartisan online pollster","lean":0.03,"lean_src":"538 record (278 polls)","age":25,"w":0.5385465128844867,"m2":4.347826086956516,"adj":4.317826086956516,"share":11.299363501299098},{"p":"Suffolk/USA Today Network Ohio","d":"23–27 Sep","end":"2026-09-27","n":500,"pop":"LV","D":50.4,"R":41.4,"src":"https://www.suffolk.edu/-/media/suffolk/documents/academics/research-at-suffolk/suprc/polls/other-states/2026/9_30_2026_ohio_statewide_marginals_embargoed_part_2.pdf","note":"Kissick (L) 2.8, undecided 4.8","m":9.0,"tp":54.90196078431373,"err":1.47,"grade":2.9,"aligned":null,"why":"Nonpartisan university poll for a newspaper group","lean":0.1,"lean_src":"538 record (75 polls)","age":28,"w":0.48333333333333334,"m2":9.803921568627459,"adj":9.70392156862746,"share":10.140923569213246},{"p":"Big Data Poll","d":"26–27 Sep","end":"2026-09-27","n":680,"pop":"LV","D":47.0,"R":48.0,"src":"https://www.newsweek.com/trump-husted-ramaswamy-ohio-rally-polls-show-12559293","note":"with leaners (only leaned figures reported); toplines from Newsweek; governor result not in Big Data Poll's Senate release","m":-1.0,"tp":49.473684210526315,"err":0.0,"grade":1.1,"aligned":"R","why":"Marked (R) in Wikipedia's 2026 Georgia poll tables (same treatment as the Georgia kit); Ohio's Wikipedia tables do not list this poll yet","lean":-2.0,"lean_src":"no record: average for aligned pollsters","age":28,"w":0.09166666666666667,"m2":-1.05263157894737,"adj":0.9473684210526301,"share":1.9232786079542368}],"M":4.719496233433405,"plainM":4.1830428992941755,"altM":3.454561192226709,"nonpart":98.07672139204576,"I":null,"avg_D":48.25454545454545,"avg_R":44.36363636363637,"avg_I":null,"raw":3.8909090909090907,"n":11,"scen":[{"name":"Polls","k":0.0,"m":4.719496233433405,"D":52.3597481167167,"R":47.6402518832833,"pD":0.8273894314882038,"pR":0.17261056851179624}],"head":{"name":"Polls","k":0.0,"m":4.719496233433405,"D":52.3597481167167,"R":47.6402518832833,"pD":0.8273894314882038,"pR":0.17261056851179624}}},"signal":null,"bench":{"sen22":{"label":"2022 Senate: Vance (R) vs Ryan (D)","src":"https://abcnews.com/Elections/ohio-exit-polls-2022-us-senate-election-results-analysis","source":"National Election Pool exit poll via ABC News","race":{"White":[83,40,59],"Black":[12,86,13],"Hispanic":[2,59,41],"Asian":[1,null,null],"Other":[2,null,null]},"party":{"Democrats":[30,97,3],"Republicans":[41,8,92],"Independents":[29,50,49]},"gender":{"Men":[52,41,58],"Women":[48,53,47]},"age":{"18-29":[10,59,41],"30-44":[20,49,50],"45-64":[39,44,56],"65+":[31,44,55]},"note":"Independents row is 'Independents/Other' on ABC","short":"Ryan 2022"},"gov22":{"label":"2022 Governor: DeWine (R) vs Whaley (D)","src":"https://en.wikipedia.org/wiki/2022_Ohio_gubernatorial_election","source":"CNN exit poll (3,772 respondents) as tabled by Wikipedia","race":{"White":[84,32,67],"Black":[12,67,32],"Hispanic":[2,52,48],"Asian":null,"Other":null},"party":{"Democrats":[30,84,16],"Republicans":[41,3,96],"Independents":[29,37,62]},"gender":{"Men":[52,33,66],"Women":[48,41,58]},"age":{"18-24":[4,56,44],"25-29":[6,60,40],"30-39":[12,48,51],"40-49":[16,38,60],"50-64":[31,31,68],"65+":[31,32,68]},"note":"Wikipedia gives no Asian or Other rows. Age bands are as published","short":"Whaley 2022"},"pres24":{"label":"2024 President: Trump (R) vs Harris (D)","src":"https://en.wikipedia.org/wiki/2024_United_States_presidential_election_in_Ohio","source":"exit poll as tabled by Wikipedia (pollster not named on the page; NEP/CNN is the usual source)","race":{"White":[85,39,60],"Black":[8,89,10],"Hispanic":[3,45,50],"Asian":[2,null,null],"Other":[2,null,null]},"party":{"Democrats":[31,92,7],"Republicans":[41,5,95],"Independents":[28,48,50]},"gender":{"Men":[47,39,60],"Women":[53,49,50]},"age":null,"note":"No age table in the Wikipedia exit-poll section. The NBC and ABC 2024 president pages could not be read","short":"Harris 2024"},"sen24":{"label":"2024 Senate: Moreno (R) vs Brown (D)","src":"https://abcnews.com/Elections/ohio-exit-polls-2024-us-senate-election-results-analysis","source":"National Election Pool exit poll via ABC News","race":{"White":[85,42,55],"Black":[8,89,10],"Hispanic":[3,46,46],"Asian":[2,null,null],"Other":[2,null,null]},"party":{"Democrats":[31,95,4],"Republicans":[41,7,90],"Independents":[28,52,43]},"gender":{"Men":[47,41,55],"Women":[53,51,45]},"age":{"18-29":[11,51,43],"30-44":[27,53,43],"45-64":[36,39,58],"65+":[26,48,49]},"note":"ABC's table is labelled Dem./Rep. without naming candidates; Dem. = Brown, Rep. = Moreno. Independents row is 'Independent or something else'","short":"Brown 2024"}},"xtab":[{"poll":"Verasight for VoteHub","dates":"1–20 Oct","pop":"LV","src":"https://cdn.votehub.com/pdfs/VoteHub_Verasight_Oct_2026_Ohio_Report_D1CB7735.pdf","note":"with leaners; small Black (raw n=70) and Hispanic (raw n=15) subsamples","sen":{"White":[43.5,48.6],"Black":[77.5,11.1],"Hispanic":[64.9,19.9]},"gov":{"White":[42.9,50.1],"Black":[71.3,13.8],"Hispanic":[56.7,36.4]}},{"poll":"Marist","dates":"15–18 Oct","pop":"LV","src":"https://maristpoll.marist.edu/wp-content/uploads/2026/10/Marist-Poll_OH-NOS-and-Tables_202610191215zz9hjdV2l.pdf","note":"Marist publishes only White and Non-white (Non-white: Senate 63–21, governor 63–25)","sen":{"White":[45,49]},"gov":{"White":[47,48]}},{"poll":"YouGov","dates":"18–30 Sep","pop":"LV","src":"https://d3nkl3psvxxpe9.cloudfront.net/documents/ttw_oh_20260921_lv.pdf","sen":{"White":[44,49],"Black":[83,11]},"gov":{"White":[44,48],"Black":[80,11]}},{"poll":"Trafalgar Group","dates":"14–16 Sep","pop":"LV","src":"https://www.thetrafalgargroup.org/wp-content/uploads/2026/09/OH-Midterms-Full-Report-0917.pdf","sen":{"White":[44.1,43.4],"Black":[57.5,26.5]}}],"pxtab":[{"poll":"Marist","dates":"15–18 Oct","src":"https://maristpoll.marist.edu/wp-content/uploads/2026/10/Marist-Poll_OH-NOS-and-Tables_202610191215zz9hjdV2l.pdf","sen":{"Democrats":[97,2],"Republicans":[8,87],"Independents":[50,35]},"gov":{"Democrats":[96,3],"Republicans":[9,85],"Independents":[53,34]}},{"poll":"Verasight for VoteHub","dates":"1–20 Oct","src":"https://cdn.votehub.com/pdfs/VoteHub_Verasight_Oct_2026_Ohio_Report_D1CB7735.pdf","note":"with leaners","sen":{"Democrats":[97.6,0.9],"Republicans":[7.6,86.1],"Independents":[49.5,31.4]},"gov":{"Democrats":[95.6,1.3],"Republicans":[7.1,87.9],"Independents":[48.5,34.4]}}],"map":{"w":560,"h":610,"c":{"39001":"M148,565.3L148.1,558.7L152.9,501.7L160.9,501.9L190.3,496.2L199.6,496.8L205.2,502.9L205.2,569.4L199.5,572.3L197.2,566.1L192.1,562.6L179,559.6L172,554.9L159.8,558L155.5,565.8Z","39003":"M72,192.8L101,193L101.1,185.7L115.7,185.9L115.7,183.4L130.2,183.5L130,200.3L129.6,229.6L100.9,229.5L100.9,226.9L86.3,226.9L86.4,222.1L64.1,221.8L64.5,199.9L71.8,199.9Z","39005":"M325.2,160.2L346,160.4L346.1,172.4L351.5,172.4L352.3,226.6L340,226.7L340.6,243.3L325.5,245.5L325,216.8L320,216.8L319,203.3L314.9,200.7L314.8,172.4L313,172.4L312.5,160.2Z","39007":"M491.1,26.2L503.6,23.7L514.2,18.6L543.1,8L550.6,4.4L551.1,25.8L552.5,84.3L492.2,85.3L491.1,49.6Z","39009":"M332.3,441.4L333.6,426.6L348,427.7L349.3,412.6L363.7,413.3L362.4,428.6L389.7,429.9L389,452.1L393.7,454.8L393.3,459.6L405.8,460.1L405.5,469L401.8,474.9L375.3,473.9L335.2,471.6L336.1,456.6L331.4,456.3Z","39011":"M56.8,221.6L64.1,221.8L86.4,222.1L86.3,226.9L100.9,226.9L100.9,229.5L129.6,229.6L129.3,247.3L114.7,247.7L113.7,256.4L70.8,256L70.4,273.1L58.5,273L58.5,277L55.7,276.2Z","39013":"M467.2,345.2L468,308.5L468.4,308.1L511.6,309.6L534.6,309.4L534.3,318.7L530.3,323.1L531.3,330.3L530.6,340.6L527.5,343.6L528.6,351L522.5,349.6L524.6,358.2L520.5,361.1L467,359.1Z","39015":"M102.8,542.7L112,461.9L128.3,463.4L126.8,501.2L152.9,501.7L148.1,558.7L148,565.3L140,563.1L137.8,555.8L130.8,552L129.5,547.1L122,543.4L112.7,540.1Z","39017":"M6.2,415.1L6.8,407.5L49.8,408.2L49.9,404.5L64.7,405.1L64.6,412.7L68.8,412L67.4,434.7L65.2,454.8L29.5,450.8L28,451.9L4.8,451.3Z","39019":"M454.8,228.2L464.4,228.2L464.7,216L483.8,214.9L505.6,214.7L505.4,228.6L512.7,228.6L512.9,236L512.6,243.3L505.7,243.3L505.1,258.1L503.4,265.3L461.3,264.6L461.9,242.6L454.6,242.5Z","39021":"M110.2,306.4L111.8,291.5L141.1,294.2L140.6,296.6L170.8,299.5L177.7,300.3L176.6,319.4L174.6,336.4L108.4,330.5Z","39023":"M105.7,357.2L108.4,330.5L174.6,336.4L175.5,336.4L165,376.6L157.6,375.8L134.1,371.4L134.6,367.2L119.9,366L119.9,363.4L105.6,362.1Z","39025":"M77.2,458.6L110.1,461.9L112,461.9L102.8,542.7L81.9,536.6L79.6,532.8L79.7,524.9L78.9,520.6L72.5,511.3L69,500.1L71.8,474.6L75.1,469.8L69.1,466.4Z","39027":"M110.1,461.9L114.6,409.3L154.4,413L166.4,414.2L164.3,441.9L139,460.8L135.2,467.6L128.3,463.4L112,461.9Z","39029":"M483.2,185.9L507.3,185.6L507.2,180.7L516.7,180.5L516.8,185.4L554.9,184.6L555.1,192.8L556,228.4L547.9,232.5L541.5,232.5L537.5,238.2L527.5,238.2L527.5,235.9L512.9,236L512.7,228.6L505.4,228.6L505.6,214.7L483.8,214.9Z","39031":"M344.8,262L405.6,263.5L405.2,275.9L417.6,276.2L417,300.7L411,300.5L411.1,312.6L405.2,312.4L345,310.4L345.4,298.5L343.6,298.3Z","39033":"M227.4,172.2L260,172.3L263.2,171.7L276.3,171.9L275.8,219.5L259.4,219.3L259.4,220.6L227.1,220.8Z","39035":"M371.3,86.2L382.5,90L391.1,87.7L400.1,88.9L413,80L425.9,67.5L430.8,64.6L431.4,74.9L443.5,74.7L443.6,111.8L417.9,111.7L422.1,123.9L407.2,124.2L382.9,124.7L382.7,112.1L371,112.1Z","39037":"M8.2,349.1L9,334.3L9.5,313.6L11.2,283.3L11.3,276.3L58.5,277L57.9,303.3L57.9,349.7L50.1,349.7Z","39039":"M15.7,96.7L73.3,97.8L87.7,97.9L86.9,141.7L72.5,141.6L72.6,134.3L58.1,134L58.3,126.5L15,125.7L15,122.7Z","39041":"M209.5,264.1L238.3,265.8L238.3,268.4L250.7,269L250.2,278.5L273.5,280L273,292.2L271.6,317.5L219.3,314.4L218.9,297.5L209.3,297.4Z","39043":"M275,70.3L282.2,67.8L281.3,73ZM248,94.5L264.7,90.1L274.6,91.3L280,88.5L289.9,99.6L297.1,104.3L307,107.3L323.6,99.5L324.2,123.7L261.5,122.7L261,99.2L247.5,99.3Z","39045":"M263.3,372.8L266,368L268.8,348.6L308.4,351.1L309.8,350.1L308.5,365.7L318.1,366.4L317.3,381.2L322.3,381.5L321.5,396.2L306.2,395L305.8,405L290,404L289.6,411.5L275.2,410.6L275.2,413L260.9,411.9Z","39047":"M156.6,385.2L208.3,389.2L206.2,419.1L192.1,442.3L164.3,441.9L166.4,414.2L154.4,413Z","39049":"M214.7,320.3L219.3,320.5L219.3,314.4L271.6,317.5L268.8,348.6L266,368L263.3,372.8L209.3,369.7L208.5,352.1L211.7,349.6L209,343.2L208.2,330.2L213.7,330.2Z","39051":"M67,51.1L71.9,51L132,49.7L131.1,88.6L73.5,88L73.6,83.3L69.1,83.2L69,65.9L67.2,65.9Z","39053":"M295.7,531.7L295.7,530.3L311.2,531.7L313.9,499.9L328.4,501L328.4,503.5L357.8,505.1L357.4,512.5L351.8,522.6L351.9,532.3L342.1,539.8L346.8,554.9L348.3,569.4L342.3,574L333.3,575.5L323.5,575.1L324.4,560L308.9,558.9L309.8,549L307.5,543.9L294.8,542.8Z","39055":"M443.5,74.7L455.2,74.6L455,62.6L479.2,62.2L479,50L491.1,49.6L492.2,85.3L492.7,111L443.6,111.8Z","39057":"M105.6,362.1L119.9,363.4L119.9,366L134.6,367.2L134.1,371.4L157.6,375.8L156.6,385.2L154.4,413L114.6,409.3L97.1,407.6L97.2,399.4L100.5,364.1Z","39059":"M405.2,312.4L411.1,312.6L411,300.5L417,300.7L453.2,301.4L453.3,308.4L468,308.5L467.2,345.2L447.9,345.6L447.9,350.5L438.3,350.2L437.9,355.1L423.1,354.7L423.3,364.6L408.5,364.2L408.8,349.4L403.7,349.3Z","39061":"M4.8,451.3L28,451.9L29.5,450.8L65.2,454.8L77.2,455.7L77.2,458.6L69.1,466.4L75.1,469.8L71.8,474.6L69,500.1L54.6,494.3L52.9,484.3L49.2,483.1L45,487.5L38.9,486.6L29.5,490.6L22.6,486.4L15.8,478.5L12.5,478.1L4,484.8Z","39063":"M130.8,142.1L188.6,142.9L188.4,172.2L183.9,172.2L183.8,179.4L181.1,179.3L181,186.7L176.5,186.6L176.3,201.1L130,200.3L130.2,183.5Z","39065":"M130,200.3L176.3,201.1L178.6,201.2L178.4,220.7L185.7,220.6L188,223.2L188.2,253.6L174.9,253.7L174.9,252.9L129.3,248.4L129.3,247.3L129.6,229.6Z","39067":"M453.2,301.4L453.4,286.3L461.2,286.3L461.3,264.6L503.4,265.3L513,265.4L511.6,309.6L468.4,308.1L468,308.5L453.3,308.4Z","39069":"M73.5,88L131.1,88.6L130.9,100.9L130.8,142.1L86.9,141.7L87.7,97.9L73.3,97.8Z","39071":"M128.3,463.4L135.2,467.6L139,460.8L164.3,441.9L192.1,442.3L189.7,460.7L195.7,463.6L194.7,472.3L190.3,496.2L160.9,501.9L152.9,501.7L126.8,501.2Z","39073":"M273.8,427.4L275.2,413L275.2,410.6L289.6,411.5L290,404L305.8,405L306.2,395L321.5,396.2L320.6,405.9L335.9,406.9L335.4,411.6L349.3,412.6L348,427.7L333.6,426.6L332.3,441.4L303.5,439.6L303.1,443.9L287.7,442.9L287.7,445.4L272.9,444.2Z","39075":"M352.3,226.6L412.4,226.1L413,231.5L410.2,232L410.6,263.6L405.6,263.5L344.8,262L345.6,242.4L340.6,243.3L340,226.7Z","39077":"M261.5,122.7L324.2,123.7L325.2,160.2L312.5,160.2L313,172.4L276.3,171.9L263.2,171.7L261.9,128.5Z","39079":"M268.2,477.6L271,470.9L285.9,472L285.4,474.1L300.3,475.5L299.9,481.6L315.2,482.7L313.9,499.9L311.2,531.7L295.7,530.3L295.7,531.7L285.9,531L271.4,530L272.4,514.9L265.4,514.5Z","39081":"M512.9,236L527.5,235.9L527.5,238.2L537.5,238.2L542.7,245.9L547.1,257.9L543.3,269.5L546.1,273.6L547.2,281.8L545.1,291.2L540.6,294.6L537.2,304.6L534.6,309.4L511.6,309.6L513,265.4L503.4,265.3L505.1,258.1L505.7,243.3L512.6,243.3Z","39083":"M273.5,280L286.3,280.8L286.8,246.5L289,246.5L320.5,246.3L325.5,245.5L340.6,243.3L345.6,242.4L344.8,262L343.6,298.3L307.9,297.3L307.8,294.2L273,292.2Z","39085":"M430.8,64.6L436.5,57.6L456,42.6L460.5,42.4L477.4,32.8L491.1,26.2L491.1,49.6L479,50L479.2,62.2L455,62.6L455.2,74.6L443.5,74.7L431.4,74.9Z","39087":"M264.3,577.6L274.2,573.1L270.4,565.2L270.9,559.3L278.4,559.8L279.8,547.6L284,548L285.9,531L295.7,531.7L294.8,542.8L307.5,543.9L309.8,549L308.9,558.9L324.4,560L323.5,575.1L333.3,575.5L331.1,590.9L328.7,597.9L317.9,599.6L304.3,604.3L298.6,605.6L293,602.5L290.2,593.3L283.6,588.5L276.1,579.8Z","39089":"M271.6,317.5L273,292.2L307.8,294.2L307.9,297.3L343.6,298.3L345.4,298.5L345,310.4L343.4,346.6L339.3,346.5L339.3,352.8L315.3,351.5L309.8,350.1L308.4,351.1L268.8,348.6Z","39091":"M113.7,256.4L114.7,247.7L129.3,247.3L129.3,248.4L174.9,252.9L174.9,253.7L170.8,299.5L140.6,296.6L141.1,294.2L111.8,291.5L113.3,284.9Z","39093":"M323.6,99.5L335.3,98.5L343,93.4L365.9,84.6L371.3,86.2L371,112.1L382.7,112.1L382.9,124.7L371.1,124.8L370.8,137.5L358.6,137.6L358.2,148.1L346.4,148.2L346,160.4L325.2,160.2L324.2,123.7Z","39095":"M131.1,88.6L132,49.7L146.8,49.3L185.4,48.1L185.8,51.9L195.2,56L201,53.6L212.6,63L221.2,66.8L189.7,67.3L170.4,67.4L165.4,75.1L153.6,82L152.7,88.1L148.1,92.5L130.9,100.9Z","39097":"M157.6,375.8L165,376.6L175.5,336.4L174.6,336.4L176.6,319.4L214.7,320.3L213.7,330.2L208.2,330.2L209,343.2L211.7,349.6L208.5,352.1L209.3,369.7L208.3,389.2L156.6,385.2Z","39099":"M483,171.4L493.9,171.4L493.4,146.8L554,145.6L554,147.1L554.9,184.6L516.8,185.4L516.7,180.5L507.2,180.7L507.3,185.6L483.2,185.9Z","39101":"M188,223.2L202.5,223.3L202.5,220.8L227.1,220.8L259.4,220.6L259,230.4L246.7,232.1L246.6,256.3L239.3,257.3L238.3,265.8L209.5,264.1L209.6,253.4L188.2,253.6Z","39103":"M346,160.4L346.4,148.2L358.2,148.1L358.6,137.6L370.8,137.5L371.1,124.8L382.9,124.7L407.2,124.2L407.3,172.5L351.5,172.4L346.1,172.4Z","39105":"M328.4,501L330.1,471.3L335.2,471.6L375.3,473.9L401.8,474.9L402.9,489.2L394.5,491.5L396,497.7L400.7,501.8L399,517.8L394.7,514.3L390.6,517.2L389.2,523.2L382.2,525.7L379.8,521.9L383.6,517.8L377.9,506.5L372.7,506.4L366.6,500.7L357.4,512.5L357.8,505.1L328.4,503.5Z","39107":"M12.2,239.5L12.9,213.5L57,214.5L56.8,221.6L55.7,276.2L58.5,277L11.3,276.3Z","39109":"M57.9,303.3L85.5,303.4L110.2,306.4L108.4,330.5L105.7,357.2L92.4,356.1L92.5,349.8L57.9,349.7Z","39111":"M467,359.1L520.5,361.1L520.2,369.8L514.8,376.8L519.5,382.7L515.5,387.7L513.9,399.6L505.6,402.1L493.8,413.5L493.7,408.1L466.8,407.4L462.1,403L461.9,386.1L457.2,386.1L457.3,359Z","39113":"M50.1,349.7L57.9,349.7L92.5,349.8L92.4,356.1L105.7,357.2L105.6,362.1L100.5,364.1L97.2,399.4L97.1,407.6L64.7,405.1L49.9,404.5Z","39115":"M359.7,376.6L408.2,378.7L415.6,378.9L415.3,393.7L422.7,393.9L422.8,406.7L406.2,407.5L405.4,416.3L407.7,416.2L407.3,424.7L392.5,422.6L389.7,429.9L362.4,428.6L363.7,413.3L366.2,384.3L359.3,383.8Z","39117":"M238.3,265.8L239.3,257.3L246.6,256.3L246.7,232.1L259,230.4L259.4,220.6L259.4,219.3L275.8,219.5L288.6,219.9L289,246.5L286.8,246.5L286.3,280.8L273.5,280L250.2,278.5L250.7,269L238.3,268.4Z","39119":"M345,310.4L405.2,312.4L403.7,349.3L408.8,349.4L408.5,364.2L408.2,378.7L359.7,376.6L360.1,368.9L347.2,368.3L348.5,353.5L339.3,352.8L339.3,346.5L343.4,346.6Z","39121":"M408.5,364.2L423.3,364.6L423.1,354.7L437.9,355.1L438.3,350.2L447.9,350.5L447.9,345.6L467.2,345.2L467,359.1L457.3,359L457.2,386.1L461.9,386.1L462.1,403L461.7,405.3L447.3,404L445,399.1L437.5,396.6L437.7,407.1L422.8,406.7L422.7,393.9L415.3,393.7L415.6,378.9L408.2,378.7Z","39123":"M261.6,62.9L264.3,50L269.2,55L267.9,60.1L261.6,66.1ZM189.7,67.3L221.2,66.8L233.7,71.5L241.8,81L250.3,85.2L258.4,81.9L259.3,74.7L262.4,72.8L268.7,80.8L277.3,80.5L280,88.5L274.6,91.3L264.7,90.1L248,94.5L199.4,94.4L199.5,87.1L190,87.1Z","39125":"M15,125.7L58.3,126.5L58.1,134L72.6,134.3L72.5,141.6L71.9,170.8L64.7,170.8L13.9,169.8Z","39127":"M309.8,350.1L315.3,351.5L339.3,352.8L348.5,353.5L347.2,368.3L360.1,368.9L359.7,376.6L359.3,383.8L366.2,384.3L363.7,413.3L349.3,412.6L335.4,411.6L335.9,406.9L320.6,405.9L321.5,396.2L322.3,381.5L317.3,381.2L318.1,366.4L308.5,365.7Z","39129":"M208.3,389.2L209.3,369.7L263.3,372.8L260.9,411.9L275.2,413L273.8,427.4L240.9,425.5L241.4,421L206.2,419.1Z","39131":"M194.7,472.3L268.2,477.6L265.4,514.5L240.1,513L212.6,512.3L212.2,507L205.2,502.9L199.6,496.8L190.3,496.2Z","39133":"M443.6,111.8L492.7,111L493.4,146.8L493.9,171.4L483,171.4L444.5,172Z","39135":"M7.4,381L8.2,349.1L50.1,349.7L49.9,404.5L49.8,408.2L6.8,407.5Z","39137":"M64.7,170.8L71.9,170.8L72.5,141.6L86.9,141.7L130.8,142.1L130.2,183.5L115.7,183.4L115.7,185.9L101.1,185.7L101,193L72,192.8L72.1,185.4L64.8,185.3Z","39139":"M276.3,171.9L313,172.4L314.8,172.4L314.9,200.7L319,203.3L320,216.8L325,216.8L325.5,245.5L320.5,246.3L289,246.5L288.6,219.9L275.8,219.5Z","39141":"M192.1,442.3L206.2,419.1L241.4,421L240.9,425.5L273.8,427.4L272.9,444.2L271,470.9L268.2,477.6L194.7,472.3L195.7,463.6L189.7,460.7Z","39143":"M190,87.1L199.5,87.1L199.4,94.4L248,94.5L247.5,99.3L261,99.2L261.5,122.7L261.9,128.5L232.1,128.1L210.4,128.7L188.8,128.4Z","39145":"M205.2,502.9L212.2,507L212.6,512.3L240.1,513L265.4,514.5L272.4,514.9L271.4,530L285.9,531L284,548L279.8,547.6L278.4,559.8L270.9,559.3L270.4,565.2L274.2,573.1L264.3,577.6L260.1,573.6L255.9,557.6L257.3,551.3L254.1,546.5L244.2,551.1L237.2,551.1L234.4,554.9L224.5,561.5L222.1,567.8L205.2,569.4Z","39147":"M188.6,142.9L188.8,128.4L210.4,128.7L232.1,128.1L261.9,128.5L263.2,171.7L260,172.3L227.4,172.2L188.4,172.2Z","39149":"M58.5,277L58.5,273L70.4,273.1L70.8,256L113.7,256.4L113.3,284.9L111.8,291.5L110.2,306.4L85.5,303.4L57.9,303.3Z","39151":"M412.4,226.1L412.4,184.8L441,185.7L441.3,172.1L444.5,172L483,171.4L483.2,185.9L483.8,214.9L464.7,216L464.4,228.2L454.8,228.2L435.7,227.8L413,231.5Z","39153":"M407.2,124.2L422.1,123.9L417.9,111.7L443.6,111.8L444.5,172L441.3,172.1L441,185.7L412.4,184.8L412.3,172.4L407.3,172.5Z","39155":"M492.7,111L492.2,85.3L552.5,84.3L552.6,86.1L554.1,133L554,145.6L493.4,146.8Z","39157":"M405.6,263.5L410.6,263.6L410.2,232L413,231.5L435.7,227.8L454.8,228.2L454.6,242.5L461.9,242.6L461.3,264.6L461.2,286.3L453.4,286.3L453.2,301.4L417,300.7L417.6,276.2L405.2,275.9Z","39159":"M174.9,253.7L188.2,253.6L209.6,253.4L209.5,264.1L209.3,297.4L218.9,297.5L219.3,314.4L219.3,320.5L214.7,320.3L176.6,319.4L177.7,300.3L170.8,299.5Z","39161":"M13.9,169.8L64.7,170.8L64.8,185.3L72.1,185.4L72,192.8L71.8,199.9L64.5,199.9L64.1,221.8L56.8,221.6L57,214.5L12.9,213.5L13.6,180.9Z","39163":"M272.9,444.2L287.7,445.4L287.7,442.9L303.1,443.9L303.5,439.6L332.3,441.4L331.4,456.3L336.1,456.6L335.2,471.6L330.1,471.3L328.4,501L313.9,499.9L315.2,482.7L299.9,481.6L300.3,475.5L285.4,474.1L285.9,472L271,470.9Z","39165":"M64.7,405.1L97.1,407.6L114.6,409.3L110.1,461.9L77.2,458.6L77.2,455.7L65.2,454.8L67.4,434.7L68.8,412L64.6,412.7Z","39167":"M389.7,429.9L392.5,422.6L407.3,424.7L407.7,416.2L405.4,416.3L406.2,407.5L422.8,406.7L437.7,407.1L437.5,396.6L445,399.1L447.3,404L461.7,405.3L462.1,403L466.8,407.4L493.7,408.1L493.8,413.5L485.6,422.5L483.4,427.5L476.9,430.7L472,438.5L464.1,439.8L451.2,447.3L442.7,436.4L438.5,437.1L427.1,448.2L425.8,460.2L411.4,459.3L410.1,467.2L405.5,469L405.8,460.1L393.3,459.6L393.7,454.8L389,452.1Z","39169":"M351.5,172.4L407.3,172.5L412.3,172.4L412.4,184.8L412.4,226.1L352.3,226.6Z","39171":"M16.3,51.5L67,51.1L67.2,65.9L69,65.9L69.1,83.2L73.6,83.3L73.5,88L73.3,97.8L15.7,96.7L15.6,79.3Z","39173":"M130.9,100.9L148.1,92.5L152.7,88.1L153.6,82L165.4,75.1L170.4,67.4L189.7,67.3L190,87.1L188.8,128.4L188.6,142.9L130.8,142.1Z","39175":"M188.4,172.2L227.4,172.2L227.1,220.8L202.5,220.8L202.5,223.3L188,223.2L185.7,220.6L178.4,220.7L178.6,201.2L176.3,201.1L176.5,186.6L181,186.7L181.1,179.3L183.8,179.4L183.9,172.2Z"},"o":"M15,125.7L15,122.7L15.7,96.7L15.6,79.3L16.3,51.5L67,51.1L71.9,51L132,49.7L146.8,49.3L185.4,48.1L185.8,51.9L195.2,56L201,53.6L212.6,63L221.2,66.8L233.7,71.5L241.8,81L250.3,85.2L258.4,81.9L259.3,74.7L262.4,72.8L268.7,80.8L277.3,80.5L280,88.5L289.9,99.6L297.1,104.3L307,107.3L323.6,99.5L335.3,98.5L343,93.4L365.9,84.6L371.3,86.2L382.5,90L391.1,87.7L400.1,88.9L413,80L425.9,67.5L430.8,64.6L436.5,57.6L456,42.6L460.5,42.4L477.4,32.8L491.1,26.2L503.6,23.7L514.2,18.6L543.1,8L550.6,4.4L551.1,25.8L552.5,84.3L552.6,86.1L554.1,133L554,145.6L554,147.1L554.9,184.6L555.1,192.8L556,228.4L547.9,232.5L541.5,232.5L537.5,238.2L542.7,245.9L547.1,257.9L543.3,269.5L546.1,273.6L547.2,281.8L545.1,291.2L540.6,294.6L537.2,304.6L534.6,309.4L534.3,318.7L530.3,323.1L531.3,330.3L530.6,340.6L527.5,343.6L528.6,351L522.5,349.6L524.6,358.2L520.5,361.1L520.2,369.8L514.8,376.8L519.5,382.7L515.5,387.7L513.9,399.6L505.6,402.1L493.8,413.5L485.6,422.5L483.4,427.5L476.9,430.7L472,438.5L464.1,439.8L451.2,447.3L442.7,436.4L438.5,437.1L427.1,448.2L425.8,460.2L411.4,459.3L410.1,467.2L405.5,469L401.8,474.9L402.9,489.2L394.5,491.5L396,497.7L400.7,501.8L399,517.8L394.7,514.3L390.6,517.2L389.2,523.2L382.2,525.7L379.8,521.9L383.6,517.8L377.9,506.5L372.7,506.4L366.6,500.7L357.4,512.5L351.8,522.6L351.9,532.3L342.1,539.8L346.8,554.9L348.3,569.4L342.3,574L333.3,575.5L331.1,590.9L328.7,597.9L317.9,599.6L304.3,604.3L298.6,605.6L293,602.5L290.2,593.3L283.6,588.5L276.1,579.8L264.3,577.6L260.1,573.6L255.9,557.6L257.3,551.3L254.1,546.5L244.2,551.1L237.2,551.1L234.4,554.9L224.5,561.5L222.1,567.8L205.2,569.4L199.5,572.3L197.2,566.1L192.1,562.6L179,559.6L172,554.9L159.8,558L155.5,565.8L148,565.3L140,563.1L137.8,555.8L130.8,552L129.5,547.1L122,543.4L112.7,540.1L102.8,542.7L81.9,536.6L79.6,532.8L79.7,524.9L78.9,520.6L72.5,511.3L69,500.1L54.6,494.3L52.9,484.3L49.2,483.1L45,487.5L38.9,486.6L29.5,490.6L22.6,486.4L15.8,478.5L12.5,478.1L4,484.8L4.8,451.3L6.2,415.1L6.8,407.5L7.4,381L8.2,349.1L9,334.3L9.5,313.6L11.2,283.3L11.3,276.3L12.2,239.5L12.9,213.5L13.6,180.9L13.9,169.8ZM261.6,62.9L264.3,50L269.2,55L267.9,60.1L261.6,66.1ZM275,70.3L282.2,67.8L281.3,73Z"},"pace":null};
+(function () {
+  const S = D.st, C = D.counties || [], H = D.has, P = D.proj, RACES = D.races;
+  const $ = (s, r = document) => r.querySelector(s);
+  const fmt = (n) => n == null ? '' : Math.round(n).toLocaleString('en-US');
+  const pc = (x, d = 1) => x == null || !isFinite(x) ? 'n/a' : x.toFixed(d) + '%';
+  const mgl = (m) => m == null ? 'n/a' : (m >= 0 ? 'D+' : 'R+') + Math.abs(m).toFixed(0);
+  const fm = (m) => (m >= 0 ? 'D+' : 'R+') + Math.abs(m).toFixed(1);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const chance = (p) => { const v = Math.round(p * 100); return v >= 100 ? '>99%' : v <= 0 ? '<1%' : v + '%'; };
+  const NA = '<span class="na">n/a</span>';
+  const UNITCAP = S.units.charAt(0).toUpperCase() + S.units.slice(1);
+  const TOTAL = D.county_sum || D.total;
+  C.forEach((c) => { c.rvp = c.rv ? c.v / c.rv * 100 : null; c.p22 = c.t22 ? c.v / c.t22 * 100 : null; c.pnet = (c.pd != null && c.pr != null && c.v) ? (c.pd - c.pr) / c.v * 100 : null; });
+  const T22SUM = C.reduce((a, c) => a + (c.t22 || 0), 0);
+  const STATE22 = T22SUM ? TOTAL / T22SUM * 100 : null;
+  const RVSUM = C.reduce((a, c) => a + (c.rv || 0), 0);
+
+  /* ---------- tooltip ---------- */
+  function tipFor(host) { let t = host.querySelector(':scope > .tip'); if (!t) { t = document.createElement('div'); t.className = 'tip'; t.hidden = true; host.appendChild(t); } return t; }
+  function showTip(host, html, ev) {
+    const t = tipFor(host); t.innerHTML = html; t.hidden = false;
+    const r = host.getBoundingClientRect();
+    let x = ev.clientX - r.left + 12, y = ev.clientY - r.top + 12;
+    const w = t.offsetWidth, h = t.offsetHeight;
+    if (x + w > r.width) x = Math.max(0, ev.clientX - r.left - w - 12);
+    if (y + h > r.height + 40) y = Math.max(0, ev.clientY - r.top - h - 12);
+    t.style.left = x + 'px'; t.style.top = y + 'px';
+  }
+  function hideTip(host) { const t = host.querySelector(':scope > .tip'); if (t) t.hidden = true; }
+  const tipRows = (title, rows) => '<div class="h">' + esc(title) + '</div>' + rows.map(([k, v]) => '<div class="r"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('');
+  function bindTips(host, sel, htmlOf) {
+    host.addEventListener('pointermove', (e) => { const el = e.target.closest(sel); if (el && host.contains(el)) showTip(host, htmlOf(el), e); else hideTip(host); });
+    host.addEventListener('pointerleave', () => hideTip(host));
+    host.addEventListener('pointerdown', (e) => { const el = e.target.closest(sel); if (el) showTip(host, htmlOf(el), e); });
+  }
+
+  /* ---------- tabs ---------- */
+  const GROUPS = Object.entries(D.groups || {}).filter(([, g]) => g && g.rows && Object.keys(g.rows).length);
+  const avail = { projection: true, counties: C.length > 0, days: true, who: GROUPS.length > 0, districts: H.districts, map: H.map };
+  const tabs = [...document.querySelectorAll('[role="tab"]')].filter((b) => { if (!avail[b.dataset.page]) { b.remove(); $('#' + b.dataset.page).remove(); return false; } return true; });
+  $('#tab-counties') && ($('#tab-counties').textContent = UNITCAP);
+  const rendered = {};
+  function openTab(id, focus) {
+    tabs.forEach((b) => { const on = b.dataset.page === id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; $('#' + b.dataset.page).hidden = !on; if (on && focus) b.focus(); });
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    if (id === 'days') { drawCheckpoints(); drawPace(); }
+    if (id === 'projection') drawDials();
+    if (id === 'map' && !rendered.map) { drawMap(); rendered.map = true; }
+  }
+  tabs.forEach((b, i) => {
+    b.addEventListener('click', () => openTab(b.dataset.page));
+    b.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; openTab(n.dataset.page, true);
+    });
+  });
+  if (!$('#tile4 .k').textContent.trim()) $('#tile4').hidden = true;
+
+  /* ---------- reusable bar row ---------- */
+  function barRow(label, sub, val, scale, ref, chipColor, data, valText) {
+    const chip = chipColor ? '<span class="chip" style="background:' + chipColor + '"></span>' : '';
+    return '<div class="row" ' + data + '><div class="lab"><b>' + chip + esc(label) + '</b><small>' + sub + '</small></div>' +
+      '<div class="track"><div class="bar" style="width:' + Math.min(100, val / scale * 100) + '%"></div>' + (ref != null ? '<div class="refline" style="left:' + Math.min(100, ref / scale * 100) + '%"></div>' : '') + '</div>' +
+      '<div class="val">' + (valText || pc(val)) + '</div></div>';
+  }
+  const niceMax = (v) => { const s = [10, 20, 25, 30, 40, 50, 60, 75, 80, 100, 120, 150]; return s.find((x) => x >= v * 1.08) || Math.ceil(v * 1.1 / 10) * 10; };
+
+  /* ================= PROJECTION ================= */
+  const SIG = D.signal;
+  const RN = Object.fromEntries(RACES.map((r) => [r.key, r]));
+  function pill(row, rc) {
+    const probs = [['D', row.pD], ['R', row.pR]].concat(row.pI != null ? [['I', row.pI]] : []);
+    probs.sort((a, b) => b[1] - a[1]); const [who, hi] = probs[0];
+    if (hi < 0.6) return 'Toss-up';
+    return (hi < 0.75 ? 'Slight edge: ' : hi < 0.9 ? 'Favored: ' : 'Strongly favored: ') + rc[who].short;
+  }
+  $('#stand-note').textContent = SIG
+    ? 'Projected vote with the middle reading of the early vote (below). The chance is how often each candidate finishes first when the projection misses by as much as recent polling averages have. ' + (S.election_rule || '')
+    : 'Projected vote from the weighted polling average; the early vote does not move it here (see below). The chance is how often each candidate finishes first when the projection misses by as much as recent polling averages have. ' + (S.election_rule || '');
+  $('#proj-grid').innerHTML = RACES.map((rc) => '<div class="proj" id="proj-' + rc.key + '"></div>').join('');
+  RACES.forEach((rc) => {
+    const r = P[rc.key], c = r.head, three = c.I != null;
+    let cands, split;
+    if (three) {
+      cands = '<div class="cands3"><div class="cand d"><span class="nm">' + esc(rc.D.name) + ' (D)</span><span class="pct">' + c.D.toFixed(1) + '%</span></div>' +
+        '<div class="cand i c"><span class="nm">' + esc(rc.I.name) + ' (' + esc(rc.I.party_short || 'I') + ')</span><span class="pct">' + c.I.toFixed(1) + '%</span></div>' +
+        '<div class="cand r"><span class="nm">' + esc(rc.R.name) + ' (R)</span><span class="pct">' + c.R.toFixed(1) + '%</span></div></div>';
+      split = '<div class="split three" role="img" aria-label="Projected vote ' + c.D.toFixed(1) + ', ' + c.I.toFixed(1) + ', ' + c.R.toFixed(1) + '"><div class="sd" style="width:calc(' + c.D + '% - 2px)"></div><div class="si" style="width:calc(' + c.I + '% - 2px)"></div><div class="sr"></div></div>';
+    } else {
+      cands = '<div class="cands"><div class="cand d"><span class="nm">' + esc(rc.D.name) + ' (D)</span><span class="pct">' + c.D.toFixed(1) + '%</span></div><div class="cand r"><span class="nm">' + esc(rc.R.name) + ' (R)</span><span class="pct">' + c.R.toFixed(1) + '%</span></div></div>';
+      split = '<div class="split" role="img" aria-label="Projected two-party vote ' + c.D.toFixed(1) + ' to ' + c.R.toFixed(1) + '"><div class="sd" style="width:calc(' + c.D + '% - 1px)"></div><div class="sr"></div><i class="half"></i></div>';
+    }
+    let html = '<div class="top"><h3>' + esc(rc.office) + (rc.seat_note ? ' <span class="grp-sub">' + esc(rc.seat_note) + '</span>' : '') + '</h3><span class="pill">' + pill(c, rc) + '</span></div>' + cands + split +
+      '<p class="pm">' + (three ? 'Margin between the major-party nominees' : 'Projected margin') + ' <b>' + fm(c.m) + '</b> · chance of finishing first: <b>' + esc(rc.D.short) + ' ' + chance(c.pD) + '</b>' + (three ? ', <b>' + esc(rc.I.short) + ' ' + chance(c.pI) + '</b>' : '') + ', <b>' + esc(rc.R.short) + ' ' + chance(c.pR) + '</b></p>';
+    if (SIG) html += '<p class="pm">Polls alone: ' + fm(r.scen[0].m) + ' (' + esc(rc.D.short) + ' ' + chance(r.scen[0].pD) + '). If the early vote\'s edge holds: ' + fm(r.scen[2].m) + ' (' + esc(rc.D.short) + ' ' + chance(r.scen[2].pD) + ').</p>';
+    if (three) html += '<p class="pm">Two-party margin uses the major-party nominees; ' + esc(rc.I.short) + '\'s share is the weighted average of polls that include ' + (rc.I.pronoun || 'the independent') + '.</p>';
+    $('#proj-' + rc.key).innerHTML = html;
+  });
+
+  /* readings */
+  const SCN = SIG ? {
+    'Polls alone': 'This year\'s edge is only timing; the electorate ends like 2022\'s',
+    'Midpoint': 'Half of the edge survives to Election Day',
+    'Hold': 'The full ' + Math.abs(SIG.delta).toFixed(1) + '-point ' + (SIG.delta >= 0 ? 'edge' : 'gap') + ' against 2022 survives',
+  } : {};
+  const sigFmt = (x) => SIG.type === 'party' ? fm(x) : x.toFixed(1) + '%';
+  if (SIG) {
+    $('#ev-note').innerHTML = esc(SIG.label) + ': <b>' + sigFmt(SIG.now) + '</b> of ballots so far, against <b>' + sigFmt(SIG.bench) + '</b> at ' + esc(SIG.bench_label) + (SIG.final != null ? ', and ' + sigFmt(SIG.final) + ' in the ' + esc(SIG.final_label) : '') + '. ' + esc(SIG.why) +
+      ' The readings differ on how much of this year\'s ' + Math.abs(SIG.delta).toFixed(1) + '-point difference survives to Election Day. "Polls alone" assumes the polls already describe a 2022-like electorate.';
+    $('#scen-table thead').innerHTML = '<tr><th class="l">Reading</th><th class="l">What it assumes</th><th>Edge carried to Election Day</th>' +
+      RACES.map((rc) => '<th>' + esc(rc.office) + '</th><th>' + esc(rc.D.short) + ' / ' + esc(rc.R.short) + ' chance</th>').join('') + '</tr>';
+    $('#scen-table tbody').innerHTML = P[RACES[0].key].scen.map((s, i) => '<tr' + (i === 1 ? ' class="tot"' : '') + '><td>' + (i === 1 ? 'Midpoint (headline)' : s.name) + '</td><td class="wrapl">' + SCN[s.name] + '</td><td>' + (s.edge >= 0 ? '+' : '−') + Math.abs(s.edge).toFixed(1) + ' pts</td>' +
+      RACES.map((rc) => { const g = P[rc.key].scen[i]; return '<td class="' + (g.m >= 0 ? 'dm' : 'rm') + '">' + fm(g.m) + '</td><td>' + chance(g.pD) + ' / ' + chance(g.pR) + '</td>'; }).join('') + '</tr>').join('');
+  } else {
+    $('#ev-title').textContent = 'What the early vote can and cannot tell us here';
+    $('#ev-note').innerHTML = esc(S.no_signal_note || 'This state publishes no party or race breakdown of its early voters with a matching earlier-year figure, so the projection rests on the polls alone. The turnout figures on the other tabs show where ballots are coming from, not how anyone voted.');
+    $('#scen-wrap').remove();
+  }
+
+  function drawDial(rc, host) {
+    const r = P[rc.key];
+    const W = Math.max(280, host.clientWidth || 480), Hh = 230, m = { l: 44, r: 12, t: 24, b: 34 };
+    const d = SIG.delta, lo = Math.min(0, d), hi = Math.max(0, d), pad = Math.max(1, (hi - lo) * 0.4);
+    const x0 = lo - pad, x1 = hi + pad;
+    const curve = [x0, x1].map((x) => ({ x, m: r.M + r.slope * x }));
+    const ys = curve.map((c) => c.m).concat(r.scen.map((s) => s.m), [0]);
+    let y0 = Math.floor((Math.min(...ys) - 3) / 5) * 5, y1 = Math.ceil((Math.max(...ys) + 3) / 5) * 5;
+    const X = (b) => m.l + (b - x0) / (x1 - x0) * (W - m.l - m.r), Y = (v) => m.t + (y1 - v) / (y1 - y0) * (Hh - m.t - m.b);
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="img" aria-label="' + esc(rc.office) + ' projected margin by how much of the early-vote edge lasts">';
+    if (y1 > 0) s += '<rect x="' + m.l + '" y="' + Y(y1) + '" width="' + (W - m.l - m.r) + '" height="' + (Y(Math.max(0, y0)) - Y(y1)) + '" fill="var(--dem)" fill-opacity=".07"/>';
+    if (y0 < 0) s += '<rect x="' + m.l + '" y="' + Y(Math.min(0, y1)) + '" width="' + (W - m.l - m.r) + '" height="' + (Y(y0) - Y(Math.min(0, y1))) + '" fill="var(--rep)" fill-opacity=".07"/>';
+    const step = (y1 - y0) > 30 ? 10 : 5;
+    for (let v = y0; v <= y1; v += step) s += '<line class="' + (v === 0 ? 'axisl' : 'gridl') + '" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"' + (v === 0 ? ' style="stroke:var(--fg);stroke-opacity:.55"' : '') + '/><text x="' + (m.l - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + (v === 0 ? 'Even' : (v > 0 ? 'D+' : 'R+') + Math.abs(v)) + '</text>';
+    const xstep = (x1 - x0) > 12 ? 4 : (x1 - x0) > 6 ? 2 : 1;
+    for (let v = Math.ceil(x0 / xstep) * xstep; v <= x1; v += xstep) s += '<text x="' + X(v) + '" y="' + (Hh - m.b + 16) + '" text-anchor="middle">' + (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + '</text>';
+    s += '<text x="' + ((m.l + W - m.r) / 2) + '" y="' + (Hh - 2) + '" text-anchor="middle">Points of the early-vote edge that last to Election Day</text>';
+    s += '<line x1="' + X(d) + '" x2="' + X(d) + '" y1="' + Y(y1) + '" y2="' + Y(y0) + '" style="stroke:var(--ref)" stroke-dasharray="4 3" stroke-width="1.5"/>';
+    s += '<polyline fill="none" style="stroke:var(--fg)" stroke-width="2" points="' + curve.map((c) => X(c.x) + ',' + Y(c.m)).join(' ') + '"/>';
+    r.scen.forEach((c, i) => { s += '<circle data-i="' + i + '" cx="' + X(c.edge) + '" cy="' + Y(c.m) + '" r="5" style="fill:var(--fg);stroke:var(--panel)" stroke-width="2"/><circle data-i="' + i + '" cx="' + X(c.edge) + '" cy="' + Y(c.m) + '" r="14" fill="transparent"/>'; });
+    const c1 = r.scen[1];
+    s += '<text x="' + (X(c1.edge) + 8) + '" y="' + (Y(c1.m) + 17) + '" style="fill:var(--fg)">' + fm(c1.m) + '</text>';
+    s += '<text x="' + m.l + '" y="12" style="fill:var(--fg);font-size:13px;font-weight:500">' + esc(rc.office) + ': ' + esc(rc.D.short) + ' vs ' + esc(rc.R.short) + '</text></svg>';
+    host.innerHTML = s;
+    if (!host.dataset.b) { host.dataset.b = 1; bindTips(host, 'circle', (el) => { const c = P[rc.key].scen[+el.dataset.i]; return tipRows(c.name, [['Edge carried', (c.edge >= 0 ? '+' : '−') + Math.abs(c.edge).toFixed(1) + ' pts'], ['Margin', fm(c.m)], [rc.D.short + ' chance', chance(c.pD)], [rc.R.short + ' chance', chance(c.pR)]]); }); }
+  }
+  function drawDials() { if (!SIG || SIG.final == null && SIG.bench == null) return; RACES.forEach((rc) => drawDial(rc, $('#dial-' + rc.key))); }
+  if (SIG) {
+    $('#dial-card').hidden = false;
+    $('#dials').innerHTML = RACES.map((rc) => '<div class="dial rel" id="dial-' + rc.key + '"></div>').join('');
+    $('#dial-note').textContent = 'Projected margin for any amount of this year\'s early-vote difference from 2022 carried into the final electorate, with everything else held at the polling average. Above the line the Democrat leads; below it the Republican does. Dots mark the three readings; the dashed line is the full difference seen in the early vote so far.';
+  }
+
+  /* groups table */
+  const tp2 = (d, r) => d / (d + r) * 100;
+  const BENCH = D.bench || {};
+  const BKEYS = Object.keys(BENCH).filter((k) => BENCH[k] && typeof BENCH[k] === 'object');
+  function pickDim() {
+    if (SIG && SIG.type === 'race') return 'race';
+    if (SIG && SIG.type === 'party') return 'party';
+    for (const d of ['race', 'party']) if (BKEYS.some((k) => BENCH[k][d])) return d;
+    return null;
+  }
+  const DIM = pickDim();
+  const mapParty = (k) => /^dem/i.test(k) ? 'Democrats' : /^rep/i.test(k) ? 'Republicans' : 'Independents';
+  function evShares(dim) {
+    const g = (D.groups || {})[dim]; if (!g || !g.rows) return null;
+    const tot = Object.values(g.rows).reduce((a, b) => a + (+b || 0), 0); const out = {};
+    Object.entries(g.rows).forEach(([k, v]) => { const kk = dim === 'party' ? mapParty(k) : k; out[kk] = (out[kk] || 0) + (+v || 0) / tot * 100; });
+    return out;
+  }
+  if (DIM && (BKEYS.some((k) => BENCH[k][DIM]) || D.xtab.length || D.pxtab.length)) {
+    $('#groups-card').hidden = false;
+    const ev = evShares(DIM);
+    const groupsList = DIM === 'race' ? ['White', 'Black', 'Hispanic', 'Asian', 'Other'] : ['Democrats', 'Republicans', 'Independents'];
+    const firstB = BKEYS.find((k) => BENCH[k][DIM]);
+    const xtabs = DIM === 'race' ? D.xtab : D.pxtab;
+    const xt = (key, g) => (xtabs || []).filter((x) => x[key] && x[key][g]).map((x) => { const [d, r] = x[key][g]; return esc(x.poll) + (x.pop === 'RV' ? ' (RV)' : '') + ': ' + (d != null && r != null ? d + '–' + r : d != null ? esc(RN[key].D.short) + ' ' + d : esc(RN[key].R.short) + ' ' + r); }).join(' · ') || '<span class="na">none published</span>';
+    $('#groups-table thead').innerHTML = '<tr><th class="l">Group</th>' + (firstB ? '<th>Voters in exit poll</th>' : '') + (ev ? '<th>Early vote so far</th>' : '') +
+      BKEYS.filter((k) => BENCH[k][DIM]).map((k) => '<th>' + esc(BENCH[k].short || BENCH[k].label) + '</th>').join('') + RACES.map((rc) => '<th class="l">2026 polls: ' + esc(rc.office) + '</th>').join('') + '</tr>';
+    $('#groups-table tbody').innerHTML = groupsList.map((g) => {
+      const fb = firstB && BENCH[firstB][DIM][g];
+      return '<tr><td>' + (g === 'Other' ? 'Other or unknown' : g) + '</td>' + (firstB ? '<td>' + (fb ? fb[0] + '%' : NA) + '</td>' : '') + (ev ? '<td>' + (ev[g] != null ? pc(ev[g]) : NA) + '</td>' : '') +
+        BKEYS.filter((k) => BENCH[k][DIM]).map((k) => { const v = BENCH[k][DIM][g]; return '<td>' + (v && v[1] != null && v[2] != null ? tp2(v[1], v[2]).toFixed(0) + '%' : NA) + '</td>'; }).join('') +
+        RACES.map((rc) => '<td class="wrapl">' + xt(rc.key, g) + '</td>').join('') + '</tr>';
+    }).join('');
+    $('#groups-note').textContent = 'The Democrat\'s share of the two-party vote by ' + (DIM === 'race' ? 'race' : 'party identification') + ' in past exit polls, and what this year\'s polls report among each group (first number Democrat, second Republican, undecided voters left in).' +
+      (DIM === 'party' && ev ? ' The early-vote column uses registered party, a close but not identical measure: unaffiliated and minor-party registrants are grouped with independents.' : '');
+    $('#groups-note2').innerHTML = BKEYS.filter((k) => BENCH[k][DIM]).map((k) => esc(BENCH[k].label) + ': ' + '<a href="' + esc(BENCH[k].src) + '" target="_blank" rel="noopener">' + esc(BENCH[k].source || 'exit poll') + '</a>').join('; ') + '.';
+  }
+
+  /* lenses: how the ballots cast so far would split if each group votes as in its benchmark, shifted to today's average */
+  let LENSDIMS = ['race', 'gender', 'age'].filter((dim) => { const g = (D.groups || {})[dim]; return g && g.rows && BKEYS.some((k) => BENCH[k][dim]); });
+  const mapG = (dim, k) => dim === 'party' ? mapParty(k) : dim === 'gender' ? (/^f|^w/i.test(k) ? 'Women' : /^m/i.test(k) ? 'Men' : null) : k;
+  function lens(rc, dim) {
+      const bk = (rc.key === 'gov' ? ['gov22', 'sen22', 'pres24'] : ['sen22', 'gov22', 'pres24']).find((k) => BENCH[k] && BENCH[k][dim]);
+      if (!bk) return null;
+      const tab = BENCH[bk][dim]; const ok = Object.entries(tab).filter(([, v]) => v && v[1] != null && v[2] != null);
+      if (!ok.length) return null;
+      const base = ok.reduce((a, [, v]) => a + v[0], 0);
+      const S0 = 50 + P[rc.key].M / 2;
+      const shift = S0 - ok.reduce((a, [, v]) => a + v[0] * tp2(v[1], v[2]), 0) / base;
+      const evc = {}; Object.entries(D.groups[dim].rows).forEach(([k, v]) => { const g = mapG(dim, k); if (g && tab[g] && tab[g][1] != null) evc[g] = (evc[g] || 0) + (+v || 0); });
+      const tot = Object.values(evc).reduce((a, b) => a + b, 0); if (!tot) return null;
+      const est = Object.entries(evc).reduce((a, [g, n]) => a + n * (tp2(tab[g][1], tab[g][2]) + shift), 0) / tot;
+      return 2 * est - 100;
+    }
+  LENSDIMS = LENSDIMS.filter((dim) => RACES.some((rc) => lens(rc, dim) != null));
+  if (LENSDIMS.length) {
+    $('#lens-card').hidden = false;
+    $('#lens-note').textContent = 'How the ballots cast so far would split if each group\'s early voters vote the way that group did in the exit poll, shifted so the exit poll\'s electorate matches today\'s polling average. These are estimates from group averages, not counts of actual votes.' + (LENSDIMS.includes('race') ? ' Voters of other or unknown race are assumed to split like that group in the exit poll, which is rough where many voters have no race on file.' : '');
+    $('#lens-table thead').innerHTML = '<tr><th class="l">Lens</th>' + RACES.map((rc) => '<th>' + esc(rc.office) + '</th>').join('') + '</tr>';
+    const LN = { party: 'Registered party', race: 'Race', gender: 'Gender', age: 'Age' };
+    $('#lens-table tbody').innerHTML = LENSDIMS.map((dim) => '<tr><td>' + LN[dim] + '</td>' + RACES.map((rc) => { const v = lens(rc, dim); return v == null ? '<td>' + NA + '</td>' : '<td class="' + (v >= 0 ? 'dm' : 'rm') + '">' + fm(v) + '</td>'; }).join('') + '</tr>').join('') +
+      '<tr class="tot"><td>Whole electorate (poll average)</td>' + RACES.map((rc) => '<td class="' + (P[rc.key].M >= 0 ? 'dm' : 'rm') + '">' + fm(P[rc.key].M) + '</td>').join('') + '</tr>';
+  }
+
+  /* polls */
+  const ws = new Date(S.window_start + 'T12:00');
+  const MONL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const np = RACES.map((rc) => '<b>' + P[rc.key].nonpart.toFixed(0) + '%</b> of the ' + esc(rc.office) + ' weight').join(' and ');
+  $('#polls-note').innerHTML = 'The latest poll from each pollster with fieldwork since ' + ws.getDate() + ' ' + MONL[ws.getMonth()] + ', likely voters where published. In the spirit of the New York Times\' "select pollster" standard (nonpartisan sponsors with a record of accuracy), each poll counts in proportion to its 538 rating, partisan-aligned pollsters count half, and older polls fade with a ' + S.half_life + '-day half-life. Each margin is also corrected for the pollster\'s historical lean against other polls in the same races. Nonpartisan pollsters carry ' + np + '. Left out: ' + esc(S.excluded) + '.';
+  $('#poll-tables').innerHTML = RACES.map((rc) => '<h3>' + esc(rc.office) + '</h3><div class="tablewrap"><table id="polls-' + rc.key + '"><thead><tr><th class="l">Pollster</th><th class="l">Field dates</th><th>Sample</th><th>' + esc(rc.D.short) + ' (D)</th>' + (rc.I ? '<th>' + esc(rc.I.short) + ' (' + esc(rc.I.party_short || 'I') + ')</th>' : '') + '<th>' + esc(rc.R.short) + ' (R)</th><th>Margin</th><th>538 grade</th><th class="l">Alignment</th><th>Lean-corrected</th><th>Weight</th></tr></thead><tbody></tbody></table></div>').join('');
+  RACES.forEach((rc) => {
+    const r = P[rc.key], three = !!rc.I;
+    const al = (q) => q.aligned ? '<span title="' + esc(q.why) + '">' + q.aligned + '-aligned</span>' : '<span class="na">Nonpartisan</span>';
+    const n1 = (v) => v == null ? NA : v.toFixed(v % 1 ? 1 : 0) + '%';
+    $('#polls-' + rc.key + ' tbody').innerHTML = r.polls.map((q) => '<tr><td><a href="' + esc(q.src) + '" target="_blank" rel="noopener">' + esc(q.p) + '</a>' + (q.note ? ' <span class="na" title="' + esc(q.note) + '">(' + esc(shortNote(q.note)) + ')</span>' : '') + '</td><td class="l">' + esc(q.d) + '</td><td>' + (q.n ? fmt(q.n) + (q.pop ? ' ' + esc(q.pop) : '') : NA) + '</td><td>' + n1(q.D) + '</td>' + (three ? '<td>' + n1(q.I) + '</td>' : '') + '<td>' + n1(q.R) + '</td><td class="' + (q.m >= 0 ? 'dm' : 'rm') + '">' + fm(q.m) + '</td>' +
+      '<td>' + (q.grade != null ? q.grade.toFixed(1) + ' / 3' : '<span class="na">unrated</span>') + '</td><td class="l">' + al(q) + '</td><td class="' + (q.adj >= 0 ? 'dm' : 'rm') + '" title="Lean correction: ' + esc(q.lean_src) + '">' + fm(q.adj) + '</td><td>' + q.share.toFixed(0) + '%</td></tr>').join('') +
+      '<tr><td>Plain average</td><td class="l"></td><td></td><td>' + r.avg_D.toFixed(1) + '%</td>' + (three ? '<td>' + (r.avg_I != null ? r.avg_I.toFixed(1) + '%' : '') + '</td>' : '') + '<td>' + r.avg_R.toFixed(1) + '%</td><td class="' + (r.raw >= 0 ? 'dm' : 'rm') + '">' + fm(r.raw) + '</td><td></td><td></td><td class="na">' + fm(r.plainM) + ' two-party</td><td></td></tr>' +
+      '<tr class="tot"><td>Weighted average (used)</td><td class="l"></td><td></td><td></td>' + (three ? '<td>' + (r.I != null ? r.I.toFixed(1) + '%' : '') + '</td>' : '') + '<td></td><td></td><td></td><td></td><td class="' + (r.M >= 0 ? 'dm' : 'rm') + '">' + fm(r.M) + '</td><td>100%</td></tr>';
+  });
+
+  function shortNote(n) { let t = String(n).split(/[;.,(]\s?/)[0].trim(); if (t.length > 34) t = t.slice(0, 32).replace(/\s+\S*$/, '') + '…'; return t; }
+
+  /* method */
+  const rnames = RACES.map((rc) => P[rc.key].n + ' ' + rc.office + ' poll' + (P[rc.key].n === 1 ? '' : 's')).join(' and ');
+  const M = [
+    '<b>Polls.</b> ' + rnames + '. A poll\'s weight is its 538 grade divided by 3 (unrated pollsters count as 1 star), halved if the pollster is partisan-aligned (marked R or D in Wikipedia\'s ' + esc(S.name) + ' poll tables, sponsored by a campaign, party or partisan outlet, or counted by 538 as doing mostly partisan work), then halved for every ' + S.half_life + ' days since the poll ended. Lean corrections come from 538\'s poll archive for 2016–2022: each pollster\'s average error minus the average of all polls in the same races, shrunk toward zero when it has few polls. Aligned pollsters with no record get ' + S.prior + ' points, the typical lean of Republican-aligned pollsters that have one. ' +
+      RACES.map((rc) => 'The weighted, corrected ' + esc(rc.office) + ' average is <b>' + fm(P[rc.key].M) + '</b> (plain average ' + fm(P[rc.key].plainM) + ')').join('; ') + '. 538 closed in 2025, so these are its last published ratings.',
+    '<b>Lean against other polls, not against results.</b> The correction measures how each pollster runs compared with other polls of the same races. Correcting each poll for its average miss against actual results instead would also build in the whole industry\'s misses, which in 2016 and 2020 underestimated Republicans; that version gives ' + RACES.map((rc) => '<b>' + fm(P[rc.key].altM) + '</b> for ' + esc(rc.office)).join(' and ') + (SIG ? ' before the early-vote adjustment.' : '.'),
+  ];
+  if (SIG) {
+    M.push('<b>Early vote.</b> ' + esc(SIG.label) + ' is ' + sigFmt(SIG.now) + ' of ballots so far against ' + sigFmt(SIG.bench) + ' at ' + esc(SIG.bench_label) + '. ' + RACES.map((rc) => 'Each point of difference in the final electorate moves the ' + esc(rc.office) + ' margin about ' + P[rc.key].slope.toFixed(2) + ' points').join('; ') + '. ' +
+      (SIG.type === 'party' ? 'That rate assumes registered Democrats and Republicans each back their own party\'s nominee by about 92 to 8, so shifting one point of the electorate from one party to the other moves the margin by about 0.84 points.' : 'That rate comes from a two-group model: ' + esc(SIG.label.replace(' share of ballots', '')) + ' voters split as in this year\'s crosstabs where published, everyone else as needed to match the poll average.') +
+      ' The headline uses the midpoint: half of this year\'s difference survives to Election Day.');
+  }
+  RACES.filter((rc) => rc.I).forEach((rc) => M.push('<b>Three-way race.</b> ' + esc(rc.I.name) + '\'s share is held at the weighted average of polls that include ' + (rc.I.pronoun || 'the independent') + '; the lean correction applies to the margin between the two major-party nominees. Chances come from 20,000 simulated outcomes with independent errors for each candidate, sized so any two candidates\' margin misses by about ' + S.sd + ' points.'));
+  (S.method_extra || []).forEach((x) => M.push(x));
+  M.push('<b>Updates.</b> A scheduled task rebuilds this page twice a day through Election Day with the newest early-vote figures and any new qualifying polls.');
+  M.push('<b>Uncertainty.</b> The chances assume the final margin can miss the projection with a standard error of ' + S.sd + ' points, roughly the size of recent polling misses in Senate and governor races. They are estimates for this page, not an official forecast.');
+  if (S.other_views) M.push('<b>Other views.</b> ' + esc(S.other_views));
+  $('#method').innerHTML = M.map((x) => '<li>' + x + '</li>').join('');
+
+  /* ================= COUNTIES ================= */
+  if (C.length) {
+    const U = S.unit, US = S.units;
+    const SCALE = STATE22 ? niceMax(Math.max(...C.map((c) => c.p22 || 0).filter((x) => x < 400)) * 0.75 + STATE22 * 0.25) : 100;
+    const BANDS = [
+      { n: 'Harris +30 or more', lo: 30, hi: 1e9, c: 'var(--dem)' }, { n: 'Harris by under 30', lo: 0, hi: 30, c: 'var(--dem)' },
+      { n: 'Trump by under 30', lo: -30, hi: 0, c: 'var(--rep)' }, { n: 'Trump +30 to +50', lo: -50, hi: -30, c: 'var(--rep)' }, { n: 'Trump +50 or more', lo: -1e9, hi: -50, c: 'var(--rep)' },
+    ];
+    function agg(list) {
+      const a = { k: list.length, rv: 0, v: 0, t22: 0, pd: 0, pr: 0 };
+      list.forEach((c) => { a.rv += c.rv || 0; a.v += c.v; a.t22 += c.t22 || 0; a.pd += c.pd || 0; a.pr += c.pr || 0; });
+      a.rvp = a.rv ? a.v / a.rv * 100 : null; a.p22 = a.t22 ? a.v / a.t22 * 100 : null; a.sh = a.v / TOTAL * 100; a.pnet = H.party && a.v ? (a.pd - a.pr) / a.v * 100 : null; return a;
+    }
+    BANDS.forEach((b) => { b.a = agg(C.filter((c) => c.mg != null && c.mg >= b.lo && c.mg < b.hi)); });
+    const bandsShown = BANDS.filter((b) => b.a.k);
+    $('#bands-title').textContent = 'Turnout so far, by how each ' + U + ' voted in 2024';
+    $('#bands-note').textContent = UNITCAP + ' grouped by their 2024 presidential margin. Each bar is the share of the group\'s ' + S.base22 + ' already cast this year; the dashed line is the statewide figure, ' + pc(STATE22) + '. This shows where ballots are coming from, not how anyone voted. ' + (S.counties_note || 'Places where more people habitually vote early will read higher at this stage, so part of any gap is timing.');
+    const bandsEl = $('#bands');
+    bandsEl.innerHTML = bandsShown.map((b, i) => barRow(b.n, b.a.k + ' ' + (b.a.k === 1 ? U : US) + ' · ' + pc(b.a.sh) + ' of ballots' + (H.party ? ' · party gap ' + fm(b.a.pnet) : ''), b.a.p22, SCALE, STATE22, b.c, 'data-i="' + i + '"')).join('');
+    bindTips(bandsEl.parentElement, '.row', (el) => { const b = bandsShown[+el.dataset.i]; return tipRows(b.n, [[UNITCAP, b.a.k], ['Ballots so far', fmt(b.a.v)]].concat(H.reg ? [['Of registered', pc(b.a.rvp)]] : []).concat([['Of 2022 vote', pc(b.a.p22)], ['Share of state', pc(b.a.sh)]]).concat(H.party ? [['Party gap', fm(b.a.pnet)]] : [])); });
+    const aggHead = '<tr><th class="l">' + UNITCAP + ' by 2024 result</th><th>' + UNITCAP + '</th>' + (H.reg ? '<th>Registered</th>' : '') + '<th>Ballots so far</th>' + (H.reg ? '<th>Of registered</th>' : '') + '<th>Of 2022 vote</th><th>Share of state\'s ballots</th>' + (H.party ? '<th>Party gap (D−R)</th>' : '') + '</tr>';
+    const aggRow = (label, a) => '<td>' + esc(label) + '</td><td>' + a.k + '</td>' + (H.reg ? '<td>' + fmt(a.rv) + '</td>' : '') + '<td>' + fmt(a.v) + '</td>' + (H.reg ? '<td>' + pc(a.rvp) + '</td>' : '') + '<td>' + pc(a.p22) + '</td><td>' + pc(a.sh) + '</td>' + (H.party ? '<td class="' + (a.pnet >= 0 ? 'dm' : 'rm') + '">' + fm(a.pnet) + '</td>' : '') ;
+    const all = agg(C);
+    $('#bands-table thead').innerHTML = aggHead;
+    $('#bands-table tbody').innerHTML = bandsShown.map((b) => '<tr>' + aggRow(b.n, b.a) + '</tr>').join('') + '<tr class="tot">' + aggRow(S.name, all) + '</tr>';
+
+    const sizeKey = H.reg ? 'rv' : 't22';
+    const SIZES = [['100,000 or more', 1e5, 1e12], ['25,000 to 100,000', 25e3, 1e5], ['Under 25,000', 0, 25e3]];
+    $('#size-title').textContent = 'By ' + U + ' size';
+    $('#size-note').textContent = UNITCAP + ' grouped by ' + (H.reg ? 'registered voters' : 'the number of votes cast in 2022') + '. The largest ' + US + ' hold ' + pc(agg(C.filter((c) => (c[sizeKey] || 0) >= 1e5)).sh, 0) + ' of this year\'s ballots.';
+    $('#size-table thead').innerHTML = aggHead.replace(UNITCAP + ' by 2024 result', H.reg ? 'Registered voters' : 'Votes cast in 2022');
+    $('#size-table tbody').innerHTML = SIZES.map(([n, lo, hi]) => { const l = C.filter((c) => (c[sizeKey] || 0) >= lo && (c[sizeKey] || 0) < hi); return l.length ? '<tr>' + aggRow(n, agg(l)) + '</tr>' : ''; }).join('') + '<tr class="tot">' + aggRow(S.name, all) + '</tr>';
+
+    const COLS = [['n', UNITCAP.replace(/s$/, '').replace(/ie$/, 'y'), 'l'], H.reg && ['rv', 'Registered'], ['v', 'Ballots so far'], H.ip && ['e', 'In person'], H.mail && ['m', 'Mail'], H.reg && ['rvp', 'Of registered'], ['p22', 'Of 2022 vote', 'l'], H.party && ['pnet', 'Party gap'], ['mg', '2024 result']].filter(Boolean);
+    $('#ctable thead tr').innerHTML = COLS.map(([k, l, cl]) => '<th data-k="' + k + '"' + (cl ? ' class="' + cl + '"' : '') + (k === 'v' ? ' aria-sort="descending"' : '') + '><button type="button">' + l + '</button></th>').join('');
+    $('#ctable-note').textContent = 'Every ' + U + '. "Of 2022 vote" is ballots cast so far as a share of the ' + U + '\'s ' + S.base22 + '.' + (H.party ? ' "Party gap" is registered Democrats minus Republicans as a share of the ' + U + '\'s ballots so far.' : '') + ' The 2024 result is the presidential margin in points (D for Democratic, R for Republican). Select a column heading to sort.';
+    $('#county-q-label').textContent = 'Find a ' + U;
+    $('#county-q').placeholder = 'e.g. ' + [...C].sort((a, b) => b.v - a.v)[0].n;
+    let sortK = 'v', sortDir = -1, showAll = false;
+    const ths = [...document.querySelectorAll('#ctable th')];
+    const cell = (c, k) => {
+      if (k === 'n') return '<td>' + esc(c.n) + '</td>';
+      if (k === 'p22') return '<td class="l">' + pc(c.p22) + (c.p22 != null ? '<span class="mini" style="width:' + Math.min(5, c.p22 / SCALE * 3.5).toFixed(2) + 'rem"></span>' : '') + '</td>';
+      if (k === 'rvp') return '<td>' + pc(c.rvp) + '</td>';
+      if (k === 'mg') return '<td class="' + (c.mg >= 0 ? 'd' : 'r') + '">' + mgl(c.mg) + '</td>';
+      if (k === 'pnet') return '<td class="' + (c.pnet >= 0 ? 'd' : 'r') + '">' + (c.pnet != null ? fm(c.pnet) : NA) + '</td>';
+      return '<td>' + (c[k] != null ? fmt(c[k]) : NA) + '</td>';
+    };
+    function drawTable() {
+      const q = $('#county-q').value.trim().toLowerCase();
+      let rows = C.filter((c) => !q || c.n.toLowerCase().includes(q));
+      rows.sort((a, b) => sortK === 'n' ? sortDir * a.n.localeCompare(b.n) : sortDir * ((a[sortK] ?? -1e9) - (b[sortK] ?? -1e9)));
+      const total = rows.length;
+      if (!showAll && !q) rows = rows.slice(0, 25);
+      $('#ctable tbody').innerHTML = rows.map((c) => '<tr>' + COLS.map(([k]) => cell(c, k)).join('') + '</tr>').join('') || '<tr><td colspan="' + COLS.length + '" class="na">No ' + U + ' matches "' + esc(q) + '".</td></tr>';
+      $('#county-count').textContent = q ? total + ' ' + (total === 1 ? U : US) : (showAll || C.length <= 25 ? 'All ' + C.length + ' ' + US : 'Top 25 of ' + C.length + ' by current sort');
+      $('#county-more').hidden = !!q || C.length <= 25;
+      $('#county-more').textContent = showAll ? 'Show 25 ' + US : 'Show all ' + C.length + ' ' + US;
+    }
+    ths.forEach((th) => th.querySelector('button').addEventListener('click', () => {
+      const k = th.dataset.k;
+      if (k === sortK) sortDir = -sortDir; else { sortK = k; sortDir = k === 'n' ? 1 : -1; }
+      ths.forEach((t) => t.removeAttribute('aria-sort'));
+      th.setAttribute('aria-sort', sortDir > 0 ? 'ascending' : 'descending');
+      drawTable();
+    }));
+    $('#county-q').addEventListener('input', drawTable);
+    $('#county-more').addEventListener('click', () => { showAll = !showAll; drawTable(); });
+    drawTable();
+  }
+
+  /* ================= DAY BY DAY ================= */
+  const CP = D.cps || [];
+  const chg = (a, b) => { const v = (a / b - 1) * 100; return (v >= 0 ? '+' : '') + pc(v); };
+  const cmpYears = [...new Set(CP.filter((p) => p.c22).map((p) => p.c22y || 2022))];
+  $('#cp-cmp-h').textContent = (cmpYears.length === 1 ? cmpYears[0] : 'Earlier year') + ', same point';
+  $('#leg22').innerHTML = '<i class="dot" style="background:var(--y22)"></i>' + (cmpYears.length === 1 ? cmpYears[0] : 'Earlier year') + ', same point';
+  if (!CP.some((p) => p.c22 && p.c22k !== 'in person')) $('#leg22').remove();
+  $('#cp-table tbody').innerHTML = CP.map((p) => {
+    const cmp = p.c22 ? (p.c22k === 'in person' ? p.ip : p.all) : null;
+    const f = (v, fl, nr) => v == null ? NA : (fl ? 'over ' : nr ? 'nearly ' : '') + fmt(v);
+    return '<tr><td>' + esc(p.when) + '</td><td>' + f(p.ip, p.ipFloor, p.ipNear) + '</td><td>' + f(p.mail, p.mailFloor, p.mailNear) + '</td><td>' + f(p.all, p.allFloor, p.allNear) +
+      '</td><td>' + (p.c22 ? fmt(p.c22) + ' <span class="na">(' + esc(p.c22k) + ')</span>' : '<span class="na">not published</span>') + '</td><td>' + (cmp ? chg(cmp, p.c22) : '') + '</td><td class="l">' + (p.href ? '<a href="' + esc(p.href) + '" target="_blank" rel="noopener">' + esc(p.src) + '</a>' : esc(p.src)) + '</td></tr>';
+  }).join('');
+  $('#days-note').textContent = S.days_note || ('Running statewide counts at each reported checkpoint, including every refresh of the official count, rather than a value for every day.' + (CP.some((p) => p.c22) ? ' Purple marks are the earlier year at the same point.' : ''));
+  if (S.cp_note) $('#cp-note').textContent = S.cp_note; else $('#cp-note').remove();
+  const MONS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function drawCheckpoints() {
+    const host = $('#cp-chart'); const W = Math.max(300, host.clientWidth || 600), Hh = 260;
+    const m = { l: 56, r: 34, t: 16, b: 28 };
+    const pts = CP.filter((p) => p.all), p22s = CP.filter((p) => p.c22 && p.c22k !== 'in person');
+    if (!pts.length) { host.innerHTML = '<p class="note">No checkpoints yet.</p>'; return; }
+    const t0 = Math.min(Date.parse(S.count_start + 'T00:00'), Date.parse(pts[0].t));
+    const lastDay = Date.parse(CP[CP.length - 1].t.slice(0, 10) + 'T00:00') + 864e5;
+    const t1 = Math.max(Date.parse(S.ev_end + 'T00:00') + 864e5, lastDay);
+    const vmax = Math.max(...pts.map((p) => p.all), ...p22s.map((p) => p.c22));
+    const steps = [1e3, 2e3, 5e3, 1e4, 2e4, 5e4, 1e5, 2e5, 2.5e5, 5e5, 1e6, 2e6];
+    const step = steps.find((s) => vmax * 1.06 / s <= 6) || 5e6;
+    const top = Math.ceil(vmax * 1.06 / step) * step;
+    const X = (t) => m.l + (Date.parse(t) - t0) / (t1 - t0) * (W - m.l - m.r);
+    const Xn = (n) => m.l + (n - t0) / (t1 - t0) * (W - m.l - m.r);
+    const Y = (v) => Hh - m.b - v / top * (Hh - m.t - m.b);
+    const lab = (v) => v === 0 ? '0' : v >= 1e6 ? (v / 1e6) + 'M' : (v / 1e3) + 'K';
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="presentation">';
+    for (let v = 0; v < top + 1; v += step) s += '<line class="gridl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + lab(v) + '</text>';
+    s += '<line class="axisl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(0) + '" y2="' + Y(0) + '"/>';
+    const ndays = Math.round((t1 - t0) / 864e5), dstep = Math.max(1, Math.ceil(ndays / (W < 460 ? 5 : 10)));
+    for (let i = 0; i <= ndays; i += dstep) { const d = new Date(t0 + i * 864e5); s += '<text x="' + Xn(t0 + i * 864e5) + '" y="' + (Hh - 8) + '" text-anchor="middle">' + d.getDate() + ' ' + MONS[d.getMonth()] + '</text>'; }
+    s += '<polyline fill="none" stroke="var(--y26)" stroke-width="2" stroke-linejoin="round" points="' + pts.map((p) => X(p.t) + ',' + Y(p.all)).join(' ') + '"/>';
+    CP.forEach((p, i) => {
+      if (p.all) s += '<circle data-i="' + i + '" data-y="26" cx="' + X(p.t) + '" cy="' + Y(p.all) + '" r="5" fill="' + (p.allFloor || p.allNear ? 'var(--panel)' : 'var(--y26)') + '" stroke="' + (p.allFloor || p.allNear ? 'var(--y26)' : 'var(--panel)') + '" stroke-width="2"/><circle data-i="' + i + '" data-y="26" cx="' + X(p.t) + '" cy="' + Y(p.all) + '" r="14" fill="transparent"/>';
+      if (p.c22 && p.c22k !== 'in person') s += '<circle data-i="' + i + '" data-y="22" cx="' + X(p.t) + '" cy="' + Y(p.c22) + '" r="5" fill="var(--y22)" stroke="var(--panel)" stroke-width="2"/><circle data-i="' + i + '" data-y="22" cx="' + X(p.t) + '" cy="' + Y(p.c22) + '" r="14" fill="transparent"/>';
+    });
+    const last = pts[pts.length - 1];
+    s += '<text x="' + (X(last.t) - 8) + '" y="' + (Y(last.all) - 8) + '" text-anchor="end" style="fill:var(--fg)">' + fmt(last.all) + '</text>';
+    if (p22s.length) { const q = p22s[p22s.length - 1]; s += '<text x="' + (X(q.t) + 9) + '" y="' + (Y(q.c22) + 4) + '" text-anchor="start">' + (q.c22y || 2022) + ': ' + fmt(q.c22) + '</text>'; }
+    s += '</svg>';
+    host.innerHTML = s;
+    if (!host.dataset.b) {
+      host.dataset.b = 1;
+      bindTips(host, 'circle', (el) => {
+        const p = CP[+el.dataset.i];
+        if (el.dataset.y === '22') return tipRows((p.c22y || 2022) + ', same point as ' + p.when, [['Ballots', fmt(p.c22)], ['2026 change', chg(p.all, p.c22)]]);
+        return tipRows(p.when, [['All ballots', (p.allFloor ? 'over ' : p.allNear ? 'nearly ' : '') + fmt(p.all)], ['In person', p.ip == null ? 'n/a' : (p.ipFloor ? 'over ' : p.ipNear ? 'nearly ' : '') + fmt(p.ip)], ['Mail', p.mail == null ? 'n/a' : (p.mailFloor ? 'over ' : p.mailNear ? 'nearly ' : '') + fmt(p.mail)], ['Source', p.src]]);
+      });
+    }
+  }
+
+  /* pace: share of registered voters by day of early voting, when the source publishes it */
+  const PACE = D.pace;
+  function drawPace() {
+    if (!PACE) return;
+    const host = $('#pace-chart'); const W = Math.max(300, host.clientWidth || 600), Hh = 240, m = { l: 44, r: 60, t: 14, b: 40 };
+    const days = Math.max(PACE.days, ...['a', 'b'].map((k) => PACE[k].length));
+    const vmax = Math.max(...PACE.a, ...PACE.b);
+    const top = Math.ceil(vmax * 1.15 / 5) * 5;
+    const X = (i) => m.l + (i - 1) / Math.max(1, days - 1) * (W - m.l - m.r), Y = (v) => Hh - m.b - v / top * (Hh - m.t - m.b);
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="presentation">';
+    for (let v = 0; v <= top; v += 5) s += '<line class="gridl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (m.l - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + v + '%</text>';
+    for (let i = 1; i <= days; i++) s += '<text x="' + X(i) + '" y="' + (Hh - m.b + 16) + '" text-anchor="middle">' + i + '</text>';
+    s += '<text x="' + ((m.l + W - m.r) / 2) + '" y="' + (Hh - 4) + '" text-anchor="middle">Day of early voting</text>';
+    [['b', 'var(--y22)', '2022'], ['a', 'var(--y26)', '2026']].forEach(([k, c, lab]) => {
+      const pts = PACE[k]; if (!pts.length) return;
+      s += '<polyline fill="none" style="stroke:' + c + '" stroke-width="2" points="' + pts.map((v, i) => X(i + 1) + ',' + Y(v)).join(' ') + '"/>';
+      pts.forEach((v, i) => { s += '<circle data-k="' + k + '" data-i="' + i + '" cx="' + X(i + 1) + '" cy="' + Y(v) + '" r="4" style="fill:' + c + ';stroke:var(--panel)" stroke-width="1.5"/><circle data-k="' + k + '" data-i="' + i + '" cx="' + X(i + 1) + '" cy="' + Y(v) + '" r="12" fill="transparent"/>'; });
+      s += '<text x="' + (X(pts.length) + 8) + '" y="' + (Y(pts[pts.length - 1]) + 4) + '" style="fill:' + c + '">' + lab + ' ' + pts[pts.length - 1].toFixed(1) + '%</text>';
+    });
+    s += '</svg>'; host.innerHTML = s;
+    if (!host.dataset.b) { host.dataset.b = 1; bindTips(host, 'circle', (el) => { const i = +el.dataset.i; return tipRows('Day ' + (i + 1), [['2026', PACE.a[i] != null ? PACE.a[i].toFixed(2) + '%' : 'n/a'], ['2022', PACE.b[i] != null ? PACE.b[i].toFixed(2) + '%' : 'n/a']]); }); }
+  }
+  if (PACE) { $('#pace-card').hidden = false; $('#pace-note').textContent = PACE.note || ''; }
+
+  /* ================= WHO ================= */
+  if (GROUPS.length) {
+    const TITLES = { party: 'Registered party', race: 'Race', age: 'Age', gender: 'Gender', history: '2022 voting history', method: 'How they voted' };
+    let html = '';
+    GROUPS.forEach(([dim, g], gi) => {
+      const rows = Object.entries(g.rows).filter(([, v]) => v != null);
+      const tot = rows.reduce((a, [, v]) => a + (+v || 0), 0);
+      const sp = g.same_point_2022 || null, fin = g.final_2022 || null;
+      let mx = 0; rows.forEach(([k, v]) => { mx = Math.max(mx, v / tot * 100, sp && sp[k] != null ? sp[k] : 0, fin && fin[k] != null ? fin[k] : 0); });
+      const sc = niceMax(mx * 1.18);
+      const bar = (v, cl, col) => v == null ? '' : '<div class="t"><div class="bar ' + cl + '" style="width:' + (v / sc * 100) + '%' + (col ? ';background:' + col : '') + '"></div><span style="left:' + (v / sc * 100) + '%">' + pc(v) + '</span></div>';
+      html += '<div class="card"><h2>' + esc(g.label || TITLES[dim] || dim) + '</h2>' +
+        '<div class="legend"><span><i style="background:var(--y26)"></i>2026 ballots so far</span>' + (sp ? '<span><i style="background:var(--y22)"></i>' + esc(g.same_label || '2022 at the same point') + '</span>' : '') + (fin ? '<span><i style="background:var(--axis)"></i>' + esc(g.final_label || '2022 final electorate') + '</span>' : '') + '</div>' +
+        '<div class="rel"><div class="rows" data-g="' + gi + '">' + rows.map(([k, v], i) => '<div class="row nv" data-i="' + i + '"><div class="lab"><b>' + esc(k.replace('-', '–')) + '</b><small>' + fmt(v) + '</small></div><div class="pair">' + bar(v / tot * 100, '') + (sp ? bar(sp[k], 'b22') : '') + (fin ? bar(fin[k], 'bfin') : '') + '</div></div>').join('') + '</div></div>' +
+        '<p class="note">' + esc(g.note || '') + (g.src ? ' <a href="' + esc(g.src) + '" target="_blank" rel="noopener">Source</a>.' : '') + '</p></div>';
+    });
+    if (S.who_note) html += '<div class="card"><p class="note">' + esc(S.who_note) + '</p></div>';
+    $('#who-cards').innerHTML = html;
+    document.querySelectorAll('#who-cards .rows').forEach((el) => {
+      const [dim, g] = GROUPS[+el.dataset.g]; const rows = Object.entries(g.rows); const tot = rows.reduce((a, [, v]) => a + (+v || 0), 0);
+      bindTips(el.parentElement, '.row', (r) => { const [k, v] = rows[+r.dataset.i]; return tipRows(k, [['2026 ballots', fmt(v) + ' (' + pc(v / tot * 100) + ')']].concat(g.same_point_2022 && g.same_point_2022[k] != null ? [['2022, same point', pc(g.same_point_2022[k])]] : []).concat(g.final_2022 && g.final_2022[k] != null ? [['2022 final', pc(g.final_2022[k])]] : [])); });
+    });
+  }
+
+  /* ================= DISTRICTS ================= */
+  if (H.districts) {
+    const DS = D.districts.map((d) => ({ ...d, rvp: d.rv ? d.v / d.rv * 100 : null, sh: d.v / D.districts.reduce((a, x) => a + x.v, 0) * 100, pnet: d.pd != null && d.pr != null ? (d.pd - d.pr) / d.v * 100 : null }));
+    const useRv = DS.every((d) => d.rvp != null), useP = DS.every((d) => d.pnet != null);
+    $('#dist-title').textContent = S.dist_label;
+    $('#dist-note').textContent = (useRv ? 'Share of each district\'s registered voters who have voted so far; the dashed line is the statewide rate. ' : 'Each district\'s share of the state\'s ballots so far. ') + (S.dist_note || '');
+    const vals = DS.map((d) => useRv ? d.rvp : d.sh); const sc = niceMax(Math.max(...vals));
+    const sorted = [...DS].sort((a, b) => (useRv ? b.rvp - a.rvp : b.v - a.v));
+    const ref = useRv ? DS.reduce((a, d) => a + d.v, 0) / DS.reduce((a, d) => a + d.rv, 0) * 100 : null;
+    $('#cd-bars').innerHTML = sorted.map((d, i) => barRow(d.n, fmt(d.v) + ' ballots' + (useP ? ' · party gap ' + fm(d.pnet) : ''), useRv ? d.rvp : d.sh, sc, ref, '', 'data-i="' + i + '"')).join('');
+    bindTips($('#cd-bars').parentElement, '.row', (el) => { const d = sorted[+el.dataset.i]; return tipRows(d.n, [['Ballots so far', fmt(d.v)]].concat(d.e != null ? [['In person', fmt(d.e)]] : []).concat(d.m != null ? [['Mail', fmt(d.m)]] : []).concat(d.rv ? [['Registered', fmt(d.rv)], ['Of registered', pc(d.rvp)]] : []).concat(useP ? [['Party gap', fm(d.pnet)]] : [])); });
+    const cols = [['n', 'District'], ['v', 'Ballots so far'], DS.every((d) => d.e != null) && ['e', 'In person'], DS.every((d) => d.m != null) && ['m', 'Mail'], useRv && ['rv', 'Registered'], useRv && ['rvp', 'Of registered'], ['sh', 'Share of state'], useP && ['pnet', 'Party gap']].filter(Boolean);
+    $('#cd-table thead tr').innerHTML = cols.map(([, l], i) => '<th' + (i ? '' : ' class="l"') + '>' + l + '</th>').join('');
+    $('#cd-table tbody').innerHTML = DS.map((d) => '<tr>' + cols.map(([k]) => k === 'n' ? '<td>' + esc(d.n) + '</td>' : k === 'rvp' || k === 'sh' ? '<td>' + pc(d[k]) + '</td>' : k === 'pnet' ? '<td class="' + (d.pnet >= 0 ? 'd' : 'r') + '">' + fm(d.pnet) + '</td>' : '<td>' + fmt(d[k]) + '</td>').join('') + '</tr>').join('');
+  }
+
+  /* ================= MAP ================= */
+  const byF = Object.fromEntries(C.map((c) => [c.f, c]));
+  const rel = (s0, ks) => ks.map((k) => Math.round(s0 * k));
+  const MEAS = {};
+  if (STATE22) { const e = rel(STATE22, [0.7, 0.85, 1, 1.15, 1.3]); MEAS.p22 = { b: 'Of 2022 vote', title: 'Share of 2022 vote already cast', edges: e, vars: ['--seq-0', '--seq-1', '--seq-2', '--seq-3', '--seq-4', '--seq-5'], labels: ['Under ' + e[0] + '%'].concat(e.slice(0, -1).map((x, i) => x + '–' + e[i + 1] + '%')).concat([e[4] + '% or more']), note: 'Ballots cast so far as a share of each ' + S.unit + '\'s ' + S.base22 + '. Statewide: ' + pc(STATE22) + '.' }; }
+  if (H.reg) { const s0 = TOTAL / RVSUM * 100, e = rel(s0, [0.7, 0.85, 1, 1.15, 1.3]); MEAS.rvp = { b: 'Of registered', title: 'Share of registered voters who have voted', edges: e, vars: ['--seq-0', '--seq-1', '--seq-2', '--seq-3', '--seq-4', '--seq-5'], labels: ['Under ' + e[0] + '%'].concat(e.slice(0, -1).map((x, i) => x + '–' + e[i + 1] + '%')).concat([e[4] + '% or more']), note: 'Ballots cast so far divided by registered voters. Statewide: ' + pc(s0) + '.' }; }
+  const DIV = ['--div-r3', '--div-r2', '--div-r1', '--div-r0', '--div-d0', '--div-d1', '--div-d2', '--div-d3'];
+  if (H.party) MEAS.pnet = { b: 'Party gap', title: 'Registered Democrats minus Republicans among ballots so far', edges: [-40, -20, -10, 0, 10, 20, 40], vars: DIV, labels: ['R+40 or more', 'R+20–40', 'R+10–20', 'R+0–10', 'D+0–10', 'D+10–20', 'D+20–40', 'D+40 or more'], note: 'Registered party of the ballots cast so far. Statewide: ' + (SIG && SIG.type === 'party' ? fm(SIG.now) : '') + '.' };
+  MEAS.mg = { b: '2024 result', title: '2024 presidential result', edges: [-50, -30, -10, 0, 10, 30, 50], vars: DIV, labels: ['R+50 or more', 'R+30–50', 'R+10–30', 'R+0–10', 'D+0–10', 'D+10–30', 'D+30–50', 'D+50 or more'], note: 'Certified 2024 presidential margin, for reference. ' + (S.pres24 || '') };
+  let mKey = Object.keys(MEAS)[0];
+  const binOf = (v, edges) => edges.reduce((i, e) => i + (v >= e ? 1 : 0), 0);
+  function drawMap() {
+    const Mp = D.map; const wrap = $('#mapwrap');
+    $('#map-title').textContent = S.name + ', ' + S.unit + ' by ' + S.unit;
+    $('#map-seg').innerHTML = Object.entries(MEAS).map(([k, m]) => '<button type="button" data-m="' + k + '" aria-pressed="' + (k === mKey) + '">' + m.b + '</button>').join('');
+    document.querySelectorAll('#map-seg button').forEach((b) => b.addEventListener('click', () => { mKey = b.dataset.m; document.querySelectorAll('#map-seg button').forEach((x) => x.setAttribute('aria-pressed', x === b)); paintMap(); }));
+    let s = '<svg viewBox="0 0 ' + Mp.w + ' ' + Mp.h + '" role="img" aria-labelledby="map-title">';
+    Object.entries(Mp.c).forEach(([f, d]) => { s += '<path class="c" data-f="' + f + '" d="' + d + '"/>'; });
+    s += '<path class="o" d="' + Mp.o + '"/></svg>';
+    wrap.innerHTML = s;
+    bindTips(wrap, 'path.c', (el) => {
+      wrap.querySelectorAll('path.on').forEach((p) => p.classList.remove('on')); el.classList.add('on');
+      const c = byF[el.dataset.f]; if (!c) return tipRows('No data', []);
+      return tipRows(c.n + S.unit_suffix, [['Ballots so far', fmt(c.v)]].concat(H.reg ? [['Of registered', pc(c.rvp)]] : []).concat([['Of 2022 vote', pc(c.p22)]]).concat(H.party ? [['Party gap', c.pnet != null ? fm(c.pnet) : 'n/a']] : []).concat([['2024 result', mgl(c.mg)]]));
+    });
+    wrap.addEventListener('pointerleave', () => wrap.querySelectorAll('path.on').forEach((p) => p.classList.remove('on')));
+    paintMap();
+    $('#map-read').innerHTML = ['"Of 2022 vote" compares this year\'s ballots so far with each ' + S.unit + '\'s ' + S.base22 + ', so it rises toward and past 100% as voting goes on.', H.reg ? '"Of registered" divides ballots so far by the ' + S.unit + '\'s registered voters.' : null, H.party ? '"Party gap" is the registered-party makeup of ballots cast so far, not votes.' : null, '"2024 result" is the certified presidential margin, shown so turnout can be read against it. It says nothing about how this year\'s voters are voting.', S.map_note || null, 'Tap or hover a ' + S.unit + ' for its numbers. The table on the ' + UNITCAP + ' tab has every figure.'].filter(Boolean).map((x) => '<li>' + esc(x) + '</li>').join('');
+  }
+  function paintMap() {
+    const m = MEAS[mKey];
+    document.querySelectorAll('#mapwrap path.c').forEach((p) => { const c = byF[p.dataset.f]; p.style.fill = c && c[mKey] != null ? 'var(' + m.vars[binOf(c[mKey], m.edges)] + ')' : 'var(--track)'; });
+    const counts = m.vars.map(() => 0); C.forEach((c) => { if (c[mKey] != null) counts[binOf(c[mKey], m.edges)]++; });
+    $('#map-legend').innerHTML = m.vars.map((v, i) => '<span><i style="background:var(' + v + ')"></i>' + m.labels[i] + ' <span style="opacity:.7">(' + counts[i] + ')</span></span>').join('');
+    $('#map-note').textContent = m.title + '. ' + m.note + ' Numbers in brackets are ' + S.units + '.';
+  }
+
+  /* ================= READ + SOURCES ================= */
+  $('#read-notes').innerHTML = (S.notes_read || []).map((x) => '<li>' + x + '</li>').join('');
+  $('#sources').innerHTML = (S.sources || []).map((x) => '<li>' + x + '</li>').join('');
+
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if ($('#days') && !$('#days').hidden) { drawCheckpoints(); drawPace(); } if (!$('#projection').hidden) drawDials(); }, 150); });
+  const start = (location.hash || '').slice(1);
+  openTab(tabs.some((b) => b.dataset.page === start) ? start : 'projection');
+})();
+</script>
+
+</body></html>

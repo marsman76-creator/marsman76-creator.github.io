@@ -1,0 +1,831 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><script>(function(){if(location.hash)return;var r=history.replaceState.bind(history),done=false;history.replaceState=function(s,t,u){if(!done&&typeof u==="string"&&u.charAt(0)==="#")return;return r(s,t,u)};addEventListener("load",function(){setTimeout(function(){done=true},0)})})();</script>
+<div style="font:13px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid rgba(127,127,127,.28);display:flex;gap:6px;flex-wrap:wrap;align-items:baseline"><a href="index.html" style="color:inherit;font-weight:600;text-decoration:none">Our Future Matters</a><span style="opacity:.65">&middot; 2026 midterms tracker by Marc Randolph</span></div>
+<title>Maine Early Vote Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap">
+<style>
+  /* Layout: same system as the Georgia and Texas trackers - serif headline, tiles, tabbed pages of cards. */
+  :root {
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --bg: #fbfbfa; --panel: #ffffff; --fg: #1c2230; --muted: #626a7a; --line: #e3e5ea;
+    --grid: #eceef2; --axis: #c9ccd4; --ref: #8f95a3; --track: #f1f2f5;
+    --pop: #ffffff; --pop-border: #dfe2e8; --pop-shadow: 0 4px 16px rgba(20,24,36,.12);
+    --dem: #3b78d0; --rep: #d2473f; --y22: #8a6a9e; --y26: #d07a1c;
+    --h-early: #34548f; --h-eday: #8fa8d8; --h-none: #e0a040;
+    --seq-0: #e3eefc; --seq-1: #b7d3f6; --seq-2: #86b6ef; --seq-3: #5598e7; --seq-4: #2a78d6; --seq-5: #1c5cab;
+    --div-r3: #9e2b26; --div-r2: #d2473f; --div-r1: #e8908a; --div-r0: #f6d3d0;
+    --div-d0: #d4e3f7; --div-d1: #8fb6ea; --div-d2: #3b78d0; --div-d3: #1d4f96;
+    --gap-xs: 4px; --gap-sm: 8px; --gap-md: 14px; --gap-lg: 22px;
+    --pad-xs: 4px; --pad-sm: 8px; --pad-md: 12px; --pad-lg: 18px;
+    --radius: 8px; --fs-cap: 12px; --fs-body: 14px; --fs-head: 16px; --fs-title: 30px;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #14171d; --panel: #1b1f27; --fg: #e8eaef; --muted: #9aa2b1; --line: #2c323d;
+    --grid: #262b35; --axis: #3a414e; --ref: #8a92a2; --track: #232833;
+    --pop: #222733; --pop-border: #343b48; --pop-shadow: 0 4px 16px rgba(0,0,0,.4);
+    --dem: #5b93e0; --rep: #e2615a; --y22: #a98bbd; --y26: #e08a2e;
+    --h-early: #5f8ad6; --h-eday: #b3c6ec; --h-none: #e0a040;
+    --seq-0: #1e2a3d; --seq-1: #1d3d6b; --seq-2: #1f5aa3; --seq-3: #2f7bd8; --seq-4: #6aa3ea; --seq-5: #b2d0f5;
+    --div-r3: #f08b85; --div-r2: #d2473f; --div-r1: #8a3532; --div-r0: #4a2a2b;
+    --div-d0: #263750; --div-d1: #2c5a9a; --div-d2: #4f8fe0; --div-d3: #9ec5f4;
+    color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --bg: #14171d; --panel: #1b1f27; --fg: #e8eaef; --muted: #9aa2b1; --line: #2c323d;
+    --grid: #262b35; --axis: #3a414e; --ref: #8a92a2; --track: #232833;
+    --pop: #222733; --pop-border: #343b48; --pop-shadow: 0 4px 16px rgba(0,0,0,.4);
+    --dem: #5b93e0; --rep: #e2615a; --y22: #a98bbd; --y26: #e08a2e;
+    --h-early: #5f8ad6; --h-eday: #b3c6ec; --h-none: #e0a040;
+    --seq-0: #1e2a3d; --seq-1: #1d3d6b; --seq-2: #1f5aa3; --seq-3: #2f7bd8; --seq-4: #6aa3ea; --seq-5: #b2d0f5;
+    --div-r3: #f08b85; --div-r2: #d2473f; --div-r1: #8a3532; --div-r0: #4a2a2b;
+    --div-d0: #263750; --div-d1: #2c5a9a; --div-d2: #4f8fe0; --div-d3: #9ec5f4;
+    color-scheme: dark; }
+
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); }
+  #dash-root { max-width: 1120px; margin-inline: auto; padding-block: 24px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  :focus-visible { outline: 2px solid var(--dem); outline-offset: 2px; }
+  .ga { display: grid; gap: var(--gap-lg); font-size: var(--fs-body); }
+  .ga h1 { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-title); line-height: 1.15; margin: 0; text-wrap: balance; }
+  .ga h2 { font-size: var(--fs-head); font-weight: 500; margin: 0; text-wrap: balance; }
+  .ga h3 { font-size: var(--fs-body); font-weight: 600; margin: 0; }
+  .ga p { margin: 0; }
+  .snap-note { font-size: var(--fs-cap); color: var(--muted); }
+  .head { display: grid; gap: var(--gap-sm); }
+  .take { color: var(--muted); max-width: 70ch; line-height: 1.55; }
+  .take b { color: var(--fg); font-weight: 500; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--gap-md); }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-md) var(--pad-lg); display: grid; gap: var(--gap-xs); align-content: start; }
+  .tile .k { font-size: var(--fs-cap); color: var(--muted); }
+  .tile .v { font-family: var(--font-serif); font-size: var(--fs-title); line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .tile .v.y26 { color: var(--y26); }
+  .tile .s { font-size: var(--fs-cap); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-lg); display: grid; gap: var(--gap-md); min-width: 0; }
+  .note { font-size: var(--fs-cap); color: var(--muted); line-height: 1.55; max-width: 80ch; }
+  .note a, .sources a, .ga td a { color: inherit; text-decoration-color: var(--axis); text-underline-offset: 2px; }
+  .legend { display: flex; flex-wrap: wrap; gap: var(--gap-sm) var(--gap-lg); font-size: var(--fs-cap); color: var(--muted); align-items: center; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex: none; }
+  .legend i.line { height: 2px; border-radius: 1px; width: 14px; }
+  .legend i.dot { border-radius: 50%; }
+
+  .tabs { display: flex; gap: var(--gap-xs); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .tabs button { font: inherit; background: transparent; border: 0; border-bottom: 2px solid transparent; color: var(--muted); padding: var(--pad-sm) var(--pad-md); cursor: pointer; margin-bottom: -1px; }
+  .tabs button:hover { color: var(--fg); }
+  .tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--fg); font-weight: 500; }
+  .page { display: grid; gap: var(--gap-lg); }
+  .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .seg button { font: inherit; font-size: var(--fs-cap); background: transparent; color: var(--muted); border: 0; padding: var(--pad-xs) var(--pad-md); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--bg); color: var(--fg); font-weight: 500; }
+  .cardhead { display: flex; flex-wrap: wrap; gap: var(--gap-sm); align-items: center; justify-content: space-between; }
+
+  /* bars built in HTML */
+  .rel { position: relative; }
+  .rows { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) 3.6rem; gap: var(--gap-sm) var(--gap-md); align-items: center; }
+  .row .lab { font-size: var(--fs-cap); line-height: 1.35; min-width: 0; }
+  .row .lab b { font-weight: 500; font-size: var(--fs-body); display: block; }
+  .row .lab small { color: var(--muted); font-size: var(--fs-cap); font-variant-numeric: tabular-nums; }
+  .row .val { font-size: var(--fs-cap); font-variant-numeric: tabular-nums; text-align: right; }
+  .track { position: relative; height: 14px; }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; background: var(--y26); border-radius: 0 4px 4px 0; }
+  .refline { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px dashed var(--ref); }
+  .chip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .grp { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-top: var(--gap-sm); }
+  .grp:first-child { margin-top: 0; }
+  .stack { display: flex; gap: 2px; height: 20px; }
+  .stack div { position: relative; height: 100%; font-size: 11px; line-height: 20px; color: #fff; text-align: center; font-variant-numeric: tabular-nums; overflow: hidden; white-space: nowrap; }
+  .stack div:first-child { border-radius: 4px 0 0 4px; }
+  .stack div:last-child { border-radius: 0 4px 4px 0; }
+  .stack .s-eday { color: #1c2230; }
+  .stack .s-none { color: #1c2230; }
+  .row.hab { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); }
+  .pair { display: grid; gap: 3px; }
+  .pair .t { position: relative; height: 10px; display: flex; align-items: center; }
+  .pair .t .bar { border-radius: 0 3px 3px 0; }
+  .pair .t span { position: absolute; font-size: 11px; font-variant-numeric: tabular-nums; color: var(--muted); padding-left: 6px; white-space: nowrap; }
+  .row.nv { grid-template-columns: minmax(0, 7rem) minmax(0, 1fr); }
+
+  .tip { position: absolute; z-index: 5; pointer-events: none; background: var(--pop); border: 1px solid var(--pop-border); border-radius: var(--radius); box-shadow: var(--pop-shadow); padding: var(--pad-xs) var(--pad-sm); font-size: var(--fs-cap); line-height: 1.45; width: max-content; max-width: 15rem; }
+  .tip .h { font-weight: 500; margin-bottom: 2px; }
+  .tip .r { display: flex; justify-content: space-between; gap: var(--gap-md); font-variant-numeric: tabular-nums; }
+  .tip .r span:first-child { color: var(--muted); }
+
+  .tablewrap { overflow-x: auto; }
+  .ga table { border-collapse: collapse; width: 100%; font-size: var(--fs-cap); font-variant-numeric: tabular-nums; }
+  .ga th { text-align: right; font-weight: 500; color: var(--muted); padding: var(--pad-xs) var(--pad-sm); border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: bottom; }
+  .ga td { text-align: right; padding: 5px var(--pad-sm); border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .ga th:first-child, .ga td:first-child, .ga .l { text-align: left; }
+  .ga td.wrap { white-space: normal; min-width: 12rem; color: var(--muted); }
+  .ga th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; }
+  .ga th button:hover { color: var(--fg); }
+  .ga th[aria-sort] button { color: var(--fg); }
+  .ga th[aria-sort="descending"] button::after { content: " \2193"; }
+  .ga th[aria-sort="ascending"] button::after { content: " \2191"; }
+  .ga td.d { color: var(--dem); } .ga td.r { color: var(--rep); }
+  .ga tr.tot td { font-weight: 500; }
+  .ga td .mini { display: inline-block; vertical-align: middle; height: 6px; background: var(--y26); border-radius: 0 3px 3px 0; margin-left: 6px; }
+  .ga td.na { color: var(--muted); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--gap-sm) var(--gap-md); align-items: center; font-size: var(--fs-cap); color: var(--muted); }
+  .controls input { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px var(--pad-sm); width: 12rem; max-width: 100%; }
+  .btn { font: inherit; font-size: var(--fs-cap); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px var(--pad-md); cursor: pointer; justify-self: start; }
+  .btn:hover { border-color: var(--axis); }
+
+  svg text { fill: var(--muted); font-family: var(--font-sans); font-size: 11px; }
+  svg .gridl { stroke: var(--grid); stroke-width: 1; }
+  svg .axisl { stroke: var(--axis); stroke-width: 1; }
+  .mapwrap { position: relative; max-width: 560px; width: 100%; margin-inline: auto; }
+  .mapwrap svg { display: block; width: 100%; height: auto; }
+  .mapwrap path.c { stroke: var(--panel); stroke-width: .6; cursor: pointer; }
+  .mapwrap path.c.on { stroke: var(--fg); stroke-width: 1.6; }
+  .mapwrap path.o { fill: none; stroke: var(--axis); stroke-width: 1; pointer-events: none; }
+  .sources { margin: 0; padding-left: 1.1rem; display: grid; gap: 4px; font-size: var(--fs-cap); color: var(--muted); line-height: 1.5; }
+  .ga ul.notes { margin: 0; padding-left: 1.1rem; display: grid; gap: 6px; font-size: var(--fs-cap); color: var(--muted); line-height: 1.55; max-width: 80ch; }
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--gap-md); }
+  .proj { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-md) var(--pad-lg); display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .proj .top { display: flex; justify-content: space-between; align-items: baseline; gap: var(--gap-sm); flex-wrap: wrap; }
+  .pill { font-size: 11px; letter-spacing: .03em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--fg); background: var(--bg); white-space: nowrap; }
+  .cands { display: flex; justify-content: space-between; gap: var(--gap-md); }
+  .cand { display: grid; gap: 2px; }
+  .cand.r { text-align: right; }
+  .cand .nm { font-size: var(--fs-cap); color: var(--muted); }
+  .cand .pct { font-family: var(--font-serif); font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cand.d .pct { color: var(--dem); } .cand.r .pct { color: var(--rep); }
+  .split { position: relative; display: flex; gap: 2px; height: 14px; }
+  .split .sd { background: var(--dem); border-radius: 4px 0 0 4px; }
+  .split .sr { background: var(--rep); border-radius: 0 4px 4px 0; flex: 1 1 0; }
+  .split .half { position: absolute; left: 50%; top: -4px; bottom: -4px; border-left: 1.5px solid var(--fg); }
+  .pm { font-size: var(--fs-cap); color: var(--muted); line-height: 1.5; font-variant-numeric: tabular-nums; }
+  .pm b { color: var(--fg); font-weight: 500; }
+  .dials { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--gap-lg); }
+  .dial { display: grid; gap: 6px; min-width: 0; }
+  .dial svg { display: block; overflow: visible; }
+  .ga td.dm { color: var(--dem); } .ga td.rm { color: var(--rep); }
+  @media (max-width: 560px) {
+    .ga { --fs-title: 26px; }
+    .row { grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr) 3.2rem; }
+    .row.hab { grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr); }
+    .row.nv { grid-template-columns: minmax(0, 5.5rem) minmax(0, 1fr); }
+    .card { padding: var(--pad-md); }
+  }
+  .cands3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-sm); }
+  .cand.i .pct { color: var(--y22); }
+  .cand.c { text-align: center; }
+  .split .si { background: var(--y22); }
+  .split.three .sr { border-radius: 0 4px 4px 0; }
+  .grp-sub { font-size: var(--fs-cap); color: var(--muted); }
+  .bar.b22 { background: var(--y22); }
+  .bar.bfin { background: var(--axis); }
+  [hidden]:not([hidden=until-found i]) { display: none !important; }
+  .ga td.wrapl { white-space: normal; min-width: 13rem; color: var(--muted); text-align: left; }
+  .stale { color: var(--rep); }
+  .card > div, #who-cards, #poll-tables { min-width: 0; }
+  #poll-tables { display: grid; gap: var(--gap-sm); }
+  #who-cards { display: grid; gap: var(--gap-lg); }
+  .pair .t span { pointer-events: none; }
+</style>
+
+<div id="dash-root">
+<div class="ga">
+  <div class="head">
+    <p class="snap-note">Early-vote figures from the Maine Secretary of State's absentee voter file of 23 October (2:57 p.m.), as tallied by Call the Map, covering absentee voting from Monday 5 October through Thursday 22 October, statewide and by congressional district. Absentee ballots received and accepted by town and city clerks, whether cast in person at the clerk's office or returned by mail or drop box. Maine has no separate early voting: any voter may vote absentee, no excuse needed, through Thursday 29 October, and mailed ballots count if they reach the town by 8 p.m. on Election Day. Polls through 23 October. Page refreshed 26 October, 2:26 a.m. ET.</p>
+    <h1>Maine absentee vote: who is turning out</h1>
+    <p class="take">Mainers have cast <b>174,765</b> ballots so far, <b>40% more</b> than on the same day of voting in 2022 and <b>26%</b> of 2022's entire vote. Registered Democrats minus Republicans: <b>D+29.3</b> of ballots, against D+29.9 at this stage in 2022. Combining the polls with the early vote, the U.S. Senate race leans slightly toward <b>Jackson</b> and the governor's race strongly favors <b>Pingree</b>.</p>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><span class="k">Ballots cast so far</span><span class="v y26">174,765</span><span class="s">89,653 in person · 85,112 by mail</span></div>
+    <div class="tile"><span class="k">Against 2022, same point</span><span class="v">+40.0%</span><span class="s">Call the Map: same day of voting in 2022 (day 18)</span></div>
+    <div class="tile"><span class="k">Share of 2022's total vote</span><span class="v">25.7%</span><span class="s">of about 680,909 ballots</span></div>
+    <div class="tile" id="tile4"><span class="k">Party gap in ballots</span><span class="v">D +29.3</span><span class="s">vs D+29.9 at this point in 2022</span></div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Tracker sections">
+    <button role="tab" id="tab-projection" aria-controls="projection" aria-selected="true" data-page="projection">Projection</button>
+    <button role="tab" id="tab-counties" aria-controls="counties" aria-selected="false" data-page="counties" tabindex="-1">Counties</button>
+    <button role="tab" id="tab-days" aria-controls="days" aria-selected="false" data-page="days" tabindex="-1">Day by day</button>
+    <button role="tab" id="tab-who" aria-controls="who" aria-selected="false" data-page="who" tabindex="-1">Who's voting</button>
+    <button role="tab" id="tab-districts" aria-controls="districts" aria-selected="false" data-page="districts" tabindex="-1">Districts</button>
+    <button role="tab" id="tab-map" aria-controls="map" aria-selected="false" data-page="map" tabindex="-1">Map</button>
+  </div>
+
+  <!-- PROJECTION -->
+  <section class="page" id="projection" role="tabpanel" aria-labelledby="tab-projection">
+    <div class="card">
+      <h2>Where the races stand<span id="stand-sub"></span></h2>
+      <p class="note" id="stand-note"></p>
+      <div class="proj-grid" id="proj-grid"></div>
+    </div>
+    <div class="card" id="ev-card">
+      <h2 id="ev-title">Three readings of the early vote</h2>
+      <p class="note" id="ev-note"></p>
+      <div class="tablewrap" id="scen-wrap"><table id="scen-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card" id="dial-card" hidden>
+      <h2>How each race moves with the electorate</h2>
+      <p class="note" id="dial-note"></p>
+      <div class="legend"><span><i class="dot" style="background:var(--fg)"></i>Reading of the early vote</span><span><i class="line" style="border-top:1.5px dashed var(--ref);height:0"></i>Full difference so far</span></div>
+      <div class="dials" id="dials"></div>
+    </div>
+    <div class="card" id="groups-card" hidden>
+      <h2>How each group is voting</h2>
+      <p class="note" id="groups-note"></p>
+      <div class="tablewrap"><table id="groups-table"><thead></thead><tbody></tbody></table></div>
+      <p class="note" id="groups-note2"></p>
+    </div>
+    <div class="card" id="lens-card" hidden>
+      <h2>Lenses on the ballots already cast</h2>
+      <p class="note" id="lens-note"></p>
+      <div class="tablewrap"><table id="lens-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>The polls</h2>
+      <p class="note" id="polls-note"></p>
+      <div id="poll-tables"></div>
+    </div>
+    <div class="card">
+      <h2>How this projection works</h2>
+      <ul class="notes" id="method"></ul>
+    </div>
+  </section>
+
+  <!-- COUNTIES -->
+  <section class="page" id="counties" role="tabpanel" aria-labelledby="tab-counties" hidden>
+    <div class="card">
+      <h2 id="bands-title">Turnout so far, by how each county voted in 2024</h2>
+      <p class="note" id="bands-note"></p>
+      <div class="legend"><span><i style="background:var(--y26)"></i>Share of 2022's vote already cast</span><span><i class="line" style="border-top:1.5px dashed var(--ref);height:0"></i>Statewide</span><span><i class="dot" style="background:var(--dem)"></i>Harris won</span><span><i class="dot" style="background:var(--rep)"></i>Trump won</span></div>
+      <div class="rel"><div class="rows" id="bands" role="img" aria-label="Share of 2022 vote cast so far, by 2024 result"></div></div>
+      <div class="tablewrap"><table id="bands-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>The numbers</h2>
+      <p class="note" id="ctable-note"></p>
+      <div class="controls"><label for="county-q" id="county-q-label">Find a county</label><input id="county-q" type="search" autocomplete="off"><span id="county-count"></span></div>
+      <div class="tablewrap"><table id="ctable"><thead><tr></tr></thead><tbody></tbody></table></div>
+      <button class="btn" id="county-more" type="button"></button>
+    </div>
+    <div class="card">
+      <h2 id="size-title">By county size</h2>
+      <p class="note" id="size-note"></p>
+      <div class="tablewrap"><table id="size-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- DAY BY DAY -->
+  <section class="page" id="days" role="tabpanel" aria-labelledby="tab-days" hidden>
+    <div class="card">
+      <h2>Ballots cast so far</h2>
+      <p class="note" id="days-note"></p>
+      <div class="legend"><span><i class="line" style="background:var(--y26)"></i>2026, all ballots</span><span id="leg22"><i class="dot" style="background:var(--y22)"></i>Same point in an earlier year</span></div>
+      <div class="rel" id="cp-chart" role="img" aria-label="Cumulative ballots cast at each reported checkpoint"></div>
+    </div>
+    <div class="card" id="pace-card" hidden>
+      <h2>Pace against 2022, day by day</h2>
+      <p class="note" id="pace-note"></p>
+      <div class="legend"><span><i class="line" style="background:var(--y26)"></i>2026</span><span><i class="line" style="background:var(--y22)"></i>2022, same day of early voting</span></div>
+      <div class="rel" id="pace-chart" role="img" aria-label="Cumulative in-person early votes as a share of registered voters, by day of early voting, 2026 against 2022"></div>
+    </div>
+    <div class="card">
+      <h2>The checkpoints</h2>
+      <div class="tablewrap"><table id="cp-table"><thead><tr><th>When</th><th>In person</th><th>Mail</th><th>All ballots</th><th id="cp-cmp-h">Earlier year, same point</th><th>Change</th><th class="l">Source</th></tr></thead><tbody></tbody></table></div>
+      <p class="note" id="cp-note"></p>
+    </div>
+  </section>
+
+  <!-- WHO -->
+  <section class="page" id="who" role="tabpanel" aria-labelledby="tab-who" hidden>
+    <div id="who-cards"></div>
+  </section>
+
+  <!-- DISTRICTS -->
+  <section class="page" id="districts" role="tabpanel" aria-labelledby="tab-districts" hidden>
+    <div class="card">
+      <h2 id="dist-title">Congressional districts</h2>
+      <p class="note" id="dist-note"></p>
+      <div class="rel"><div class="rows" id="cd-bars" role="img" aria-label="Ballots by district"></div></div>
+      <div class="tablewrap"><table id="cd-table"><thead><tr></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="page" id="map" role="tabpanel" aria-labelledby="tab-map" hidden>
+    <div class="card">
+      <div class="cardhead"><h2 id="map-title"></h2>
+        <div class="seg" role="group" aria-label="Map measure" id="map-seg"></div>
+      </div>
+      <div class="legend" id="map-legend"></div>
+      <div class="mapwrap" id="mapwrap"></div>
+      <p class="note" id="map-note"></p>
+    </div>
+    <div class="card">
+      <h2>Reading the map</h2>
+      <ul class="notes" id="map-read"></ul>
+    </div>
+  </section>
+
+  <div class="card">
+    <h2>How to read this</h2>
+    <ul class="notes" id="read-notes"></ul>
+    <h3>Sources</h3>
+    <ol class="sources" id="sources"></ol>
+  </div>
+</div>
+</div>
+
+<script>
+const D = {"st":{"name":"Maine","abbr":"ME","unit":"county","units":"counties","unit_suffix":" County","ev_start":"2026-10-05","ev_end":"2026-11-02","count_start":"2026-10-05","base22":"2022 governor's race vote","pres24":"Statewide: Harris won by 6.9 points (52.4% to 45.5%); she carried the 1st District by 21.6 points and Trump the 2nd by 9.0. Maine splits its electoral votes by district.","dist_label":"Congressional districts","dist_note":"District counts come from the whole latest Secretary of State file, which includes part of the day it was posted, so together they can be larger than the headline count of complete days. Democrats lead the ballots by registration in both districts, by far more in the 1st (on 23 October: D+35.6 in the 1st, D+19.0 in the 2nd, per Call the Map). The 2nd District is the competitive one: an open seat (Jared Golden is retiring) between Matthew Dunlap (D) and Paul LePage (R), rated Lean Republican.","who_note":"","counties_note":"","map_note":"","days_note":"Cumulative absentee ballots by the date clerks received them, from the Secretary of State's latest file as tallied by Call the Map. Maine's file is replaced rather than archived, so each daily point is the count recorded for that date in the file current when it was added, not a figure published on that day. Points at an exact time are the whole file, including the part of the day it was posted.","cp_note":"No 2022 count for the same day is published, only Call the Map's ratio (+40% at day 18) and AP's (+39% through 20 October), so there are no purple 2022 marks. Ballots entered late by clerks can still be credited to earlier dates in a newer file.","notes_read":["Every early vote in Maine is an absentee ballot, cast in person at the town or city clerk's office or returned by mail or drop box. The counts are ballots received and accepted by clerks; rejected ballots and ballots awaiting a cure are not included.","The Secretary of State publishes one statewide absentee voter file (one row per voter) and replaces it periodically; it has no summary table. The counts on this page are Call the Map's tally of that file. The headline uses ballots received through the last full day in the latest file, so that it lines up with 2022; the file also holds ballots from part of the day it was posted (the file of 23 October held 179,533 in all: 92,497 in person, 87,036 by mail).","Party is the voter's enrollment, not their vote: Democratic, Republican, Unenrolled, Green Independent or Libertarian. Call the Map groups unenrolled voters with the minor parties. Through 22 October (day 18 of voting): Democrats 88,182, Republicans 36,939, unenrolled and minor parties 49,644 (D+29.3), against D+29.9 on the same day of voting in 2022 (Democrats 65,477, Republicans 28,233 then). The 2022 shares shown are computed from Call the Map's 2022 same-day counts and its published gap.","Absentee data are kept by town, not county, and no source publishes town or county totals, so there is no county map. The file does record each voter's congressional district, so the Districts tab shows both districts.","Through day 18 of voting (22 October) ballots were running about 40% ahead of 2022 at the same day (Call the Map); AP found +39% through 20 October. Since 31 December 2025 any voter can ask to receive an absentee ballot for every election.","The Senate race: Graham Platner won the 9 June Democratic primary but withdrew on 10 July after sexual-assault allegations; a party convention on 25 July nominated former state Senate President Troy Jackson. Only Collins and Jackson are on the ballot. Cook, Sabato's Crystal Ball and Inside Elections all rate it a Toss-up.","The governor's race: Hannah Pingree (D) and Bobby Charles (R) won ranked-choice primaries on 9 June; independent state Sen. Rick Bennett polls 5-11%, so the page treats the race as three-way. Cook and Inside Elections rate it Solid Democratic, Sabato Likely Democratic."],"sources":["<a href=\"https://www.maine.gov/sos/cec/elec/data/index.html\" target=\"_blank\" rel=\"noopener\">Maine Secretary of State, election data<\/a> (<a href=\"https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/11-3-26%20AB%20Voter%20File%20as%20of%2010-23-26.txt\" target=\"_blank\" rel=\"noopener\">absentee voter file of 23 October<\/a>, <a href=\"https://www.maine.gov/sos/elections-voting/absenteelayout\" target=\"_blank\" rel=\"noopener\">file layout<\/a>, <a href=\"https://www.maine.gov/sos/news/maine-voters-can-request-absentee-ballots-nov-3-election-starting-today-ballots-will-be-mailed\" target=\"_blank\" rel=\"noopener\">absentee dates<\/a>).","<a href=\"https://www.callthemap.com/early-vote/maine\" target=\"_blank\" rel=\"noopener\">Call the Map<\/a> (tally of the state file, daily series, district totals and 2022 comparisons; <a href=\"https://www.callthemap.com/early-vote/data/ME.json\" target=\"_blank\" rel=\"noopener\">data file<\/a>); <a href=\"https://www.wdbo.com/news/politics/many-states-deciding/CXHPAIJBBM7HRPINUMMH6BURQU/\" target=\"_blank\" rel=\"noopener\">AP<\/a> on the 2022 comparison; 2022 total ballots from the <a href=\"https://election.lab.ufl.edu/data-downloads/turnoutdata/Turnout_2022G_v1.2.csv\" target=\"_blank\" rel=\"noopener\">UF Election Lab<\/a>.","Polls: each poll links to its release or the news report used; <a href=\"https://www.realclearpolling.com/polls/senate/general/2026/maine/collins-vs-jackson\" target=\"_blank\" rel=\"noopener\">RealClearPolitics<\/a>, <a href=\"https://www.270towin.com/2026-senate-polls/maine\" target=\"_blank\" rel=\"noopener\">270toWin (Senate)<\/a>, <a href=\"https://www.270towin.com/2026-governor-polls/maine\" target=\"_blank\" rel=\"noopener\">270toWin (governor)<\/a>, <a href=\"https://ballotpedia.org/United_States_Senate_election_in_Maine,_2026\" target=\"_blank\" rel=\"noopener\">Ballotpedia<\/a> and <a href=\"https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_Maine\" target=\"_blank\" rel=\"noopener\">Wikipedia<\/a> poll lists, candidates and ratings.","Voting by group: <a href=\"https://abcnews.com/Elections/maine-exit-polls-2020-us-senate-election-results-analysis\" target=\"_blank\" rel=\"noopener\">2020 Senate exit poll (ABC News)<\/a>; no 2022 or 2024 Maine exit poll was found.","Pollster quality: <a href=\"https://github.com/fivethirtyeight/data/tree/master/pollster-ratings\" target=\"_blank\" rel=\"noopener\">538 pollster ratings<\/a> (last published ratings; leans computed for this page)."],"method_extra":[],"no_signal_note":"","election_rule":"U.S. Senate (and House) general elections use ranked-choice voting: if no candidate wins a majority of first choices, last-place candidates are eliminated and their ballots transfer. Only Collins and Jackson are on the Senate ballot, so that is unlikely to matter. The governor's race is not ranked-choice: the most votes wins, with no runoff. The page projects first-round margins from the polls.","other_views":"As of 25 October, RealClearPolitics' Senate average was Jackson +1.4 (polls from 23 September to 23 October) and 270toWin's was Jackson +2.4; Cook, Sabato's Crystal Ball and Inside Elections all rate the Senate race a Toss-up. For governor, 270toWin's three-way average was Pingree 50.2, Charles 38.4, Bennett 8.0; Cook and Inside Elections rate it Solid Democratic and Sabato Likely Democratic.","excluded":"Rasmussen Reports (polled Maine 8-10 Sep and 5-8 Oct 2026), Wedgewood Polls and ActiVote. Also left out because fieldwork ended before 14 September: YouGov (2-8 Sep), CNN/SSRS (31 Aug-6 Sep) and Fox News (6-10 Aug). Superseded by the same pollster's later poll: Trafalgar 29 Sep-1 Oct (46-46) and InsiderAdvantage 22-23 Sep (46-46)","window_start":"2026-09-14","half_life":28.0,"prior":2.0,"sd":5.0,"checked":"2026-10-25"},"races":[{"key":"sen","office":"U.S. Senate","seat_note":"Susan Collins (R) seeks a sixth term; Troy Jackson replaced Graham Platner, who withdrew in July, as the Democratic nominee","D":{"name":"Troy Jackson","short":"Jackson"},"R":{"name":"Susan Collins","short":"Collins"},"I":null},{"key":"gov","office":"Governor","seat_note":"open seat (Janet Mills term-limited); independent Rick Bennett polls 5-11%","D":{"name":"Hannah Pingree","short":"Pingree"},"R":{"name":"Bobby Charles","short":"Charles"},"I":{"name":"Rick Bennett","short":"Bennett","party_short":"I","pronoun":"him"}}],"total":174765,"ip":89653,"mail":85112,"same":null,"tot22":680909,"reg":null,"vs":40,"of22":25.6664253226202,"counties":[],"has":{"reg":false,"ip":false,"mail":false,"party":false,"map":false,"districts":true},"county_sum":null,"districts":[{"n":"ME-1","v":109063,"e":null,"m":null,"rv":null,"pd":null,"pr":null,"po":null},{"n":"ME-2","v":70470,"e":null,"m":null,"rv":null,"pd":null,"pr":null,"po":null}],"groups":{"party":{"label":"Registered party","rows":{"Democratic":88182,"Republican":36939,"Unenrolled and minor parties":49644},"same_point_2022":{"Democratic":52.62,"Republican":22.69},"final_2022":null,"same_label":"2022, same day of voting (27 Oct 2022)","final_label":"2022's whole absentee vote","src":"https://www.callthemap.com/early-vote/data/ME.json","note":"Registered party (enrollment) of the voters whose ballots have been accepted, through 22 October; not their votes. Call the Map does not split unenrolled voters from Green Independents and Libertarians. 2022 shares are computed from Call the Map's 2022 same-day counts (Democrats 65,477, Republicans 28,233) and its published gap (D+29.93); the 2022 unenrolled count is not published. All 2022 absentee ballots ended at D+25.3."}},"cps":[{"t":"2026-10-10T19:00","when":"Sat 10 Oct (end of first week)","ip":27422,"mail":21269,"all":48691,"c22":null,"c22k":null,"src":"Call the Map daily series (Maine SOS absentee file of 23 Oct, by date received)","href":"https://www.callthemap.com/early-vote/data/ME.json","tNote":"cumulative ballots received by the end of that date, as recorded in the 23 Oct file; not a count published on that day; plotted at 7 p.m., the kit's convention for a day's close"},{"t":"2026-10-12T19:00","when":"Mon 12 Oct (holiday)","ip":27478,"mail":23014,"all":50492,"c22":null,"c22k":null,"src":"Call the Map daily series (Maine SOS absentee file of 23 Oct)","href":"https://www.callthemap.com/early-vote/data/ME.json","tNote":"cumulative by date received; plotted at 7 p.m., the kit's convention for a day's close"},{"t":"2026-10-16T19:00","when":"Fri 16 Oct (end of second week)","ip":54144,"mail":52715,"all":106859,"c22":null,"c22k":null,"src":"Call the Map daily series (Maine SOS absentee file of 23 Oct)","href":"https://www.callthemap.com/early-vote/data/ME.json","tNote":"cumulative by date received; plotted at 7 p.m., the kit's convention for a day's close"},{"t":"2026-10-19T19:00","when":"Mon 19 Oct","ip":63568,"mail":64672,"all":128240,"c22":null,"c22k":null,"src":"Call the Map daily series (Maine SOS absentee file of 23 Oct)","href":"https://www.callthemap.com/early-vote/data/ME.json","tNote":"cumulative by date received; plotted at 7 p.m., the kit's convention for a day's close"},{"t":"2026-10-20T19:00","when":"Tue 20 Oct","ip":72451,"mail":71858,"all":144309,"c22":null,"c22k":"AP: +39% vs two weeks before the 2022 election (data through Tue 20 Oct); the 2022 count is not given","src":"Call the Map daily series (Maine SOS absentee file of 23 Oct); AP via WDBO for the 2022 comparison","href":"https://www.callthemap.com/early-vote/data/ME.json","href2":"https://www.wdbo.com/news/politics/many-states-deciding/CXHPAIJBBM7HRPINUMMH6BURQU/","tNote":"cumulative by date received; plotted at 7 p.m., the kit's convention for a day's close"},{"t":"2026-10-21T19:00","when":"Wed 21 Oct","ip":80929,"mail":78370,"all":159299,"c22":null,"c22k":null,"src":"Call the Map daily series (Maine SOS absentee file of 23 Oct)","href":"https://www.callthemap.com/early-vote/data/ME.json","tNote":"cumulative by date received; plotted at 7 p.m., the kit's convention for a day's close"},{"t":"2026-10-22T19:00","when":"Thu 22 Oct (day 18)","ip":89653,"mail":85112,"all":174765,"c22":null,"c22k":"Call the Map: +40% vs the same day of voting in 2022 (ratio 1.4045); the 2022 count is not published","src":"Call the Map (Maine SOS absentee file of 23 Oct)","href":"https://www.callthemap.com/early-vote/data/ME.json","tNote":"last complete day in the 23 Oct file; plotted at 7 p.m., the kit's convention for a day's close"},{"t":"2026-10-23T14:57","when":"Fri 23 Oct, 2:57 p.m. (latest SOS file)","ip":92497,"mail":87036,"all":179533,"c22":null,"c22k":null,"src":"Maine Secretary of State absentee voter file 'as of 10-23-26', tallied by Call the Map","href":"https://www.maine.gov/sos/sites/maine.gov.sos/files/inline-files/11-3-26%20AB%20Voter%20File%20as%20of%2010-23-26.txt","tNote":"file timestamp 18:57 UTC; includes ballots entered on 23 Oct up to then"}],"proj":{"sen":{"key":"sen","office":"U.S. Senate","polls":[{"p":"Trafalgar Group","d":"21–23 Oct","end":"2026-10-23","n":null,"pop":null,"D":47.0,"R":47.0,"src":"https://www.realclearpolling.com/polls/senate/general/2026/maine/collins-vs-jackson","note":"toplines from RealClearPolitics; no release found on Trafalgar's site by 25 Oct, and RCP's sample size and voter population could not be read","m":0.0,"tp":50.0,"err":-2.52,"grade":0.7,"aligned":"R","why":"538 counts all of its work as partisan (partisan_work 1.0)","lean":-3.28,"lean_src":"538 record (150 polls)","age":3,"w":0.10831623998621133,"m2":0.0,"adj":3.28,"share":1.9672009723777824},{"p":"Fox News","d":"16–20 Oct","end":"2026-10-20","n":1514,"pop":"LV","D":49.0,"R":49.0,"src":"https://static.foxnews.com/foxnews.com/content/uploads/2026/10/fox_october-16-20-2026_maine_topline_october-22-release.pdf","note":"with leaners (undecideds asked which way they lean; no other topline published); Beacon Research (D) and Shaw & Co. (R); other 1, undecided 1; RV 50-48","m":0.0,"tp":50.0,"err":1.59,"grade":2.8,"aligned":null,"why":"Media poll run by a bipartisan team (Beacon D, Shaw R); 538 partisan_work 0.0","lean":0.0,"lean_src":"538 record (84 polls)","age":6,"w":0.8045079664971791,"m2":0.0,"adj":0.0,"share":14.61118715144093},{"p":"InsiderAdvantage","d":"13–14 Oct","end":"2026-10-14","n":1200,"pop":"LV","D":49.0,"R":47.0,"src":"https://insideradvantage.com/insideradvantage-senate-surveys-texas-paxton-49-talarico-48-kansas-marshall-48-hamilton-47-maine-jackson-49-collins-47/","note":"others and undecided not reported; release says 1,200 LV for each state polled","m":2.0,"tp":51.041666666666664,"err":-0.68,"grade":2.0,"aligned":null,"why":"538 partisan_work 0.0; no sponsor named on the Maine release, and it is not in Maine's Wikipedia poll tables (some other states' tables mark it (R); see notes.md)","lean":-1.18,"lean_src":"538 record (80 polls)","age":12,"w":0.49533142971231614,"m2":2.0833333333333286,"adj":3.2633333333333283,"share":8.996033007639378},{"p":"Suffolk University","d":"8–11 Oct","end":"2026-10-11","n":500,"pop":"LV","D":49.0,"R":47.0,"src":"https://www.suffolk.edu/-/media/suffolk/documents/academics/research-at-suffolk/suprc/polls/other-states/2026/10_14_2026_maine_statewide_marginals.pdf?la=en&hash=7FCED62D765CBEF2DB2EFD7ADF0213034C981FE0","note":"4% undecided or refused (undecided 3.8, refused 0.2)","m":2.0,"tp":51.041666666666664,"err":1.47,"grade":2.9,"aligned":null,"why":"Nonpartisan university pollster","lean":0.1,"lean_src":"538 record (75 polls)","age":15,"w":0.6668231581669457,"m2":2.0833333333333286,"adj":1.9833333333333285,"share":12.110604700800438},{"p":"Wash. Post-Schar School","d":"30 Sep–5 Oct","end":"2026-10-05","n":800,"pop":"LV","D":50.0,"R":46.0,"src":"https://www.newsweek.com/what-maine-senate-race-polls-show-as-obama-gives-jackson-late-boost-12547315","note":"Braun Research for the Post and GMU; Washington Post/George Mason University Schar School (Ballotpedia); toplines, dates and sample from Newsweek; the Post's own pages are blocked to WebFetch","m":4.0,"tp":52.083333333333336,"err":0.51,"grade":2.7,"aligned":null,"why":"Nonpartisan media and university poll","lean":0.96,"lean_src":"538 record (11 polls)","age":21,"w":0.5351432017512244,"m2":4.166666666666671,"adj":3.2066666666666714,"share":9.719080231924424},{"p":"Marist","d":"1–4 Oct","end":"2026-10-04","n":1505,"pop":"RV","D":51.0,"R":47.0,"src":"https://maristpoll.marist.edu/polls/midterm-elections-in-maine-october-2026/","note":"registered voters only (no likely-voter results published); another party 1, undecided 1","m":4.0,"tp":52.04081632653062,"err":2.49,"grade":2.9,"aligned":null,"why":"Nonpartisan university pollster","lean":1.0,"lean_src":"538 record (96 polls)","age":22,"w":0.5607292033107453,"m2":4.081632653061234,"adj":3.0816326530612344,"share":10.183764079457871},{"p":"CBS News/YouGov","d":"23 Sep–1 Oct","end":"2026-10-01","n":1136,"pop":"LV","D":50.0,"R":50.0,"src":"https://assets1.cbsnewsstatic.com/hub/cms/prod_cms_alt/file/2026/10/02/3eea12d2-f488-4cf2-bc3b-ac5adff5db7e/cbsnews_20261002_maine.pdf","note":"with leaners (forced choice: someone else 0, not sure 0); n is the weighted LV base for the question; 1,144 RV interviewed","m":0.0,"tp":50.0,"err":2.89,"grade":3.0,"aligned":null,"why":"Nonpartisan media poll fielded by YouGov","lean":0.03,"lean_src":"538 record (278 polls)","age":25,"w":0.5385465128844867,"m2":0.0,"adj":-0.03,"share":9.780889956592766},{"p":"co/efficient","d":"28–30 Sep","end":"2026-09-30","n":1240,"pop":"LV","D":46.0,"R":48.0,"src":"https://battlegrounds.coefficient.org/me/","note":"undecided 6; release says 'Independent public polling. Not sponsored by any candidate committee, party committee or other independent expenditure'","m":-2.0,"tp":48.93617021276596,"err":-1.96,"grade":1.1,"aligned":null,"why":"538 partisan_work 0.2; release says it was not sponsored by any candidate, party or outside group (Wikipedia's ME-2 House table marks an April co/efficient poll (R); see notes.md)","lean":-1.56,"lean_src":"538 record (21 polls)","age":26,"w":0.19263871708642358,"m2":-2.1276595744680833,"adj":-0.5676595744680832,"share":3.4986357689139},{"p":"Maine People's Resource Center","d":"25–29 Sep","end":"2026-09-29","n":684,"pop":"RV","D":49.3,"R":46.5,"src":"https://ballotpedia.org/United_States_Senate_election_in_Maine,_2026","note":"toplines from Ballotpedia (released 30 Sep), sample also from Ballotpedia; field dates from RealClearPolitics; 270toWin rounds to 49-47. The original PDF is on Google Drive, which WebFetch cannot read: https://drive.google.com/file/d/1nVC9doKmSak5hQ8ajaaKftWiXSEZf-Us/view","m":2.799999999999997,"tp":51.46137787056367,"err":0.72,"grade":1.9,"aligned":"D","why":"Marked (D) in Wikipedia's 2026 Maine Senate poll tables; research arm of the progressive Maine People's Alliance (538 partisan_work 0.0)","lean":-0.64,"lean_src":"538 record (12 polls)","age":27,"w":0.16230183356126346,"m2":2.9227557411273466,"adj":3.5627557411273467,"share":2.947668095209535},{"p":"AARP (Fabrizio Ward/Impact Research)","d":"20–22 Sep","end":"2026-09-22","n":982,"pop":"LV","D":50.0,"R":47.0,"src":"https://politicalwire.com/2026/10/01/troy-jackson-had-edge-in-maine-senate-race/","note":"toplines from Political Wire; field dates and sample from the Bangor Daily News (https://www.bangordailynews.com/2026/10/01/news/maine-election-governor-2026-hannah-pingree-bobby-charles-aarp-poll/); pollster pair from Ballotpedia; AARP's own PDF is blocked to WebFetch","m":3.0,"tp":51.546391752577314,"err":-0.5,"grade":1.7,"aligned":null,"why":"Bipartisan R/D pollster pair for AARP, a nonpartisan sponsor; 538 rates the pairing with partisan_work 0.0 (as in the NC file)","lean":0.1,"lean_src":"538 record (14 polls)","age":34,"w":0.2442256326866437,"m2":3.092783505154628,"adj":2.992783505154628,"share":4.4355389566874255},{"p":"NYT/Siena","d":"15–22 Sep","end":"2026-09-22","n":619,"pop":"LV","D":46.0,"R":49.0,"src":"https://www.pressherald.com/2026/09/24/susan-collins-polling-maine-senate-race/","note":"Times/Press Herald/Siena; undecided 5. The Press Herald article says '619 registered voters'; Newsweek, the Boston Globe, Ballotpedia and 270toWin describe the sample as likely voters","m":-3.0,"tp":48.421052631578945,"err":1.13,"grade":3.0,"aligned":null,"why":"Nonpartisan media and university poll (with the Portland Press Herald)","lean":0.13,"lean_src":"538 record (189 polls)","age":34,"w":0.4309864106234889,"m2":-3.1578947368421098,"adj":-3.2878947368421096,"share":7.827421688271928},{"p":"University of New Hampshire","d":"17–21 Sep","end":"2026-09-21","n":1312,"pop":"LV","D":51.0,"R":47.0,"src":"https://newsweek.com/susan-collins-troy-jackson-maine-senate-race-poll-12482806","note":"UNH Pine Tree State Poll; the UNH PDF (scholars.unh.edu) returns an error to WebFetch","m":4.0,"tp":52.04081632653062,"err":3.43,"grade":2.6,"aligned":null,"why":"Nonpartisan university pollster","lean":0.82,"lean_src":"538 record (70 polls)","age":35,"w":0.36438844660994296,"m2":4.081632653061234,"adj":3.2616326530612345,"share":6.617893185597666},{"p":"Quantus Insights","d":"14–15 Sep","end":"2026-09-15","n":621,"pop":"LV","D":46.4,"R":47.1,"src":"https://newsweek.com/susan-collins-troy-jackson-maine-senate-race-poll-12482806","note":"toplines from Newsweek; 644 LV interviewed, and the Senate base of 621 excludes 23 who said they would not vote in the race. Quantus's own page did not render for WebFetch","m":-0.7000000000000028,"tp":49.62566844919786,"err":0.0,"grade":null,"aligned":"R","why":"Marked (R) in Wikipedia's 2026 Maine Senate poll tables; no 538 rating","lean":-2.0,"lean_src":"no record: average for aligned pollsters","age":41,"w":0.06040248795272621,"m2":-0.7486631016042793,"adj":1.2513368983957207,"share":1.0970084730578402},{"p":"UMass Lowell/YouGov","d":"28 Aug–14 Sep","end":"2026-09-14","n":650,"pop":"LV","D":48.0,"R":43.0,"src":"https://www.uml.edu/docs/2026-Sept-Maine-Topline_tcm18-422748.pdf","note":"undecided 6; another candidate 1, would not vote 1; 751 RV interviewed by YouGov and matched to 650 LV","m":5.0,"tp":52.74725274725275,"err":1.49,"grade":2.9,"aligned":null,"why":"Nonpartisan university poll, fielded by YouGov","lean":-0.32,"lean_src":"538 record (29 polls)","age":42,"w":0.341768277573498,"m2":5.494505494505503,"adj":5.814505494505504,"share":6.207073732028109}],"M":1.7718746799088119,"plainM":1.5694589976663431,"altM":0.541205008556098,"nonpart":93.98812245935484,"I":null,"avg_D":48.69285714285714,"avg_R":47.18571428571429,"avg_I":null,"raw":1.5071428571428567,"n":14,"slope":0.84,"scen":[{"name":"Polls alone","k":0.0,"m":1.7718746799088119,"x":29.929999999999996,"edge":-0.0,"D":50.8859373399544,"R":49.1140626600456,"pD":0.6384710422097646,"pR":0.3615289577902354},{"name":"Midpoint","k":0.5,"m":1.5161317737205051,"x":29.62554415929963,"edge":-0.30445584070036524,"D":50.75806588686025,"R":49.24193411313975,"pD":0.6191413171348247,"pR":0.3808586828651753},{"name":"Hold","k":1.0,"m":1.2603888675321984,"x":29.321088318599266,"edge":-0.6089116814007305,"D":50.6301944337661,"R":49.3698055662339,"pD":0.5995095252473983,"pR":0.4004904747526017}],"head":{"name":"Midpoint","k":0.5,"m":1.5161317737205051,"x":29.62554415929963,"edge":-0.30445584070036524,"D":50.75806588686025,"R":49.24193411313975,"pD":0.6191413171348247,"pR":0.3808586828651753}},"gov":{"key":"gov","office":"Governor","polls":[{"p":"Fox News","d":"16–20 Oct","end":"2026-10-20","n":1514,"pop":"LV","D":49.0,"R":39.0,"I":9.0,"src":"https://static.foxnews.com/foxnews.com/content/uploads/2026/10/fox_october-16-20-2026_maine_topline_october-22-release.pdf","note":"with leaners; I = Rick Bennett; undecided 2; RV identical (49-39-9)","m":10.0,"tp":55.68181818181818,"err":1.59,"grade":2.8,"aligned":null,"why":"Media poll run by a bipartisan team (Beacon D, Shaw R); 538 partisan_work 0.0","lean":0.0,"lean_src":"538 record (84 polls)","age":6,"w":0.8045079664971791,"m2":11.36363636363636,"adj":11.36363636363636,"share":17.377554580849345},{"p":"Suffolk University","d":"8–11 Oct","end":"2026-10-11","n":500,"pop":"LV","D":49.4,"R":38.0,"I":7.6,"src":"https://www.suffolk.edu/-/media/suffolk/documents/academics/research-at-suffolk/suprc/polls/other-states/2026/10_14_2026_maine_statewide_marginals.pdf?la=en&hash=7FCED62D765CBEF2DB2EFD7ADF0213034C981FE0","note":"5% undecided or refused (undecided 4.6, refused 0.4)","m":11.399999999999999,"tp":56.52173913043478,"err":1.47,"grade":2.9,"aligned":null,"why":"Nonpartisan university pollster","lean":0.1,"lean_src":"538 record (75 polls)","age":15,"w":0.6668231581669457,"m2":13.043478260869563,"adj":12.943478260869563,"share":14.403531486796114},{"p":"Wash. Post-Schar School","d":"30 Sep–5 Oct","end":"2026-10-05","n":800,"pop":"LV","D":49.0,"R":36.0,"I":11.0,"src":"https://ballotpedia.org/Maine_gubernatorial_election,_2026","note":"toplines from Ballotpedia (270toWin agrees); the Post's pages are blocked to WebFetch","m":13.0,"tp":57.647058823529406,"err":0.51,"grade":2.7,"aligned":null,"why":"Nonpartisan media and university poll","lean":0.96,"lean_src":"538 record (11 polls)","age":21,"w":0.5351432017512244,"m2":15.294117647058812,"adj":14.334117647058811,"share":11.559214556311023},{"p":"Marist","d":"1–4 Oct","end":"2026-10-04","n":1505,"pop":"RV","D":52.0,"R":40.0,"I":6.0,"src":"https://maristpoll.marist.edu/polls/midterm-elections-in-maine-october-2026/","note":"registered voters only (no likely-voter results published)","m":12.0,"tp":56.52173913043478,"err":2.49,"grade":2.9,"aligned":null,"why":"Nonpartisan university pollster","lean":1.0,"lean_src":"538 record (96 polls)","age":22,"w":0.5607292033107453,"m2":13.043478260869563,"adj":12.043478260869563,"share":12.111877994240857},{"p":"CBS News/YouGov","d":"23 Sep–1 Oct","end":"2026-10-01","n":1133,"pop":"LV","D":56.0,"R":44.0,"src":"https://assets1.cbsnewsstatic.com/hub/cms/prod_cms_alt/file/2026/10/02/3eea12d2-f488-4cf2-bc3b-ac5adff5db7e/cbsnews_20261002_maine.pdf","note":"no Bennett option (head-to-head question); with leaners (forced choice); n is the weighted LV base for the question","m":12.0,"tp":56.00000000000001,"err":2.89,"grade":3.0,"aligned":null,"why":"Nonpartisan media poll fielded by YouGov","lean":0.03,"lean_src":"538 record (278 polls)","age":25,"w":0.5385465128844867,"m2":12.000000000000014,"adj":11.970000000000015,"share":11.632726848838566},{"p":"co/efficient","d":"28–30 Sep","end":"2026-09-30","n":1240,"pop":"LV","D":47.0,"R":38.0,"I":6.0,"src":"https://battlegrounds.coefficient.org/me/","note":"undecided 9","m":9.0,"tp":55.294117647058826,"err":-1.96,"grade":1.1,"aligned":null,"why":"538 partisan_work 0.2; release says it was not sponsored by any candidate, party or outside group (Wikipedia's ME-2 House table marks an April co/efficient poll (R); see notes.md)","lean":-1.56,"lean_src":"538 record (21 polls)","age":26,"w":0.19263871708642358,"m2":10.588235294117652,"adj":12.148235294117653,"share":4.1610399896094235},{"p":"AARP (Fabrizio Ward/Impact Research)","d":"20–22 Sep","end":"2026-09-22","n":982,"pop":"LV","D":52.0,"R":39.0,"I":6.0,"src":"https://www.bangordailynews.com/2026/10/01/news/maine-election-governor-2026-hannah-pingree-bobby-charles-aarp-poll/","note":"undecided 3","m":13.0,"tp":57.14285714285714,"err":-0.5,"grade":1.7,"aligned":null,"why":"Bipartisan R/D pollster pair for AARP, a nonpartisan sponsor; 538 rates the pairing with partisan_work 0.0 (as in the NC file)","lean":0.1,"lean_src":"538 record (14 polls)","age":34,"w":0.2442256326866437,"m2":14.285714285714278,"adj":14.185714285714278,"share":5.275329069186409},{"p":"University of New Hampshire","d":"17–21 Sep","end":"2026-09-21","n":1312,"pop":"LV","D":48.0,"R":40.0,"I":5.0,"src":"https://www.270towin.com/2026-governor-polls/maine","note":"toplines from 270toWin; the UNH PDF (https://scholars.unh.edu/cgi/viewcontent.cgi?article=2006&context=survey_center_polls) returns an error to WebFetch, and UNH's abstract says only that Pingree leads","m":8.0,"tp":54.54545454545454,"err":3.43,"grade":2.6,"aligned":null,"why":"Nonpartisan university pollster","lean":0.82,"lean_src":"538 record (70 polls)","age":35,"w":0.36438844660994296,"m2":9.09090909090908,"adj":8.270909090909079,"share":7.870873109144524},{"p":"NYT/Siena","d":"15–17 Sep","end":"2026-09-17","n":309,"pop":"LV","D":48.0,"R":36.0,"I":8.0,"src":"https://www.pressherald.com/2026/09/25/hannah-pingree-continues-to-hold-a-big-lead-in-new-poll-of-maine-governors-race/","note":"Press Herald figures; it reports '309 likely Maine voters' polled Sept. 15-17, margin of error 2.9, don't know/refused 8. 270toWin instead lists 47-34-8 with 619 LV; the co-sponsor's article is used","m":12.0,"tp":57.14285714285714,"err":1.13,"grade":3.0,"aligned":null,"why":"Nonpartisan media and university poll (with the Portland Press Herald)","lean":0.13,"lean_src":"538 record (189 polls)","age":39,"w":0.38080989124498904,"m2":14.285714285714278,"adj":14.155714285714277,"share":8.22558003850457},{"p":"UMass Lowell/YouGov","d":"28 Aug–14 Sep","end":"2026-09-14","n":650,"pop":"LV","D":49.0,"R":38.0,"src":"https://www.uml.edu/docs/2026-Sept-Maine-Topline_tcm18-422748.pdf","note":"Bennett not listed by name; another candidate 1, undecided 10, would not vote 2","m":11.0,"tp":56.32183908045977,"err":1.49,"grade":2.9,"aligned":null,"why":"Nonpartisan university poll, fielded by YouGov","lean":-0.32,"lean_src":"538 record (29 polls)","age":42,"w":0.341768277573498,"m2":12.643678160919535,"adj":12.963678160919535,"share":7.382272326519161}],"M":12.373312720344373,"plainM":12.563896164980914,"altM":11.06552613338203,"nonpart":99.99999999999999,"I":7.7479122359626995,"avg_D":49.94,"avg_R":38.8,"avg_I":7.325,"raw":11.14,"n":10,"slope":0.84,"scen":[{"name":"Polls alone","k":0.0,"m":12.373312720344373,"x":29.929999999999996,"edge":-0.0,"D":51.83336353706409,"R":40.41872422697321,"I":7.7479122359626995,"pD":0.98865,"pR":0.01135,"pI":0.0},{"name":"Midpoint","k":0.5,"m":12.117569814156067,"x":29.62554415929963,"edge":-0.30445584070036524,"D":51.71539945193052,"R":40.536688312106776,"I":7.7479122359626995,"pD":0.98695,"pR":0.01305,"pI":0.0},{"name":"Hold","k":1.0,"m":11.861826907967759,"x":29.321088318599266,"edge":-0.6089116814007305,"D":51.59743536679695,"R":40.65465239724035,"I":7.7479122359626995,"pD":0.985,"pR":0.015,"pI":0.0}],"head":{"name":"Midpoint","k":0.5,"m":12.117569814156067,"x":29.62554415929963,"edge":-0.30445584070036524,"D":51.71539945193052,"R":40.536688312106776,"I":7.7479122359626995,"pD":0.98695,"pR":0.01305,"pI":0.0}}},"signal":{"type":"party","label":"Registered Democrats minus Republicans","now":29.321088318599266,"bench":29.929999999999996,"final":null,"delta":-0.6089116814007305,"slope":0.84,"bench_label":"the same day of voting in 2022 (day 18, 27 October 2022)","final_label":"2022 final electorate","why":"Maine's absentee voters lean heavily Democratic by registration: all of 2022's absentee ballots came out D+25.3 (and 2024's D+14.2), while Mills won the 2022 governor's race by 13 points. So what matters is the change from 2022. One caution: since January 2026 any voter can sign up to get an absentee ballot for every election, which was not possible in 2022, and that can change who votes absentee.","unit":"pts"},"bench":{"sen20":{"label":"2020 Senate: Collins (R) vs Gideon (D)","src":"https://abcnews.com/Elections/maine-exit-polls-2020-us-senate-election-results-analysis","source":"National Election Pool exit poll via ABC News","race":{"White":[95,43,52],"Black":[1,null,null],"Hispanic":[2,null,null],"Asian":[0,null,null],"Other":[2,null,null]},"party":{"Democrats":[28,84,13],"Republicans":[31,4,91],"Independents":[41,43,46]},"gender":{"Men":[41,36,55],"Women":[59,46,49]},"age":{"18-29":[15,57,35],"30-44":[21,41,47],"45-64":[37,33,60],"65+":[28,46,51]},"note":"D = Gideon, R = Collins (ABC labels the columns Voted (D) and Voted (R)); independents Savage and Linn took the rest. Non-white voters as a whole: 5% of voters, 32 D / 43 R. Independents row is 'Independent or something else'. The gender split (41% men, 59% women) is as ABC prints it; it was read twice. Maine had no Senate race in 2022, so this is the most recent exit poll for this seat.","short":"Gideon 2020"},"sen22":null,"gov22":null,"gov22_note":"No 2022 Maine exit poll was found: the ABC News 2022 Maine governor exit-poll page does not exist (client error), the Wikipedia article has no exit-poll table, and CNN/NBC pages are blocked to WebFetch.","pres24":null,"pres24_note":"No 2024 Maine presidential exit poll was found (ABC page returns an error; Wikipedia has no exit-poll table)."},"xtab":[{"poll":"Marist","dates":"1–4 Oct","pop":"RV","src":"https://maristpoll.marist.edu/wp-content/uploads/2026/10/Marist-Poll_Maine-NOS-and-Tables_202610051032xtc92617B.pdf","sen":{"White":[53,45],"Black":null,"Hispanic":null,"Asian":null},"gov":{"White":[54,38],"Black":null,"Hispanic":null,"Asian":null},"note":"Marist also reports 'Non-white' (sen 21-75, gov 19-75, Bennett 3), a small subsample; not split by group"},{"poll":"Suffolk University","dates":"8–11 Oct","pop":"LV","src":"https://www.suffolk.edu/-/media/suffolk/documents/academics/research-at-suffolk/suprc/polls/other-states/2026/10_14_2026_maine_statewide_tables.pdf?la=en&hash=11399A1ED3B2418AA97D0C202B8E02983257A32A","sen":{"White":[50,47],"Black":null,"Hispanic":null,"Asian":null},"gov":{"White":[50,38],"Black":null,"Hispanic":null,"Asian":null},"note":"'Other' race column has 32 respondents (sen 41-41); gov White Bennett 7"}],"pxtab":[{"poll":"Marist","dates":"1–4 Oct","src":"https://maristpoll.marist.edu/wp-content/uploads/2026/10/Marist-Poll_Maine-NOS-and-Tables_202610051032xtc92617B.pdf","sen":{"Democrats":[94,4],"Republicans":[3,97],"Independents":[52,45]},"gov":{"Democrats":[97,2],"Republicans":[2,90],"Independents":[51,34]},"note":"party identification, registered voters; Bennett: Democrats 2, Republicans 5, Independents 12","pop":"RV"},{"poll":"CBS News/YouGov","dates":"23 Sep–1 Oct","src":"https://assets1.cbsnewsstatic.com/hub/cms/prod_cms_alt/file/2026/10/02/3eea12d2-f488-4cf2-bc3b-ac5adff5db7e/cbsnews_20261002_maine.pdf","sen":{"Democrats":[91,9],"Republicans":[5,95],"Independents":[53,46]},"gov":{"Democrats":[97,3],"Republicans":[11,89],"Independents":[59,40]},"note":"party identification, likely voters, forced choice; governor question was head-to-head (no Bennett)","pop":"LV"},{"poll":"Suffolk University","dates":"8–11 Oct","src":"https://www.suffolk.edu/-/media/suffolk/documents/academics/research-at-suffolk/suprc/polls/other-states/2026/10_14_2026_maine_statewide_tables.pdf?la=en&hash=11399A1ED3B2418AA97D0C202B8E02983257A32A","sen":{"Democrats":[94,5],"Republicans":[3,95],"Independents":[44,47]},"gov":{"Democrats":[91,3],"Republicans":[5,84],"Independents":[47,32]},"note":"party registration (Independents = 'IND/OTHER': unenrolled plus Green and Libertarian); Bennett: Dem 4, Rep 7, IND/OTHER 13","pop":"LV"}],"map":{"w":452,"h":680,"c":{"23001":"M93.4,462.6L97.4,459.8L105.2,458.4L108.2,474.3L104.6,476.2L110.8,487.4L110.6,501.5L119.6,505.6L115.9,513.2L118.3,514.1L112.9,534.6L114.9,536.8L109.6,544.4L105.2,547.1L96.6,541.2L83.8,527.1L78.5,534.7L74.2,534.1L65.6,527.5L65.3,523.2L82.2,500.4L83.4,500.9L90.1,477.3L89.5,465.3Z","23003":"M356.5,275.5L330.5,282.1L307.9,287.7L308.3,288.8L291.8,292.7L289.5,291.9L289.9,247.1L288.6,220.8L288.2,168.8L260.9,169L260.9,167L247.6,166.9L247.5,139.9L152.7,139.4L120.9,139.1L123.8,120.5L205.1,4L210,4.4L220,9.4L224.1,8.9L223,16.5L223.4,35.1L224.8,37.5L238.7,47.1L248,41.4L257.7,37.4L268.2,37.1L272.2,30.2L283.4,28.7L292.7,30.2L292.7,22L298.6,19L307.9,19.7L316.6,24.3L318.1,28.5L330.5,37.3L344.2,54.5L344.2,56.5L354.8,63L355.9,134.8L358.5,225.9L358.2,235.2L361.7,239.1L356.1,244.4L361.6,253.5L355.9,258Z","23005":"M65.6,527.5L74.2,534.1L78.5,534.7L83.8,527.1L96.6,541.2L105.2,547.1L109.6,544.4L114.9,536.8L120.7,546.2L125.8,546.8L132.2,540.5L134.2,541.8L129.7,553.9L132.1,556.1L130.8,567.5L126,567L120,572.4L117.9,577.5L110,576.9L107.1,583.3L99.2,582.7L95.1,589.1L93.8,595.6L95.8,599.5L92.5,603.6L87.4,599.8L78.6,603.8L63.2,592.6L67.3,587.2L57.5,576.2L53.9,580.1L45.2,577.8L46.9,569.6L45.9,564.5L41.1,561.8L33.6,563.6L31.7,560.2L30.2,552.6L36.3,549.3L34.7,546.1L39.7,537.8L31.2,525.5L25.3,524L24.3,517L28.2,519.8L50.2,505.9L54.4,513.2L51.9,516.6L52.9,527.3L58.8,531.5L62.4,526Z","23007":"M62.4,277L67,300.6L65.8,300.8L75.6,357.3L86.9,354.4L88.7,362.8L103.5,360.3L108.2,387.9L103.9,388.8L106,402.8L116.5,400.8L120.1,429.4L124,428.9L127.4,439.8L124.6,445.2L115.2,443L111.6,452.1L115.5,455.4L114.7,458.8L105.2,458.4L97.4,459.8L93.4,462.6L92,455.7L88.8,455.4L89,445.6L59.7,438.7L64.1,436.3L53.2,410.3L36.3,419.7L36.2,403.3L33,390L31.4,376.5L36,375.9L31.1,336.4L33.5,332.3L34.5,321L32.3,317.3L37,312.6L40.1,313.1L44.6,319L52.7,320.3L53.2,315.2L44.1,304.1L43.9,299.9L52.6,286L58.1,282.5Z","23009":"M297.8,503.9L303.3,503L300.5,507.6ZM283.6,509.2L286.3,498.2L288.7,502.7L296.2,509.9L290.4,515.8L288.3,511.4ZM280.3,480.9L281.4,475.4L285.8,484.7ZM246.1,497.6L251.6,497.4L252.8,502.7ZM248.7,429.1L256.5,432.6L262.3,423.2L267,426L270.5,420.3L288.8,416.8L282.8,383.4L296.4,380.8L293.9,367.7L307.5,365.1L303.8,346.4L330.5,341.4L334.2,358.1L338.8,386.7L325.6,389.5L333.9,429.9L335.8,429.5L338.3,442.5L336,442.9L339.8,460.6L342.6,469.5L339.5,473.9L337.5,470.4L333,482.5L326.6,477.5L326.6,472.7L322.7,475.5L318.3,474.4L319.2,483.1L313,492.5L317.4,496.8L303.6,499L294.5,494.9L288.1,480.9L290.5,477L299.1,473.4L295.5,467.5L290.4,472.2L291.2,466.4L287.2,466.8L287.7,475.7L285.7,475.7L285.7,467.3L276.3,474.7L278.3,479.3L276,485L281.5,493.8L280.4,499.7L271.4,509.9L274.9,511.3L270.2,516.5L266.3,515.3L259.5,508.4L257.9,500L263.8,493.2L256.3,488L258.7,484.6L254.7,483.3L247.7,486L248,471.2L252.3,465.4L252.7,458.8L250.3,453.4L249.1,446.1L245.2,439Z","23011":"M105.2,458.4L114.7,458.8L115.5,455.4L111.6,452.1L115.2,443L124.6,445.2L127.4,439.8L135.6,438.3L142.2,445L143.8,440.3L162.6,445.2L165.4,438.5L160.3,430.7L160.4,426.2L176,423.5L177.2,427.7L180.3,430.7L178.3,434.6L185.7,435.7L183.3,449.4L188,450.3L185.2,463.8L180.1,462.7L173.3,481.2L171.3,490.8L168.5,493.7L157.5,490.8L155.5,498.7L156.6,514.4L145.5,512.2L144.8,510.1L134.9,507.7L130.1,516.9L118.3,514.1L115.9,513.2L119.6,505.6L110.6,501.5L110.8,487.4L104.6,476.2L108.2,474.3Z","23013":"M266.3,515.3L270.2,516.5L274.6,522.8L272.7,531.9L266.4,533.2L265.1,522ZM238.3,556.3L241.5,551.5L241.9,561.3ZM234.7,516.6L237.9,511.2L247.7,505.3L252.1,511.8L248.5,512.9L254.1,523.1L249.7,528.3L242.6,530L237.9,526.9L239.8,523.6L238.7,517ZM183.9,483.5L184.7,481.2L190.6,486.5L199.3,478L215.4,494.8L225.6,495.7L222.9,507.5L217.7,517.8L225.2,521.7L220.1,525.4L224,532.9L220.1,537.9L209.4,537.4L204.2,546.8L198.3,547L197.5,554.6L193.1,555.8L193.1,548.9L195.9,544L192.4,542.1L191.2,546L186.4,547.7L187.2,539.7L188.5,531.8L192.4,532.9L193.2,528.6L197.6,525.8L194.4,519.2L195.2,513.5L191.7,501.7L184.3,501.5L181.1,499L179.2,485.7Z","23015":"M145.5,512.2L156.6,514.4L155.5,498.7L157.5,490.8L168.5,493.7L171.3,490.8L173.3,481.2L183.9,483.5L179.2,485.7L181.1,499L184.3,501.5L191.7,501.7L195.2,513.5L194.4,519.2L197.6,525.8L193.2,528.6L192.4,532.9L188.5,531.8L187.2,539.7L181.3,540.3L181.7,547.1L175.3,552L173.3,558.6L168.6,551.8L167.7,558L161.8,562.2L157,558.7L155.8,567.4L151.5,560.4L146.8,549.8L150.8,544.7L149.3,538L151.7,532.5L139.1,529.5L141.9,527Z","23017":"M31.1,336.4L36,375.9L31.4,376.5L33,390L36.2,403.3L36.3,419.7L53.2,410.3L64.1,436.3L59.7,438.7L89,445.6L88.8,455.4L92,455.7L93.4,462.6L89.5,465.3L90.1,477.3L83.4,500.9L82.2,500.4L65.3,523.2L65.6,527.5L62.4,526L58.8,531.5L52.9,527.3L51.9,516.6L54.4,513.2L50.2,505.9L28.2,519.8L24.3,517L25.3,524L31.2,525.5L39.7,537.8L34.7,546.1L36.3,549.3L30.2,552.6L31.7,560.2L20.1,561.1L12.1,564.2L9,563.1L8.4,487.5L7.5,430.8L4.2,331.1L12.3,329.3L12.4,325L21.9,330.6L21.4,335.6L24,341.3L28.2,343.4Z","23019":"M190.3,369.5L244.2,358.8L241.5,346.2L252.7,343.8L244.1,299.9L232.5,302.3L233.7,291.6L232.9,279.3L247.1,275.8L247.6,166.9L260.9,167L260.9,169L288.2,168.8L288.6,220.8L289.9,247.1L289.5,291.9L291.8,292.7L308.3,288.8L307.9,287.7L330.5,282.1L340.7,325.9L342.8,338.9L330.5,341.4L303.8,346.4L307.5,365.1L293.9,367.7L296.4,380.8L282.8,383.4L288.8,416.8L270.5,420.3L267,426L262.3,423.2L256.5,432.6L248.7,429.1L246.3,426.3L208.8,435.1L206.5,422.1L199.5,423.3L197.9,409.9Z","23021":"M152.7,139.4L247.5,139.9L247.6,166.9L247.1,275.8L232.9,279.3L233.7,291.6L232.5,302.3L244.1,299.9L252.7,343.8L241.5,346.2L244.2,358.8L190.3,369.5L174.4,372.3L172.8,376.7L161.5,378.8L157.7,365.2L144.8,297.2L150.2,293.6L153.4,284.3L149.6,276.5L144.6,274.3L145.1,262.5L150.8,263.7L153.3,249.7L149.9,245.2L154.1,244.8L155.6,250.1L159.4,248.3L155.7,229.8L151.1,230.8L151.3,166.9L152.4,166.9Z","23023":"M118.3,514.1L130.1,516.9L134.9,507.7L144.8,510.1L145.5,512.2L141.9,527L139.1,529.5L151.7,532.5L149.3,538L150.8,544.7L146.8,549.8L151.5,560.4L145.4,572.7L136.2,576.2L134.2,578.6L133.5,570.3L130.8,567.5L132.1,556.1L129.7,553.9L134.2,541.8L132.2,540.5L125.8,546.8L120.7,546.2L114.9,536.8L112.9,534.6Z","23025":"M62.4,277L65.5,277.2L71.3,271.9L80.6,267L77.3,257.6L85.5,249.1L94.4,243.3L96.4,236L93.8,232.2L88.5,232.2L88.6,223.5L92.5,218.5L89.5,216.7L95.3,210L97.3,204L91.7,198.1L98,183.1L101,180.8L100.7,175.9L107.2,171.8L112.7,164.1L116.8,163.1L120.9,139.1L152.7,139.4L152.4,166.9L151.3,166.9L151.1,230.8L155.7,229.8L159.4,248.3L155.6,250.1L154.1,244.8L149.9,245.2L153.3,249.7L150.8,263.7L145.1,262.5L144.6,274.3L149.6,276.5L153.4,284.3L150.2,293.6L144.8,297.2L157.7,365.2L161.5,378.8L172.8,376.7L174.4,372.3L190.3,369.5L197.9,409.9L199.5,423.3L193.2,424.3L191.3,418.9L186.6,418.4L183.4,426.4L177.2,427.7L176,423.5L160.4,426.2L160.3,430.7L165.4,438.5L162.6,445.2L143.8,440.3L142.2,445L135.6,438.3L127.4,439.8L124,428.9L120.1,429.4L116.5,400.8L106,402.8L103.9,388.8L108.2,387.9L103.5,360.3L88.7,362.8L86.9,354.4L75.6,357.3L65.8,300.8L67,300.6Z","23027":"M232.3,495.3L237.4,486.3L238.2,477.9L241.7,474.6L244.1,478L240.6,482.6L241,487.4L237.8,496.6L233.9,500.4ZM177.2,427.7L183.4,426.4L186.6,418.4L191.3,418.9L193.2,424.3L199.5,423.3L206.5,422.1L208.8,435.1L246.3,426.3L248.7,429.1L245.2,439L249.1,446.1L250.3,453.4L247.2,463L241.7,468.3L237.4,464L234.7,468.2L228.8,468.7L234.3,479.4L233.1,485.7L228.4,488.7L225.6,495.7L215.4,494.8L199.3,478L190.6,486.5L184.7,481.2L183.9,483.5L173.3,481.2L180.1,462.7L185.2,463.8L188,450.3L183.3,449.4L185.7,435.7L178.3,434.6L180.3,430.7Z","23029":"M330.5,341.4L342.8,338.9L340.7,325.9L330.5,282.1L356.5,275.5L365.4,278.1L366.5,275.5L370.5,282.9L377.9,286.5L389.5,289.3L394.8,286.7L398,294.8L398.6,302.1L393.5,301.2L389.4,304.2L392.2,313.1L398.6,321.2L395.3,330.9L391.5,336.4L400.7,351.4L400.8,354.5L407.9,359.6L412.8,355.8L413.1,349.7L420.1,353.5L427.5,353.8L432.7,361L435.2,367.6L432.1,369.6L436.1,373.7L441.1,386.5L447.1,391.3L447.8,406.8L443.3,413.5L439.4,413.3L438,417.6L425.8,432.7L416.5,436.2L418.1,439.1L412.3,440.3L414.5,434.7L412.7,423.6L402.3,427.7L407.1,435.3L402.5,441L398.2,439.4L393.2,447.1L388.1,444.8L384.2,446.5L385.1,451.1L391.5,456.2L383,463.9L377.8,457.9L375.3,450.5L370.2,451.9L369.1,456.9L366,456.5L363.1,448.8L360.5,457L357,458.9L354,468.7L351.2,466.2L348.9,472.6L347.3,467.1L342.6,469.5L339.8,460.6L336,442.9L338.3,442.5L335.8,429.5L333.9,429.9L325.6,389.5L338.8,386.7L334.2,358.1Z","23031":"M9,563.1L12.1,564.2L20.1,561.1L31.7,560.2L33.6,563.6L41.1,561.8L45.9,564.5L46.9,569.6L45.2,577.8L53.9,580.1L57.5,576.2L67.3,587.2L63.2,592.6L78.6,603.8L74.9,609.7L77.1,618.5L73.8,624.1L69.8,626.1L70.9,630.4L65.3,633.5L59.7,632.8L55.6,636.1L51,648.9L52.9,651.4L47.1,661.8L47.5,664.7L41.6,674.4L38,676L25.3,666L24.4,656L26.9,650.5L10.9,633.3L7.4,626.2L11,613L10.8,601.5L9.7,597Z"},"o":"M342.6,469.5L339.5,473.9L337.5,470.4L333,482.5L326.6,477.5L326.6,472.7L322.7,475.5L318.3,474.4L319.2,483.1L313,492.5L317.4,496.8L303.6,499L294.5,494.9L288.1,480.9L290.5,477L299.1,473.4L295.5,467.5L290.4,472.2L291.2,466.4L287.2,466.8L287.7,475.7L285.7,475.7L285.7,467.3L276.3,474.7L278.3,479.3L276,485L281.5,493.8L280.4,499.7L271.4,509.9L274.9,511.3L270.2,516.5L274.6,522.8L272.7,531.9L266.4,533.2L265.1,522L266.3,515.3L259.5,508.4L257.9,500L263.8,493.2L256.3,488L258.7,484.6L254.7,483.3L247.7,486L248,471.2L252.3,465.4L252.7,458.8L250.3,453.4L247.2,463L241.7,468.3L237.4,464L234.7,468.2L228.8,468.7L234.3,479.4L233.1,485.7L228.4,488.7L225.6,495.7L222.9,507.5L217.7,517.8L225.2,521.7L220.1,525.4L224,532.9L220.1,537.9L209.4,537.4L204.2,546.8L198.3,547L197.5,554.6L193.1,555.8L193.1,548.9L195.9,544L192.4,542.1L191.2,546L186.4,547.7L187.2,539.7L181.3,540.3L181.7,547.1L175.3,552L173.3,558.6L168.6,551.8L167.7,558L161.8,562.2L157,558.7L155.8,567.4L151.5,560.4L145.4,572.7L136.2,576.2L134.2,578.6L133.5,570.3L130.8,567.5L126,567L120,572.4L117.9,577.5L110,576.9L107.1,583.3L99.2,582.7L95.1,589.1L93.8,595.6L95.8,599.5L92.5,603.6L87.4,599.8L78.6,603.8L74.9,609.7L77.1,618.5L73.8,624.1L69.8,626.1L70.9,630.4L65.3,633.5L59.7,632.8L55.6,636.1L51,648.9L52.9,651.4L47.1,661.8L47.5,664.7L41.6,674.4L38,676L25.3,666L24.4,656L26.9,650.5L10.9,633.3L7.4,626.2L11,613L10.8,601.5L9.7,597L9,563.1L8.4,487.5L7.5,430.8L4.2,331.1L12.3,329.3L12.4,325L21.9,330.6L21.4,335.6L24,341.3L28.2,343.4L31.1,336.4L33.5,332.3L34.5,321L32.3,317.3L37,312.6L40.1,313.1L44.6,319L52.7,320.3L53.2,315.2L44.1,304.1L43.9,299.9L52.6,286L58.1,282.5L62.4,277L65.5,277.2L71.3,271.9L80.6,267L77.3,257.6L85.5,249.1L94.4,243.3L96.4,236L93.8,232.2L88.5,232.2L88.6,223.5L92.5,218.5L89.5,216.7L95.3,210L97.3,204L91.7,198.1L98,183.1L101,180.8L100.7,175.9L107.2,171.8L112.7,164.1L116.8,163.1L120.9,139.1L123.8,120.5L205.1,4L210,4.4L220,9.4L224.1,8.9L223,16.5L223.4,35.1L224.8,37.5L238.7,47.1L248,41.4L257.7,37.4L268.2,37.1L272.2,30.2L283.4,28.7L292.7,30.2L292.7,22L298.6,19L307.9,19.7L316.6,24.3L318.1,28.5L330.5,37.3L344.2,54.5L344.2,56.5L354.8,63L355.9,134.8L358.5,225.9L358.2,235.2L361.7,239.1L356.1,244.4L361.6,253.5L355.9,258L356.5,275.5L365.4,278.1L366.5,275.5L370.5,282.9L377.9,286.5L389.5,289.3L394.8,286.7L398,294.8L398.6,302.1L393.5,301.2L389.4,304.2L392.2,313.1L398.6,321.2L395.3,330.9L391.5,336.4L400.7,351.4L400.8,354.5L407.9,359.6L412.8,355.8L413.1,349.7L420.1,353.5L427.5,353.8L432.7,361L435.2,367.6L432.1,369.6L436.1,373.7L441.1,386.5L447.1,391.3L447.8,406.8L443.3,413.5L439.4,413.3L438,417.6L425.8,432.7L416.5,436.2L418.1,439.1L412.3,440.3L414.5,434.7L412.7,423.6L402.3,427.7L407.1,435.3L402.5,441L398.2,439.4L393.2,447.1L388.1,444.8L384.2,446.5L385.1,451.1L391.5,456.2L383,463.9L377.8,457.9L375.3,450.5L370.2,451.9L369.1,456.9L366,456.5L363.1,448.8L360.5,457L357,458.9L354,468.7L351.2,466.2L348.9,472.6L347.3,467.1ZM297.8,503.9L303.3,503L300.5,507.6ZM283.6,509.2L286.3,498.2L288.7,502.7L296.2,509.9L290.4,515.8L288.3,511.4ZM280.3,480.9L281.4,475.4L285.8,484.7ZM246.1,497.6L251.6,497.4L252.8,502.7ZM232.3,495.3L237.4,486.3L238.2,477.9L241.7,474.6L244.1,478L240.6,482.6L241,487.4L237.8,496.6L233.9,500.4ZM238.3,556.3L241.5,551.5L241.9,561.3ZM234.7,516.6L237.9,511.2L247.7,505.3L252.1,511.8L248.5,512.9L254.1,523.1L249.7,528.3L242.6,530L237.9,526.9L239.8,523.6L238.7,517Z"},"pace":null};
+(function () {
+  const S = D.st, C = D.counties || [], H = D.has, P = D.proj, RACES = D.races;
+  const $ = (s, r = document) => r.querySelector(s);
+  const fmt = (n) => n == null ? '' : Math.round(n).toLocaleString('en-US');
+  const pc = (x, d = 1) => x == null || !isFinite(x) ? 'n/a' : x.toFixed(d) + '%';
+  const mgl = (m) => m == null ? 'n/a' : (m >= 0 ? 'D+' : 'R+') + Math.abs(m).toFixed(0);
+  const fm = (m) => (m >= 0 ? 'D+' : 'R+') + Math.abs(m).toFixed(1);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const chance = (p) => { const v = Math.round(p * 100); return v >= 100 ? '>99%' : v <= 0 ? '<1%' : v + '%'; };
+  const NA = '<span class="na">n/a</span>';
+  const UNITCAP = S.units.charAt(0).toUpperCase() + S.units.slice(1);
+  const TOTAL = D.county_sum || D.total;
+  C.forEach((c) => { c.rvp = c.rv ? c.v / c.rv * 100 : null; c.p22 = c.t22 ? c.v / c.t22 * 100 : null; c.pnet = (c.pd != null && c.pr != null && c.v) ? (c.pd - c.pr) / c.v * 100 : null; });
+  const T22SUM = C.reduce((a, c) => a + (c.t22 || 0), 0);
+  const STATE22 = T22SUM ? TOTAL / T22SUM * 100 : null;
+  const RVSUM = C.reduce((a, c) => a + (c.rv || 0), 0);
+
+  /* ---------- tooltip ---------- */
+  function tipFor(host) { let t = host.querySelector(':scope > .tip'); if (!t) { t = document.createElement('div'); t.className = 'tip'; t.hidden = true; host.appendChild(t); } return t; }
+  function showTip(host, html, ev) {
+    const t = tipFor(host); t.innerHTML = html; t.hidden = false;
+    const r = host.getBoundingClientRect();
+    let x = ev.clientX - r.left + 12, y = ev.clientY - r.top + 12;
+    const w = t.offsetWidth, h = t.offsetHeight;
+    if (x + w > r.width) x = Math.max(0, ev.clientX - r.left - w - 12);
+    if (y + h > r.height + 40) y = Math.max(0, ev.clientY - r.top - h - 12);
+    t.style.left = x + 'px'; t.style.top = y + 'px';
+  }
+  function hideTip(host) { const t = host.querySelector(':scope > .tip'); if (t) t.hidden = true; }
+  const tipRows = (title, rows) => '<div class="h">' + esc(title) + '</div>' + rows.map(([k, v]) => '<div class="r"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('');
+  function bindTips(host, sel, htmlOf) {
+    host.addEventListener('pointermove', (e) => { const el = e.target.closest(sel); if (el && host.contains(el)) showTip(host, htmlOf(el), e); else hideTip(host); });
+    host.addEventListener('pointerleave', () => hideTip(host));
+    host.addEventListener('pointerdown', (e) => { const el = e.target.closest(sel); if (el) showTip(host, htmlOf(el), e); });
+  }
+
+  /* ---------- tabs ---------- */
+  const GROUPS = Object.entries(D.groups || {}).filter(([, g]) => g && g.rows && Object.keys(g.rows).length);
+  const avail = { projection: true, counties: C.length > 0, days: true, who: GROUPS.length > 0, districts: H.districts, map: H.map };
+  const tabs = [...document.querySelectorAll('[role="tab"]')].filter((b) => { if (!avail[b.dataset.page]) { b.remove(); $('#' + b.dataset.page).remove(); return false; } return true; });
+  $('#tab-counties') && ($('#tab-counties').textContent = UNITCAP);
+  const rendered = {};
+  function openTab(id, focus) {
+    tabs.forEach((b) => { const on = b.dataset.page === id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; $('#' + b.dataset.page).hidden = !on; if (on && focus) b.focus(); });
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    if (id === 'days') { drawCheckpoints(); drawPace(); }
+    if (id === 'projection') drawDials();
+    if (id === 'map' && !rendered.map) { drawMap(); rendered.map = true; }
+  }
+  tabs.forEach((b, i) => {
+    b.addEventListener('click', () => openTab(b.dataset.page));
+    b.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; openTab(n.dataset.page, true);
+    });
+  });
+  if (!$('#tile4 .k').textContent.trim()) $('#tile4').hidden = true;
+
+  /* ---------- reusable bar row ---------- */
+  function barRow(label, sub, val, scale, ref, chipColor, data, valText) {
+    const chip = chipColor ? '<span class="chip" style="background:' + chipColor + '"></span>' : '';
+    return '<div class="row" ' + data + '><div class="lab"><b>' + chip + esc(label) + '</b><small>' + sub + '</small></div>' +
+      '<div class="track"><div class="bar" style="width:' + Math.min(100, val / scale * 100) + '%"></div>' + (ref != null ? '<div class="refline" style="left:' + Math.min(100, ref / scale * 100) + '%"></div>' : '') + '</div>' +
+      '<div class="val">' + (valText || pc(val)) + '</div></div>';
+  }
+  const niceMax = (v) => { const s = [10, 20, 25, 30, 40, 50, 60, 75, 80, 100, 120, 150]; return s.find((x) => x >= v * 1.08) || Math.ceil(v * 1.1 / 10) * 10; };
+
+  /* ================= PROJECTION ================= */
+  const SIG = D.signal;
+  const RN = Object.fromEntries(RACES.map((r) => [r.key, r]));
+  function pill(row, rc) {
+    const probs = [['D', row.pD], ['R', row.pR]].concat(row.pI != null ? [['I', row.pI]] : []);
+    probs.sort((a, b) => b[1] - a[1]); const [who, hi] = probs[0];
+    if (hi < 0.6) return 'Toss-up';
+    return (hi < 0.75 ? 'Slight edge: ' : hi < 0.9 ? 'Favored: ' : 'Strongly favored: ') + rc[who].short;
+  }
+  $('#stand-note').textContent = SIG
+    ? 'Projected vote with the middle reading of the early vote (below). The chance is how often each candidate finishes first when the projection misses by as much as recent polling averages have. ' + (S.election_rule || '')
+    : 'Projected vote from the weighted polling average; the early vote does not move it here (see below). The chance is how often each candidate finishes first when the projection misses by as much as recent polling averages have. ' + (S.election_rule || '');
+  $('#proj-grid').innerHTML = RACES.map((rc) => '<div class="proj" id="proj-' + rc.key + '"></div>').join('');
+  RACES.forEach((rc) => {
+    const r = P[rc.key], c = r.head, three = c.I != null;
+    let cands, split;
+    if (three) {
+      cands = '<div class="cands3"><div class="cand d"><span class="nm">' + esc(rc.D.name) + ' (D)</span><span class="pct">' + c.D.toFixed(1) + '%</span></div>' +
+        '<div class="cand i c"><span class="nm">' + esc(rc.I.name) + ' (' + esc(rc.I.party_short || 'I') + ')</span><span class="pct">' + c.I.toFixed(1) + '%</span></div>' +
+        '<div class="cand r"><span class="nm">' + esc(rc.R.name) + ' (R)</span><span class="pct">' + c.R.toFixed(1) + '%</span></div></div>';
+      split = '<div class="split three" role="img" aria-label="Projected vote ' + c.D.toFixed(1) + ', ' + c.I.toFixed(1) + ', ' + c.R.toFixed(1) + '"><div class="sd" style="width:calc(' + c.D + '% - 2px)"></div><div class="si" style="width:calc(' + c.I + '% - 2px)"></div><div class="sr"></div></div>';
+    } else {
+      cands = '<div class="cands"><div class="cand d"><span class="nm">' + esc(rc.D.name) + ' (D)</span><span class="pct">' + c.D.toFixed(1) + '%</span></div><div class="cand r"><span class="nm">' + esc(rc.R.name) + ' (R)</span><span class="pct">' + c.R.toFixed(1) + '%</span></div></div>';
+      split = '<div class="split" role="img" aria-label="Projected two-party vote ' + c.D.toFixed(1) + ' to ' + c.R.toFixed(1) + '"><div class="sd" style="width:calc(' + c.D + '% - 1px)"></div><div class="sr"></div><i class="half"></i></div>';
+    }
+    let html = '<div class="top"><h3>' + esc(rc.office) + (rc.seat_note ? ' <span class="grp-sub">' + esc(rc.seat_note) + '</span>' : '') + '</h3><span class="pill">' + pill(c, rc) + '</span></div>' + cands + split +
+      '<p class="pm">' + (three ? 'Margin between the major-party nominees' : 'Projected margin') + ' <b>' + fm(c.m) + '</b> · chance of finishing first: <b>' + esc(rc.D.short) + ' ' + chance(c.pD) + '</b>' + (three ? ', <b>' + esc(rc.I.short) + ' ' + chance(c.pI) + '</b>' : '') + ', <b>' + esc(rc.R.short) + ' ' + chance(c.pR) + '</b></p>';
+    if (SIG) html += '<p class="pm">Polls alone: ' + fm(r.scen[0].m) + ' (' + esc(rc.D.short) + ' ' + chance(r.scen[0].pD) + '). If the early vote\'s edge holds: ' + fm(r.scen[2].m) + ' (' + esc(rc.D.short) + ' ' + chance(r.scen[2].pD) + ').</p>';
+    if (three) html += '<p class="pm">Two-party margin uses the major-party nominees; ' + esc(rc.I.short) + '\'s share is the weighted average of polls that include ' + (rc.I.pronoun || 'the independent') + '.</p>';
+    $('#proj-' + rc.key).innerHTML = html;
+  });
+
+  /* readings */
+  const SCN = SIG ? {
+    'Polls alone': 'This year\'s edge is only timing; the electorate ends like 2022\'s',
+    'Midpoint': 'Half of the edge survives to Election Day',
+    'Hold': 'The full ' + Math.abs(SIG.delta).toFixed(1) + '-point ' + (SIG.delta >= 0 ? 'edge' : 'gap') + ' against 2022 survives',
+  } : {};
+  const sigFmt = (x) => SIG.type === 'party' ? fm(x) : x.toFixed(1) + '%';
+  if (SIG) {
+    $('#ev-note').innerHTML = esc(SIG.label) + ': <b>' + sigFmt(SIG.now) + '</b> of ballots so far, against <b>' + sigFmt(SIG.bench) + '</b> at ' + esc(SIG.bench_label) + (SIG.final != null ? ', and ' + sigFmt(SIG.final) + ' in the ' + esc(SIG.final_label) : '') + '. ' + esc(SIG.why) +
+      ' The readings differ on how much of this year\'s ' + Math.abs(SIG.delta).toFixed(1) + '-point difference survives to Election Day. "Polls alone" assumes the polls already describe a 2022-like electorate.';
+    $('#scen-table thead').innerHTML = '<tr><th class="l">Reading</th><th class="l">What it assumes</th><th>Edge carried to Election Day</th>' +
+      RACES.map((rc) => '<th>' + esc(rc.office) + '</th><th>' + esc(rc.D.short) + ' / ' + esc(rc.R.short) + ' chance</th>').join('') + '</tr>';
+    $('#scen-table tbody').innerHTML = P[RACES[0].key].scen.map((s, i) => '<tr' + (i === 1 ? ' class="tot"' : '') + '><td>' + (i === 1 ? 'Midpoint (headline)' : s.name) + '</td><td class="wrapl">' + SCN[s.name] + '</td><td>' + (s.edge >= 0 ? '+' : '−') + Math.abs(s.edge).toFixed(1) + ' pts</td>' +
+      RACES.map((rc) => { const g = P[rc.key].scen[i]; return '<td class="' + (g.m >= 0 ? 'dm' : 'rm') + '">' + fm(g.m) + '</td><td>' + chance(g.pD) + ' / ' + chance(g.pR) + '</td>'; }).join('') + '</tr>').join('');
+  } else {
+    $('#ev-title').textContent = 'What the early vote can and cannot tell us here';
+    $('#ev-note').innerHTML = esc(S.no_signal_note || 'This state publishes no party or race breakdown of its early voters with a matching earlier-year figure, so the projection rests on the polls alone. The turnout figures on the other tabs show where ballots are coming from, not how anyone voted.');
+    $('#scen-wrap').remove();
+  }
+
+  function drawDial(rc, host) {
+    const r = P[rc.key];
+    const W = Math.max(280, host.clientWidth || 480), Hh = 230, m = { l: 44, r: 12, t: 24, b: 34 };
+    const d = SIG.delta, lo = Math.min(0, d), hi = Math.max(0, d), pad = Math.max(1, (hi - lo) * 0.4);
+    const x0 = lo - pad, x1 = hi + pad;
+    const curve = [x0, x1].map((x) => ({ x, m: r.M + r.slope * x }));
+    const ys = curve.map((c) => c.m).concat(r.scen.map((s) => s.m), [0]);
+    let y0 = Math.floor((Math.min(...ys) - 3) / 5) * 5, y1 = Math.ceil((Math.max(...ys) + 3) / 5) * 5;
+    const X = (b) => m.l + (b - x0) / (x1 - x0) * (W - m.l - m.r), Y = (v) => m.t + (y1 - v) / (y1 - y0) * (Hh - m.t - m.b);
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="img" aria-label="' + esc(rc.office) + ' projected margin by how much of the early-vote edge lasts">';
+    if (y1 > 0) s += '<rect x="' + m.l + '" y="' + Y(y1) + '" width="' + (W - m.l - m.r) + '" height="' + (Y(Math.max(0, y0)) - Y(y1)) + '" fill="var(--dem)" fill-opacity=".07"/>';
+    if (y0 < 0) s += '<rect x="' + m.l + '" y="' + Y(Math.min(0, y1)) + '" width="' + (W - m.l - m.r) + '" height="' + (Y(y0) - Y(Math.min(0, y1))) + '" fill="var(--rep)" fill-opacity=".07"/>';
+    const step = (y1 - y0) > 30 ? 10 : 5;
+    for (let v = y0; v <= y1; v += step) s += '<line class="' + (v === 0 ? 'axisl' : 'gridl') + '" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"' + (v === 0 ? ' style="stroke:var(--fg);stroke-opacity:.55"' : '') + '/><text x="' + (m.l - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + (v === 0 ? 'Even' : (v > 0 ? 'D+' : 'R+') + Math.abs(v)) + '</text>';
+    const xstep = (x1 - x0) > 12 ? 4 : (x1 - x0) > 6 ? 2 : 1;
+    for (let v = Math.ceil(x0 / xstep) * xstep; v <= x1; v += xstep) s += '<text x="' + X(v) + '" y="' + (Hh - m.b + 16) + '" text-anchor="middle">' + (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + '</text>';
+    s += '<text x="' + ((m.l + W - m.r) / 2) + '" y="' + (Hh - 2) + '" text-anchor="middle">Points of the early-vote edge that last to Election Day</text>';
+    s += '<line x1="' + X(d) + '" x2="' + X(d) + '" y1="' + Y(y1) + '" y2="' + Y(y0) + '" style="stroke:var(--ref)" stroke-dasharray="4 3" stroke-width="1.5"/>';
+    s += '<polyline fill="none" style="stroke:var(--fg)" stroke-width="2" points="' + curve.map((c) => X(c.x) + ',' + Y(c.m)).join(' ') + '"/>';
+    r.scen.forEach((c, i) => { s += '<circle data-i="' + i + '" cx="' + X(c.edge) + '" cy="' + Y(c.m) + '" r="5" style="fill:var(--fg);stroke:var(--panel)" stroke-width="2"/><circle data-i="' + i + '" cx="' + X(c.edge) + '" cy="' + Y(c.m) + '" r="14" fill="transparent"/>'; });
+    const c1 = r.scen[1];
+    s += '<text x="' + (X(c1.edge) + 8) + '" y="' + (Y(c1.m) + 17) + '" style="fill:var(--fg)">' + fm(c1.m) + '</text>';
+    s += '<text x="' + m.l + '" y="12" style="fill:var(--fg);font-size:13px;font-weight:500">' + esc(rc.office) + ': ' + esc(rc.D.short) + ' vs ' + esc(rc.R.short) + '</text></svg>';
+    host.innerHTML = s;
+    if (!host.dataset.b) { host.dataset.b = 1; bindTips(host, 'circle', (el) => { const c = P[rc.key].scen[+el.dataset.i]; return tipRows(c.name, [['Edge carried', (c.edge >= 0 ? '+' : '−') + Math.abs(c.edge).toFixed(1) + ' pts'], ['Margin', fm(c.m)], [rc.D.short + ' chance', chance(c.pD)], [rc.R.short + ' chance', chance(c.pR)]]); }); }
+  }
+  function drawDials() { if (!SIG || SIG.final == null && SIG.bench == null) return; RACES.forEach((rc) => drawDial(rc, $('#dial-' + rc.key))); }
+  if (SIG) {
+    $('#dial-card').hidden = false;
+    $('#dials').innerHTML = RACES.map((rc) => '<div class="dial rel" id="dial-' + rc.key + '"></div>').join('');
+    $('#dial-note').textContent = 'Projected margin for any amount of this year\'s early-vote difference from 2022 carried into the final electorate, with everything else held at the polling average. Above the line the Democrat leads; below it the Republican does. Dots mark the three readings; the dashed line is the full difference seen in the early vote so far.';
+  }
+
+  /* groups table */
+  const tp2 = (d, r) => d / (d + r) * 100;
+  const BENCH = D.bench || {};
+  const BKEYS = Object.keys(BENCH).filter((k) => BENCH[k] && typeof BENCH[k] === 'object');
+  function pickDim() {
+    if (SIG && SIG.type === 'race') return 'race';
+    if (SIG && SIG.type === 'party') return 'party';
+    for (const d of ['race', 'party']) if (BKEYS.some((k) => BENCH[k][d])) return d;
+    return null;
+  }
+  const DIM = pickDim();
+  const mapParty = (k) => /^dem/i.test(k) ? 'Democrats' : /^rep/i.test(k) ? 'Republicans' : 'Independents';
+  function evShares(dim) {
+    const g = (D.groups || {})[dim]; if (!g || !g.rows) return null;
+    const tot = Object.values(g.rows).reduce((a, b) => a + (+b || 0), 0); const out = {};
+    Object.entries(g.rows).forEach(([k, v]) => { const kk = dim === 'party' ? mapParty(k) : k; out[kk] = (out[kk] || 0) + (+v || 0) / tot * 100; });
+    return out;
+  }
+  if (DIM && (BKEYS.some((k) => BENCH[k][DIM]) || D.xtab.length || D.pxtab.length)) {
+    $('#groups-card').hidden = false;
+    const ev = evShares(DIM);
+    const groupsList = DIM === 'race' ? ['White', 'Black', 'Hispanic', 'Asian', 'Other'] : ['Democrats', 'Republicans', 'Independents'];
+    const firstB = BKEYS.find((k) => BENCH[k][DIM]);
+    const xtabs = DIM === 'race' ? D.xtab : D.pxtab;
+    const xt = (key, g) => (xtabs || []).filter((x) => x[key] && x[key][g]).map((x) => { const [d, r] = x[key][g]; return esc(x.poll) + (x.pop === 'RV' ? ' (RV)' : '') + ': ' + (d != null && r != null ? d + '–' + r : d != null ? esc(RN[key].D.short) + ' ' + d : esc(RN[key].R.short) + ' ' + r); }).join(' · ') || '<span class="na">none published</span>';
+    $('#groups-table thead').innerHTML = '<tr><th class="l">Group</th>' + (firstB ? '<th>Voters in exit poll</th>' : '') + (ev ? '<th>Early vote so far</th>' : '') +
+      BKEYS.filter((k) => BENCH[k][DIM]).map((k) => '<th>' + esc(BENCH[k].short || BENCH[k].label) + '</th>').join('') + RACES.map((rc) => '<th class="l">2026 polls: ' + esc(rc.office) + '</th>').join('') + '</tr>';
+    $('#groups-table tbody').innerHTML = groupsList.map((g) => {
+      const fb = firstB && BENCH[firstB][DIM][g];
+      return '<tr><td>' + (g === 'Other' ? 'Other or unknown' : g) + '</td>' + (firstB ? '<td>' + (fb ? fb[0] + '%' : NA) + '</td>' : '') + (ev ? '<td>' + (ev[g] != null ? pc(ev[g]) : NA) + '</td>' : '') +
+        BKEYS.filter((k) => BENCH[k][DIM]).map((k) => { const v = BENCH[k][DIM][g]; return '<td>' + (v && v[1] != null && v[2] != null ? tp2(v[1], v[2]).toFixed(0) + '%' : NA) + '</td>'; }).join('') +
+        RACES.map((rc) => '<td class="wrapl">' + xt(rc.key, g) + '</td>').join('') + '</tr>';
+    }).join('');
+    $('#groups-note').textContent = 'The Democrat\'s share of the two-party vote by ' + (DIM === 'race' ? 'race' : 'party identification') + ' in past exit polls, and what this year\'s polls report among each group (first number Democrat, second Republican, undecided voters left in).' +
+      (DIM === 'party' && ev ? ' The early-vote column uses registered party, a close but not identical measure: unaffiliated and minor-party registrants are grouped with independents.' : '');
+    $('#groups-note2').innerHTML = BKEYS.filter((k) => BENCH[k][DIM]).map((k) => esc(BENCH[k].label) + ': ' + '<a href="' + esc(BENCH[k].src) + '" target="_blank" rel="noopener">' + esc(BENCH[k].source || 'exit poll') + '</a>').join('; ') + '.';
+  }
+
+  /* lenses: how the ballots cast so far would split if each group votes as in its benchmark, shifted to today's average */
+  let LENSDIMS = ['race', 'gender', 'age'].filter((dim) => { const g = (D.groups || {})[dim]; return g && g.rows && BKEYS.some((k) => BENCH[k][dim]); });
+  const mapG = (dim, k) => dim === 'party' ? mapParty(k) : dim === 'gender' ? (/^f|^w/i.test(k) ? 'Women' : /^m/i.test(k) ? 'Men' : null) : k;
+  function lens(rc, dim) {
+      const bk = (rc.key === 'gov' ? ['gov22', 'sen22', 'pres24'] : ['sen22', 'gov22', 'pres24']).find((k) => BENCH[k] && BENCH[k][dim]);
+      if (!bk) return null;
+      const tab = BENCH[bk][dim]; const ok = Object.entries(tab).filter(([, v]) => v && v[1] != null && v[2] != null);
+      if (!ok.length) return null;
+      const base = ok.reduce((a, [, v]) => a + v[0], 0);
+      const S0 = 50 + P[rc.key].M / 2;
+      const shift = S0 - ok.reduce((a, [, v]) => a + v[0] * tp2(v[1], v[2]), 0) / base;
+      const evc = {}; Object.entries(D.groups[dim].rows).forEach(([k, v]) => { const g = mapG(dim, k); if (g && tab[g] && tab[g][1] != null) evc[g] = (evc[g] || 0) + (+v || 0); });
+      const tot = Object.values(evc).reduce((a, b) => a + b, 0); if (!tot) return null;
+      const est = Object.entries(evc).reduce((a, [g, n]) => a + n * (tp2(tab[g][1], tab[g][2]) + shift), 0) / tot;
+      return 2 * est - 100;
+    }
+  LENSDIMS = LENSDIMS.filter((dim) => RACES.some((rc) => lens(rc, dim) != null));
+  if (LENSDIMS.length) {
+    $('#lens-card').hidden = false;
+    $('#lens-note').textContent = 'How the ballots cast so far would split if each group\'s early voters vote the way that group did in the exit poll, shifted so the exit poll\'s electorate matches today\'s polling average. These are estimates from group averages, not counts of actual votes.' + (LENSDIMS.includes('race') ? ' Voters of other or unknown race are assumed to split like that group in the exit poll, which is rough where many voters have no race on file.' : '');
+    $('#lens-table thead').innerHTML = '<tr><th class="l">Lens</th>' + RACES.map((rc) => '<th>' + esc(rc.office) + '</th>').join('') + '</tr>';
+    const LN = { party: 'Registered party', race: 'Race', gender: 'Gender', age: 'Age' };
+    $('#lens-table tbody').innerHTML = LENSDIMS.map((dim) => '<tr><td>' + LN[dim] + '</td>' + RACES.map((rc) => { const v = lens(rc, dim); return v == null ? '<td>' + NA + '</td>' : '<td class="' + (v >= 0 ? 'dm' : 'rm') + '">' + fm(v) + '</td>'; }).join('') + '</tr>').join('') +
+      '<tr class="tot"><td>Whole electorate (poll average)</td>' + RACES.map((rc) => '<td class="' + (P[rc.key].M >= 0 ? 'dm' : 'rm') + '">' + fm(P[rc.key].M) + '</td>').join('') + '</tr>';
+  }
+
+  /* polls */
+  const ws = new Date(S.window_start + 'T12:00');
+  const MONL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const np = RACES.map((rc) => '<b>' + P[rc.key].nonpart.toFixed(0) + '%</b> of the ' + esc(rc.office) + ' weight').join(' and ');
+  $('#polls-note').innerHTML = 'The latest poll from each pollster with fieldwork since ' + ws.getDate() + ' ' + MONL[ws.getMonth()] + ', likely voters where published. In the spirit of the New York Times\' "select pollster" standard (nonpartisan sponsors with a record of accuracy), each poll counts in proportion to its 538 rating, partisan-aligned pollsters count half, and older polls fade with a ' + S.half_life + '-day half-life. Each margin is also corrected for the pollster\'s historical lean against other polls in the same races. Nonpartisan pollsters carry ' + np + '. Left out: ' + esc(S.excluded) + '.';
+  $('#poll-tables').innerHTML = RACES.map((rc) => '<h3>' + esc(rc.office) + '</h3><div class="tablewrap"><table id="polls-' + rc.key + '"><thead><tr><th class="l">Pollster</th><th class="l">Field dates</th><th>Sample</th><th>' + esc(rc.D.short) + ' (D)</th>' + (rc.I ? '<th>' + esc(rc.I.short) + ' (' + esc(rc.I.party_short || 'I') + ')</th>' : '') + '<th>' + esc(rc.R.short) + ' (R)</th><th>Margin</th><th>538 grade</th><th class="l">Alignment</th><th>Lean-corrected</th><th>Weight</th></tr></thead><tbody></tbody></table></div>').join('');
+  RACES.forEach((rc) => {
+    const r = P[rc.key], three = !!rc.I;
+    const al = (q) => q.aligned ? '<span title="' + esc(q.why) + '">' + q.aligned + '-aligned</span>' : '<span class="na">Nonpartisan</span>';
+    const n1 = (v) => v == null ? NA : v.toFixed(v % 1 ? 1 : 0) + '%';
+    $('#polls-' + rc.key + ' tbody').innerHTML = r.polls.map((q) => '<tr><td><a href="' + esc(q.src) + '" target="_blank" rel="noopener">' + esc(q.p) + '</a>' + (q.note ? ' <span class="na" title="' + esc(q.note) + '">(' + esc(shortNote(q.note)) + ')</span>' : '') + '</td><td class="l">' + esc(q.d) + '</td><td>' + (q.n ? fmt(q.n) + (q.pop ? ' ' + esc(q.pop) : '') : NA) + '</td><td>' + n1(q.D) + '</td>' + (three ? '<td>' + n1(q.I) + '</td>' : '') + '<td>' + n1(q.R) + '</td><td class="' + (q.m >= 0 ? 'dm' : 'rm') + '">' + fm(q.m) + '</td>' +
+      '<td>' + (q.grade != null ? q.grade.toFixed(1) + ' / 3' : '<span class="na">unrated</span>') + '</td><td class="l">' + al(q) + '</td><td class="' + (q.adj >= 0 ? 'dm' : 'rm') + '" title="Lean correction: ' + esc(q.lean_src) + '">' + fm(q.adj) + '</td><td>' + q.share.toFixed(0) + '%</td></tr>').join('') +
+      '<tr><td>Plain average</td><td class="l"></td><td></td><td>' + r.avg_D.toFixed(1) + '%</td>' + (three ? '<td>' + (r.avg_I != null ? r.avg_I.toFixed(1) + '%' : '') + '</td>' : '') + '<td>' + r.avg_R.toFixed(1) + '%</td><td class="' + (r.raw >= 0 ? 'dm' : 'rm') + '">' + fm(r.raw) + '</td><td></td><td></td><td class="na">' + fm(r.plainM) + ' two-party</td><td></td></tr>' +
+      '<tr class="tot"><td>Weighted average (used)</td><td class="l"></td><td></td><td></td>' + (three ? '<td>' + (r.I != null ? r.I.toFixed(1) + '%' : '') + '</td>' : '') + '<td></td><td></td><td></td><td></td><td class="' + (r.M >= 0 ? 'dm' : 'rm') + '">' + fm(r.M) + '</td><td>100%</td></tr>';
+  });
+
+  function shortNote(n) { let t = String(n).split(/[;.,(]\s?/)[0].trim(); if (t.length > 34) t = t.slice(0, 32).replace(/\s+\S*$/, '') + '…'; return t; }
+
+  /* method */
+  const rnames = RACES.map((rc) => P[rc.key].n + ' ' + rc.office + ' poll' + (P[rc.key].n === 1 ? '' : 's')).join(' and ');
+  const M = [
+    '<b>Polls.</b> ' + rnames + '. A poll\'s weight is its 538 grade divided by 3 (unrated pollsters count as 1 star), halved if the pollster is partisan-aligned (marked R or D in Wikipedia\'s ' + esc(S.name) + ' poll tables, sponsored by a campaign, party or partisan outlet, or counted by 538 as doing mostly partisan work), then halved for every ' + S.half_life + ' days since the poll ended. Lean corrections come from 538\'s poll archive for 2016–2022: each pollster\'s average error minus the average of all polls in the same races, shrunk toward zero when it has few polls. Aligned pollsters with no record get ' + S.prior + ' points, the typical lean of Republican-aligned pollsters that have one. ' +
+      RACES.map((rc) => 'The weighted, corrected ' + esc(rc.office) + ' average is <b>' + fm(P[rc.key].M) + '</b> (plain average ' + fm(P[rc.key].plainM) + ')').join('; ') + '. 538 closed in 2025, so these are its last published ratings.',
+    '<b>Lean against other polls, not against results.</b> The correction measures how each pollster runs compared with other polls of the same races. Correcting each poll for its average miss against actual results instead would also build in the whole industry\'s misses, which in 2016 and 2020 underestimated Republicans; that version gives ' + RACES.map((rc) => '<b>' + fm(P[rc.key].altM) + '</b> for ' + esc(rc.office)).join(' and ') + (SIG ? ' before the early-vote adjustment.' : '.'),
+  ];
+  if (SIG) {
+    M.push('<b>Early vote.</b> ' + esc(SIG.label) + ' is ' + sigFmt(SIG.now) + ' of ballots so far against ' + sigFmt(SIG.bench) + ' at ' + esc(SIG.bench_label) + '. ' + RACES.map((rc) => 'Each point of difference in the final electorate moves the ' + esc(rc.office) + ' margin about ' + P[rc.key].slope.toFixed(2) + ' points').join('; ') + '. ' +
+      (SIG.type === 'party' ? 'That rate assumes registered Democrats and Republicans each back their own party\'s nominee by about 92 to 8, so shifting one point of the electorate from one party to the other moves the margin by about 0.84 points.' : 'That rate comes from a two-group model: ' + esc(SIG.label.replace(' share of ballots', '')) + ' voters split as in this year\'s crosstabs where published, everyone else as needed to match the poll average.') +
+      ' The headline uses the midpoint: half of this year\'s difference survives to Election Day.');
+  }
+  RACES.filter((rc) => rc.I).forEach((rc) => M.push('<b>Three-way race.</b> ' + esc(rc.I.name) + '\'s share is held at the weighted average of polls that include ' + (rc.I.pronoun || 'the independent') + '; the lean correction applies to the margin between the two major-party nominees. Chances come from 20,000 simulated outcomes with independent errors for each candidate, sized so any two candidates\' margin misses by about ' + S.sd + ' points.'));
+  (S.method_extra || []).forEach((x) => M.push(x));
+  M.push('<b>Updates.</b> A scheduled task rebuilds this page twice a day through Election Day with the newest early-vote figures and any new qualifying polls.');
+  M.push('<b>Uncertainty.</b> The chances assume the final margin can miss the projection with a standard error of ' + S.sd + ' points, roughly the size of recent polling misses in Senate and governor races. They are estimates for this page, not an official forecast.');
+  if (S.other_views) M.push('<b>Other views.</b> ' + esc(S.other_views));
+  $('#method').innerHTML = M.map((x) => '<li>' + x + '</li>').join('');
+
+  /* ================= COUNTIES ================= */
+  if (C.length) {
+    const U = S.unit, US = S.units;
+    const SCALE = STATE22 ? niceMax(Math.max(...C.map((c) => c.p22 || 0).filter((x) => x < 400)) * 0.75 + STATE22 * 0.25) : 100;
+    const BANDS = [
+      { n: 'Harris +30 or more', lo: 30, hi: 1e9, c: 'var(--dem)' }, { n: 'Harris by under 30', lo: 0, hi: 30, c: 'var(--dem)' },
+      { n: 'Trump by under 30', lo: -30, hi: 0, c: 'var(--rep)' }, { n: 'Trump +30 to +50', lo: -50, hi: -30, c: 'var(--rep)' }, { n: 'Trump +50 or more', lo: -1e9, hi: -50, c: 'var(--rep)' },
+    ];
+    function agg(list) {
+      const a = { k: list.length, rv: 0, v: 0, t22: 0, pd: 0, pr: 0 };
+      list.forEach((c) => { a.rv += c.rv || 0; a.v += c.v; a.t22 += c.t22 || 0; a.pd += c.pd || 0; a.pr += c.pr || 0; });
+      a.rvp = a.rv ? a.v / a.rv * 100 : null; a.p22 = a.t22 ? a.v / a.t22 * 100 : null; a.sh = a.v / TOTAL * 100; a.pnet = H.party && a.v ? (a.pd - a.pr) / a.v * 100 : null; return a;
+    }
+    BANDS.forEach((b) => { b.a = agg(C.filter((c) => c.mg != null && c.mg >= b.lo && c.mg < b.hi)); });
+    const bandsShown = BANDS.filter((b) => b.a.k);
+    $('#bands-title').textContent = 'Turnout so far, by how each ' + U + ' voted in 2024';
+    $('#bands-note').textContent = UNITCAP + ' grouped by their 2024 presidential margin. Each bar is the share of the group\'s ' + S.base22 + ' already cast this year; the dashed line is the statewide figure, ' + pc(STATE22) + '. This shows where ballots are coming from, not how anyone voted. ' + (S.counties_note || 'Places where more people habitually vote early will read higher at this stage, so part of any gap is timing.');
+    const bandsEl = $('#bands');
+    bandsEl.innerHTML = bandsShown.map((b, i) => barRow(b.n, b.a.k + ' ' + (b.a.k === 1 ? U : US) + ' · ' + pc(b.a.sh) + ' of ballots' + (H.party ? ' · party gap ' + fm(b.a.pnet) : ''), b.a.p22, SCALE, STATE22, b.c, 'data-i="' + i + '"')).join('');
+    bindTips(bandsEl.parentElement, '.row', (el) => { const b = bandsShown[+el.dataset.i]; return tipRows(b.n, [[UNITCAP, b.a.k], ['Ballots so far', fmt(b.a.v)]].concat(H.reg ? [['Of registered', pc(b.a.rvp)]] : []).concat([['Of 2022 vote', pc(b.a.p22)], ['Share of state', pc(b.a.sh)]]).concat(H.party ? [['Party gap', fm(b.a.pnet)]] : [])); });
+    const aggHead = '<tr><th class="l">' + UNITCAP + ' by 2024 result</th><th>' + UNITCAP + '</th>' + (H.reg ? '<th>Registered</th>' : '') + '<th>Ballots so far</th>' + (H.reg ? '<th>Of registered</th>' : '') + '<th>Of 2022 vote</th><th>Share of state\'s ballots</th>' + (H.party ? '<th>Party gap (D−R)</th>' : '') + '</tr>';
+    const aggRow = (label, a) => '<td>' + esc(label) + '</td><td>' + a.k + '</td>' + (H.reg ? '<td>' + fmt(a.rv) + '</td>' : '') + '<td>' + fmt(a.v) + '</td>' + (H.reg ? '<td>' + pc(a.rvp) + '</td>' : '') + '<td>' + pc(a.p22) + '</td><td>' + pc(a.sh) + '</td>' + (H.party ? '<td class="' + (a.pnet >= 0 ? 'dm' : 'rm') + '">' + fm(a.pnet) + '</td>' : '') ;
+    const all = agg(C);
+    $('#bands-table thead').innerHTML = aggHead;
+    $('#bands-table tbody').innerHTML = bandsShown.map((b) => '<tr>' + aggRow(b.n, b.a) + '</tr>').join('') + '<tr class="tot">' + aggRow(S.name, all) + '</tr>';
+
+    const sizeKey = H.reg ? 'rv' : 't22';
+    const SIZES = [['100,000 or more', 1e5, 1e12], ['25,000 to 100,000', 25e3, 1e5], ['Under 25,000', 0, 25e3]];
+    $('#size-title').textContent = 'By ' + U + ' size';
+    $('#size-note').textContent = UNITCAP + ' grouped by ' + (H.reg ? 'registered voters' : 'the number of votes cast in 2022') + '. The largest ' + US + ' hold ' + pc(agg(C.filter((c) => (c[sizeKey] || 0) >= 1e5)).sh, 0) + ' of this year\'s ballots.';
+    $('#size-table thead').innerHTML = aggHead.replace(UNITCAP + ' by 2024 result', H.reg ? 'Registered voters' : 'Votes cast in 2022');
+    $('#size-table tbody').innerHTML = SIZES.map(([n, lo, hi]) => { const l = C.filter((c) => (c[sizeKey] || 0) >= lo && (c[sizeKey] || 0) < hi); return l.length ? '<tr>' + aggRow(n, agg(l)) + '</tr>' : ''; }).join('') + '<tr class="tot">' + aggRow(S.name, all) + '</tr>';
+
+    const COLS = [['n', UNITCAP.replace(/s$/, '').replace(/ie$/, 'y'), 'l'], H.reg && ['rv', 'Registered'], ['v', 'Ballots so far'], H.ip && ['e', 'In person'], H.mail && ['m', 'Mail'], H.reg && ['rvp', 'Of registered'], ['p22', 'Of 2022 vote', 'l'], H.party && ['pnet', 'Party gap'], ['mg', '2024 result']].filter(Boolean);
+    $('#ctable thead tr').innerHTML = COLS.map(([k, l, cl]) => '<th data-k="' + k + '"' + (cl ? ' class="' + cl + '"' : '') + (k === 'v' ? ' aria-sort="descending"' : '') + '><button type="button">' + l + '</button></th>').join('');
+    $('#ctable-note').textContent = 'Every ' + U + '. "Of 2022 vote" is ballots cast so far as a share of the ' + U + '\'s ' + S.base22 + '.' + (H.party ? ' "Party gap" is registered Democrats minus Republicans as a share of the ' + U + '\'s ballots so far.' : '') + ' The 2024 result is the presidential margin in points (D for Democratic, R for Republican). Select a column heading to sort.';
+    $('#county-q-label').textContent = 'Find a ' + U;
+    $('#county-q').placeholder = 'e.g. ' + [...C].sort((a, b) => b.v - a.v)[0].n;
+    let sortK = 'v', sortDir = -1, showAll = false;
+    const ths = [...document.querySelectorAll('#ctable th')];
+    const cell = (c, k) => {
+      if (k === 'n') return '<td>' + esc(c.n) + '</td>';
+      if (k === 'p22') return '<td class="l">' + pc(c.p22) + (c.p22 != null ? '<span class="mini" style="width:' + Math.min(5, c.p22 / SCALE * 3.5).toFixed(2) + 'rem"></span>' : '') + '</td>';
+      if (k === 'rvp') return '<td>' + pc(c.rvp) + '</td>';
+      if (k === 'mg') return '<td class="' + (c.mg >= 0 ? 'd' : 'r') + '">' + mgl(c.mg) + '</td>';
+      if (k === 'pnet') return '<td class="' + (c.pnet >= 0 ? 'd' : 'r') + '">' + (c.pnet != null ? fm(c.pnet) : NA) + '</td>';
+      return '<td>' + (c[k] != null ? fmt(c[k]) : NA) + '</td>';
+    };
+    function drawTable() {
+      const q = $('#county-q').value.trim().toLowerCase();
+      let rows = C.filter((c) => !q || c.n.toLowerCase().includes(q));
+      rows.sort((a, b) => sortK === 'n' ? sortDir * a.n.localeCompare(b.n) : sortDir * ((a[sortK] ?? -1e9) - (b[sortK] ?? -1e9)));
+      const total = rows.length;
+      if (!showAll && !q) rows = rows.slice(0, 25);
+      $('#ctable tbody').innerHTML = rows.map((c) => '<tr>' + COLS.map(([k]) => cell(c, k)).join('') + '</tr>').join('') || '<tr><td colspan="' + COLS.length + '" class="na">No ' + U + ' matches "' + esc(q) + '".</td></tr>';
+      $('#county-count').textContent = q ? total + ' ' + (total === 1 ? U : US) : (showAll || C.length <= 25 ? 'All ' + C.length + ' ' + US : 'Top 25 of ' + C.length + ' by current sort');
+      $('#county-more').hidden = !!q || C.length <= 25;
+      $('#county-more').textContent = showAll ? 'Show 25 ' + US : 'Show all ' + C.length + ' ' + US;
+    }
+    ths.forEach((th) => th.querySelector('button').addEventListener('click', () => {
+      const k = th.dataset.k;
+      if (k === sortK) sortDir = -sortDir; else { sortK = k; sortDir = k === 'n' ? 1 : -1; }
+      ths.forEach((t) => t.removeAttribute('aria-sort'));
+      th.setAttribute('aria-sort', sortDir > 0 ? 'ascending' : 'descending');
+      drawTable();
+    }));
+    $('#county-q').addEventListener('input', drawTable);
+    $('#county-more').addEventListener('click', () => { showAll = !showAll; drawTable(); });
+    drawTable();
+  }
+
+  /* ================= DAY BY DAY ================= */
+  const CP = D.cps || [];
+  const chg = (a, b) => { const v = (a / b - 1) * 100; return (v >= 0 ? '+' : '') + pc(v); };
+  const cmpYears = [...new Set(CP.filter((p) => p.c22).map((p) => p.c22y || 2022))];
+  $('#cp-cmp-h').textContent = (cmpYears.length === 1 ? cmpYears[0] : 'Earlier year') + ', same point';
+  $('#leg22').innerHTML = '<i class="dot" style="background:var(--y22)"></i>' + (cmpYears.length === 1 ? cmpYears[0] : 'Earlier year') + ', same point';
+  if (!CP.some((p) => p.c22 && p.c22k !== 'in person')) $('#leg22').remove();
+  $('#cp-table tbody').innerHTML = CP.map((p) => {
+    const cmp = p.c22 ? (p.c22k === 'in person' ? p.ip : p.all) : null;
+    const f = (v, fl, nr) => v == null ? NA : (fl ? 'over ' : nr ? 'nearly ' : p.rounded ? 'about ' : '') + fmt(v);
+    return '<tr><td>' + esc(p.when) + '</td><td>' + f(p.ip, p.ipFloor, p.ipNear) + '</td><td>' + f(p.mail, p.mailFloor, p.mailNear) + '</td><td>' + f(p.all, p.allFloor, p.allNear) +
+      '</td><td>' + (p.c22 ? fmt(p.c22) + ' <span class="na">(' + esc(p.c22k) + ')</span>' : '<span class="na">not published</span>') + '</td><td>' + (cmp ? chg(cmp, p.c22) : '') + '</td><td class="l">' + (p.href ? '<a href="' + esc(p.href) + '" target="_blank" rel="noopener">' + esc(p.src) + '</a>' : esc(p.src)) + '</td></tr>';
+  }).join('');
+  $('#days-note').textContent = S.days_note || ('Running statewide counts at each reported checkpoint, including every refresh of the official count, rather than a value for every day.' + (CP.some((p) => p.c22) ? ' Purple marks are the earlier year at the same point.' : ''));
+  if (S.cp_note) $('#cp-note').textContent = S.cp_note; else $('#cp-note').remove();
+  const MONS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function drawCheckpoints() {
+    const host = $('#cp-chart'); const W = Math.max(300, host.clientWidth || 600), Hh = 260;
+    const m = { l: 56, r: 34, t: 16, b: 28 };
+    const pts = CP.filter((p) => p.all), p22s = CP.filter((p) => p.c22 && p.c22k !== 'in person');
+    if (!pts.length) { host.innerHTML = '<p class="note">No checkpoints yet.</p>'; return; }
+    const t0 = Math.min(Date.parse(S.count_start + 'T00:00'), Date.parse(pts[0].t));
+    const lastDay = Date.parse(CP[CP.length - 1].t.slice(0, 10) + 'T00:00') + 864e5;
+    const t1 = Math.max(Date.parse(S.ev_end + 'T00:00') + 864e5, lastDay);
+    const vmax = Math.max(...pts.map((p) => p.all), ...p22s.map((p) => p.c22));
+    const steps = [1e3, 2e3, 5e3, 1e4, 2e4, 5e4, 1e5, 2e5, 2.5e5, 5e5, 1e6, 2e6];
+    const step = steps.find((s) => vmax * 1.06 / s <= 6) || 5e6;
+    const top = Math.ceil(vmax * 1.06 / step) * step;
+    const X = (t) => m.l + (Date.parse(t) - t0) / (t1 - t0) * (W - m.l - m.r);
+    const Xn = (n) => m.l + (n - t0) / (t1 - t0) * (W - m.l - m.r);
+    const Y = (v) => Hh - m.b - v / top * (Hh - m.t - m.b);
+    const lab = (v) => v === 0 ? '0' : v >= 1e6 ? (v / 1e6) + 'M' : (v / 1e3) + 'K';
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="presentation">';
+    for (let v = 0; v < top + 1; v += step) s += '<line class="gridl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + lab(v) + '</text>';
+    s += '<line class="axisl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(0) + '" y2="' + Y(0) + '"/>';
+    const ndays = Math.round((t1 - t0) / 864e5), dstep = Math.max(1, Math.ceil(ndays / (W < 460 ? 5 : 10)));
+    for (let i = 0; i <= ndays; i += dstep) { const d = new Date(t0 + i * 864e5); s += '<text x="' + Xn(t0 + i * 864e5) + '" y="' + (Hh - 8) + '" text-anchor="middle">' + d.getDate() + ' ' + MONS[d.getMonth()] + '</text>'; }
+    s += '<polyline fill="none" stroke="var(--y26)" stroke-width="2" stroke-linejoin="round" points="' + pts.map((p) => X(p.t) + ',' + Y(p.all)).join(' ') + '"/>';
+    CP.forEach((p, i) => {
+      if (p.all) s += '<circle data-i="' + i + '" data-y="26" cx="' + X(p.t) + '" cy="' + Y(p.all) + '" r="5" fill="' + (p.allFloor || p.allNear ? 'var(--panel)' : 'var(--y26)') + '" stroke="' + (p.allFloor || p.allNear ? 'var(--y26)' : 'var(--panel)') + '" stroke-width="2"/><circle data-i="' + i + '" data-y="26" cx="' + X(p.t) + '" cy="' + Y(p.all) + '" r="14" fill="transparent"/>';
+      if (p.c22 && p.c22k !== 'in person') s += '<circle data-i="' + i + '" data-y="22" cx="' + X(p.t) + '" cy="' + Y(p.c22) + '" r="5" fill="var(--y22)" stroke="var(--panel)" stroke-width="2"/><circle data-i="' + i + '" data-y="22" cx="' + X(p.t) + '" cy="' + Y(p.c22) + '" r="14" fill="transparent"/>';
+    });
+    const last = pts[pts.length - 1];
+    s += '<text x="' + (X(last.t) - 8) + '" y="' + (Y(last.all) - 8) + '" text-anchor="end" style="fill:var(--fg)">' + fmt(last.all) + '</text>';
+    if (p22s.length) { const q = p22s[p22s.length - 1]; s += '<text x="' + (X(q.t) + 9) + '" y="' + (Y(q.c22) + 4) + '" text-anchor="start">' + (q.c22y || 2022) + ': ' + fmt(q.c22) + '</text>'; }
+    s += '</svg>';
+    host.innerHTML = s;
+    if (!host.dataset.b) {
+      host.dataset.b = 1;
+      bindTips(host, 'circle', (el) => {
+        const p = CP[+el.dataset.i];
+        if (el.dataset.y === '22') return tipRows((p.c22y || 2022) + ', same point as ' + p.when, [['Ballots', fmt(p.c22)], ['2026 change', chg(p.all, p.c22)]]);
+        return tipRows(p.when, [['All ballots', (p.allFloor ? 'over ' : p.allNear ? 'nearly ' : p.rounded ? 'about ' : '') + fmt(p.all)], ['In person', p.ip == null ? 'n/a' : (p.ipFloor ? 'over ' : p.ipNear ? 'nearly ' : '') + fmt(p.ip)], ['Mail', p.mail == null ? 'n/a' : (p.mailFloor ? 'over ' : p.mailNear ? 'nearly ' : '') + fmt(p.mail)], ['Source', p.src]]);
+      });
+    }
+  }
+
+  /* pace: share of registered voters by day of early voting, when the source publishes it */
+  const PACE = D.pace;
+  function drawPace() {
+    if (!PACE) return;
+    const host = $('#pace-chart'); const W = Math.max(300, host.clientWidth || 600), Hh = 240, m = { l: 44, r: 60, t: 14, b: 40 };
+    const days = Math.max(PACE.days, ...['a', 'b'].map((k) => PACE[k].length));
+    const vmax = Math.max(...PACE.a, ...PACE.b);
+    const top = Math.ceil(vmax * 1.15 / 5) * 5;
+    const X = (i) => m.l + (i - 1) / Math.max(1, days - 1) * (W - m.l - m.r), Y = (v) => Hh - m.b - v / top * (Hh - m.t - m.b);
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="presentation">';
+    for (let v = 0; v <= top; v += 5) s += '<line class="gridl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (m.l - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + v + '%</text>';
+    for (let i = 1; i <= days; i++) s += '<text x="' + X(i) + '" y="' + (Hh - m.b + 16) + '" text-anchor="middle">' + i + '</text>';
+    s += '<text x="' + ((m.l + W - m.r) / 2) + '" y="' + (Hh - 4) + '" text-anchor="middle">Day of early voting</text>';
+    [['b', 'var(--y22)', '2022'], ['a', 'var(--y26)', '2026']].forEach(([k, c, lab]) => {
+      const pts = PACE[k]; if (!pts.length) return;
+      s += '<polyline fill="none" style="stroke:' + c + '" stroke-width="2" points="' + pts.map((v, i) => X(i + 1) + ',' + Y(v)).join(' ') + '"/>';
+      pts.forEach((v, i) => { s += '<circle data-k="' + k + '" data-i="' + i + '" cx="' + X(i + 1) + '" cy="' + Y(v) + '" r="4" style="fill:' + c + ';stroke:var(--panel)" stroke-width="1.5"/><circle data-k="' + k + '" data-i="' + i + '" cx="' + X(i + 1) + '" cy="' + Y(v) + '" r="12" fill="transparent"/>'; });
+      s += '<text x="' + (X(pts.length) + 8) + '" y="' + (Y(pts[pts.length - 1]) + 4) + '" style="fill:' + c + '">' + lab + ' ' + pts[pts.length - 1].toFixed(1) + '%</text>';
+    });
+    s += '</svg>'; host.innerHTML = s;
+    if (!host.dataset.b) { host.dataset.b = 1; bindTips(host, 'circle', (el) => { const i = +el.dataset.i; return tipRows('Day ' + (i + 1), [['2026', PACE.a[i] != null ? PACE.a[i].toFixed(2) + '%' : 'n/a'], ['2022', PACE.b[i] != null ? PACE.b[i].toFixed(2) + '%' : 'n/a']]); }); }
+  }
+  if (PACE) { $('#pace-card').hidden = false; $('#pace-note').textContent = PACE.note || ''; }
+
+  /* ================= WHO ================= */
+  if (GROUPS.length) {
+    const TITLES = { party: 'Registered party', race: 'Race', age: 'Age', gender: 'Gender', history: '2022 voting history', method: 'How they voted' };
+    let html = '';
+    GROUPS.forEach(([dim, g], gi) => {
+      const rows = Object.entries(g.rows).filter(([, v]) => v != null);
+      const tot = rows.reduce((a, [, v]) => a + (+v || 0), 0);
+      const sp = g.same_point_2022 || null, fin = g.final_2022 || null;
+      let mx = 0; rows.forEach(([k, v]) => { mx = Math.max(mx, v / tot * 100, sp && sp[k] != null ? sp[k] : 0, fin && fin[k] != null ? fin[k] : 0); });
+      const sc = niceMax(mx * 1.18);
+      const bar = (v, cl, col) => v == null ? '' : '<div class="t"><div class="bar ' + cl + '" style="width:' + (v / sc * 100) + '%' + (col ? ';background:' + col : '') + '"></div><span style="left:' + (v / sc * 100) + '%">' + pc(v) + '</span></div>';
+      html += '<div class="card"><h2>' + esc(g.label || TITLES[dim] || dim) + '</h2>' +
+        '<div class="legend"><span><i style="background:var(--y26)"></i>2026 ballots so far</span>' + (sp ? '<span><i style="background:var(--y22)"></i>' + esc(g.same_label || '2022 at the same point') + '</span>' : '') + (fin ? '<span><i style="background:var(--axis)"></i>' + esc(g.final_label || '2022 final electorate') + '</span>' : '') + '</div>' +
+        '<div class="rel"><div class="rows" data-g="' + gi + '">' + rows.map(([k, v], i) => '<div class="row nv" data-i="' + i + '"><div class="lab"><b>' + esc(k.replace('-', '–')) + '</b><small>' + fmt(v) + '</small></div><div class="pair">' + bar(v / tot * 100, '') + (sp ? bar(sp[k], 'b22') : '') + (fin ? bar(fin[k], 'bfin') : '') + '</div></div>').join('') + '</div></div>' +
+        '<p class="note">' + esc(g.note || '') + (g.src ? ' <a href="' + esc(g.src) + '" target="_blank" rel="noopener">Source</a>.' : '') + '</p></div>';
+    });
+    if (S.who_note) html += '<div class="card"><p class="note">' + esc(S.who_note) + '</p></div>';
+    $('#who-cards').innerHTML = html;
+    document.querySelectorAll('#who-cards .rows').forEach((el) => {
+      const [dim, g] = GROUPS[+el.dataset.g]; const rows = Object.entries(g.rows); const tot = rows.reduce((a, [, v]) => a + (+v || 0), 0);
+      bindTips(el.parentElement, '.row', (r) => { const [k, v] = rows[+r.dataset.i]; return tipRows(k, [['2026 ballots', fmt(v) + ' (' + pc(v / tot * 100) + ')']].concat(g.same_point_2022 && g.same_point_2022[k] != null ? [['2022, same point', pc(g.same_point_2022[k])]] : []).concat(g.final_2022 && g.final_2022[k] != null ? [['2022 final', pc(g.final_2022[k])]] : [])); });
+    });
+  }
+
+  /* ================= DISTRICTS ================= */
+  if (H.districts) {
+    const DS = D.districts.map((d) => ({ ...d, rvp: d.rv ? d.v / d.rv * 100 : null, sh: d.v / D.districts.reduce((a, x) => a + x.v, 0) * 100, pnet: d.pd != null && d.pr != null ? (d.pd - d.pr) / d.v * 100 : null }));
+    const useRv = DS.every((d) => d.rvp != null), useP = DS.every((d) => d.pnet != null);
+    $('#dist-title').textContent = S.dist_label;
+    $('#dist-note').textContent = (useRv ? 'Share of each district\'s registered voters who have voted so far; the dashed line is the statewide rate. ' : 'Each district\'s share of the state\'s ballots so far. ') + (S.dist_note || '');
+    const vals = DS.map((d) => useRv ? d.rvp : d.sh); const sc = niceMax(Math.max(...vals));
+    const sorted = [...DS].sort((a, b) => (useRv ? b.rvp - a.rvp : b.v - a.v));
+    const ref = useRv ? DS.reduce((a, d) => a + d.v, 0) / DS.reduce((a, d) => a + d.rv, 0) * 100 : null;
+    $('#cd-bars').innerHTML = sorted.map((d, i) => barRow(d.n, fmt(d.v) + ' ballots' + (useP ? ' · party gap ' + fm(d.pnet) : ''), useRv ? d.rvp : d.sh, sc, ref, '', 'data-i="' + i + '"')).join('');
+    bindTips($('#cd-bars').parentElement, '.row', (el) => { const d = sorted[+el.dataset.i]; return tipRows(d.n, [['Ballots so far', fmt(d.v)]].concat(d.e != null ? [['In person', fmt(d.e)]] : []).concat(d.m != null ? [['Mail', fmt(d.m)]] : []).concat(d.rv ? [['Registered', fmt(d.rv)], ['Of registered', pc(d.rvp)]] : []).concat(useP ? [['Party gap', fm(d.pnet)]] : [])); });
+    const cols = [['n', 'District'], ['v', 'Ballots so far'], DS.every((d) => d.e != null) && ['e', 'In person'], DS.every((d) => d.m != null) && ['m', 'Mail'], useRv && ['rv', 'Registered'], useRv && ['rvp', 'Of registered'], ['sh', 'Share of state'], useP && ['pnet', 'Party gap']].filter(Boolean);
+    $('#cd-table thead tr').innerHTML = cols.map(([, l], i) => '<th' + (i ? '' : ' class="l"') + '>' + l + '</th>').join('');
+    $('#cd-table tbody').innerHTML = DS.map((d) => '<tr>' + cols.map(([k]) => k === 'n' ? '<td>' + esc(d.n) + '</td>' : k === 'rvp' || k === 'sh' ? '<td>' + pc(d[k]) + '</td>' : k === 'pnet' ? '<td class="' + (d.pnet >= 0 ? 'd' : 'r') + '">' + fm(d.pnet) + '</td>' : '<td>' + fmt(d[k]) + '</td>').join('') + '</tr>').join('');
+  }
+
+  /* ================= MAP ================= */
+  const byF = Object.fromEntries(C.map((c) => [c.f, c]));
+  const rel = (s0, ks) => ks.map((k) => Math.round(s0 * k));
+  const MEAS = {};
+  if (STATE22) { const e = rel(STATE22, [0.7, 0.85, 1, 1.15, 1.3]); MEAS.p22 = { b: 'Of 2022 vote', title: 'Share of 2022 vote already cast', edges: e, vars: ['--seq-0', '--seq-1', '--seq-2', '--seq-3', '--seq-4', '--seq-5'], labels: ['Under ' + e[0] + '%'].concat(e.slice(0, -1).map((x, i) => x + '–' + e[i + 1] + '%')).concat([e[4] + '% or more']), note: 'Ballots cast so far as a share of each ' + S.unit + '\'s ' + S.base22 + '. Statewide: ' + pc(STATE22) + '.' }; }
+  if (H.reg) { const s0 = TOTAL / RVSUM * 100, e = rel(s0, [0.7, 0.85, 1, 1.15, 1.3]); MEAS.rvp = { b: 'Of registered', title: 'Share of registered voters who have voted', edges: e, vars: ['--seq-0', '--seq-1', '--seq-2', '--seq-3', '--seq-4', '--seq-5'], labels: ['Under ' + e[0] + '%'].concat(e.slice(0, -1).map((x, i) => x + '–' + e[i + 1] + '%')).concat([e[4] + '% or more']), note: 'Ballots cast so far divided by registered voters. Statewide: ' + pc(s0) + '.' }; }
+  const DIV = ['--div-r3', '--div-r2', '--div-r1', '--div-r0', '--div-d0', '--div-d1', '--div-d2', '--div-d3'];
+  if (H.party) MEAS.pnet = { b: 'Party gap', title: 'Registered Democrats minus Republicans among ballots so far', edges: [-40, -20, -10, 0, 10, 20, 40], vars: DIV, labels: ['R+40 or more', 'R+20–40', 'R+10–20', 'R+0–10', 'D+0–10', 'D+10–20', 'D+20–40', 'D+40 or more'], note: 'Registered party of the ballots cast so far. Statewide: ' + (SIG && SIG.type === 'party' ? fm(SIG.now) : '') + '.' };
+  MEAS.mg = { b: '2024 result', title: '2024 presidential result', edges: [-50, -30, -10, 0, 10, 30, 50], vars: DIV, labels: ['R+50 or more', 'R+30–50', 'R+10–30', 'R+0–10', 'D+0–10', 'D+10–30', 'D+30–50', 'D+50 or more'], note: 'Certified 2024 presidential margin, for reference. ' + (S.pres24 || '') };
+  let mKey = Object.keys(MEAS)[0];
+  const binOf = (v, edges) => edges.reduce((i, e) => i + (v >= e ? 1 : 0), 0);
+  function drawMap() {
+    const Mp = D.map; const wrap = $('#mapwrap');
+    $('#map-title').textContent = S.name + ', ' + S.unit + ' by ' + S.unit;
+    $('#map-seg').innerHTML = Object.entries(MEAS).map(([k, m]) => '<button type="button" data-m="' + k + '" aria-pressed="' + (k === mKey) + '">' + m.b + '</button>').join('');
+    document.querySelectorAll('#map-seg button').forEach((b) => b.addEventListener('click', () => { mKey = b.dataset.m; document.querySelectorAll('#map-seg button').forEach((x) => x.setAttribute('aria-pressed', x === b)); paintMap(); }));
+    let s = '<svg viewBox="0 0 ' + Mp.w + ' ' + Mp.h + '" role="img" aria-labelledby="map-title">';
+    Object.entries(Mp.c).forEach(([f, d]) => { s += '<path class="c" data-f="' + f + '" d="' + d + '"/>'; });
+    s += '<path class="o" d="' + Mp.o + '"/></svg>';
+    wrap.innerHTML = s;
+    bindTips(wrap, 'path.c', (el) => {
+      wrap.querySelectorAll('path.on').forEach((p) => p.classList.remove('on')); el.classList.add('on');
+      const c = byF[el.dataset.f]; if (!c) return tipRows('No data', []);
+      return tipRows(c.n + S.unit_suffix, [['Ballots so far', fmt(c.v)]].concat(H.reg ? [['Of registered', pc(c.rvp)]] : []).concat([['Of 2022 vote', pc(c.p22)]]).concat(H.party ? [['Party gap', c.pnet != null ? fm(c.pnet) : 'n/a']] : []).concat([['2024 result', mgl(c.mg)]]));
+    });
+    wrap.addEventListener('pointerleave', () => wrap.querySelectorAll('path.on').forEach((p) => p.classList.remove('on')));
+    paintMap();
+    $('#map-read').innerHTML = ['"Of 2022 vote" compares this year\'s ballots so far with each ' + S.unit + '\'s ' + S.base22 + ', so it rises toward and past 100% as voting goes on.', H.reg ? '"Of registered" divides ballots so far by the ' + S.unit + '\'s registered voters.' : null, H.party ? '"Party gap" is the registered-party makeup of ballots cast so far, not votes.' : null, '"2024 result" is the certified presidential margin, shown so turnout can be read against it. It says nothing about how this year\'s voters are voting.', S.map_note || null, 'Tap or hover a ' + S.unit + ' for its numbers. The table on the ' + UNITCAP + ' tab has every figure.'].filter(Boolean).map((x) => '<li>' + esc(x) + '</li>').join('');
+  }
+  function paintMap() {
+    const m = MEAS[mKey];
+    document.querySelectorAll('#mapwrap path.c').forEach((p) => { const c = byF[p.dataset.f]; p.style.fill = c && c[mKey] != null ? 'var(' + m.vars[binOf(c[mKey], m.edges)] + ')' : 'var(--track)'; });
+    const counts = m.vars.map(() => 0); C.forEach((c) => { if (c[mKey] != null) counts[binOf(c[mKey], m.edges)]++; });
+    $('#map-legend').innerHTML = m.vars.map((v, i) => '<span><i style="background:var(' + v + ')"></i>' + m.labels[i] + ' <span style="opacity:.7">(' + counts[i] + ')</span></span>').join('');
+    $('#map-note').textContent = m.title + '. ' + m.note + ' Numbers in brackets are ' + S.units + '.';
+  }
+
+  /* ================= READ + SOURCES ================= */
+  $('#read-notes').innerHTML = (S.notes_read || []).map((x) => '<li>' + x + '</li>').join('');
+  $('#sources').innerHTML = (S.sources || []).map((x) => '<li>' + x + '</li>').join('');
+
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if ($('#days') && !$('#days').hidden) { drawCheckpoints(); drawPace(); } if (!$('#projection').hidden) drawDials(); }, 150); });
+  const start = (location.hash || '').slice(1);
+  openTab(tabs.some((b) => b.dataset.page === start) ? start : 'projection');
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,831 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><script>(function(){if(location.hash)return;var r=history.replaceState.bind(history),done=false;history.replaceState=function(s,t,u){if(!done&&typeof u==="string"&&u.charAt(0)==="#")return;return r(s,t,u)};addEventListener("load",function(){setTimeout(function(){done=true},0)})})();</script>
+<div style="font:13px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid rgba(127,127,127,.28);display:flex;gap:6px;flex-wrap:wrap;align-items:baseline"><a href="index.html" style="color:inherit;font-weight:600;text-decoration:none">Our Future Matters</a><span style="opacity:.65">&middot; 2026 midterms tracker by Marc Randolph</span></div>
+<title>South Carolina Early Vote Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap">
+<style>
+  /* Layout: same system as the Georgia and Texas trackers - serif headline, tiles, tabbed pages of cards. */
+  :root {
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --bg: #fbfbfa; --panel: #ffffff; --fg: #1c2230; --muted: #626a7a; --line: #e3e5ea;
+    --grid: #eceef2; --axis: #c9ccd4; --ref: #8f95a3; --track: #f1f2f5;
+    --pop: #ffffff; --pop-border: #dfe2e8; --pop-shadow: 0 4px 16px rgba(20,24,36,.12);
+    --dem: #3b78d0; --rep: #d2473f; --y22: #8a6a9e; --y26: #d07a1c;
+    --h-early: #34548f; --h-eday: #8fa8d8; --h-none: #e0a040;
+    --seq-0: #e3eefc; --seq-1: #b7d3f6; --seq-2: #86b6ef; --seq-3: #5598e7; --seq-4: #2a78d6; --seq-5: #1c5cab;
+    --div-r3: #9e2b26; --div-r2: #d2473f; --div-r1: #e8908a; --div-r0: #f6d3d0;
+    --div-d0: #d4e3f7; --div-d1: #8fb6ea; --div-d2: #3b78d0; --div-d3: #1d4f96;
+    --gap-xs: 4px; --gap-sm: 8px; --gap-md: 14px; --gap-lg: 22px;
+    --pad-xs: 4px; --pad-sm: 8px; --pad-md: 12px; --pad-lg: 18px;
+    --radius: 8px; --fs-cap: 12px; --fs-body: 14px; --fs-head: 16px; --fs-title: 30px;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #14171d; --panel: #1b1f27; --fg: #e8eaef; --muted: #9aa2b1; --line: #2c323d;
+    --grid: #262b35; --axis: #3a414e; --ref: #8a92a2; --track: #232833;
+    --pop: #222733; --pop-border: #343b48; --pop-shadow: 0 4px 16px rgba(0,0,0,.4);
+    --dem: #5b93e0; --rep: #e2615a; --y22: #a98bbd; --y26: #e08a2e;
+    --h-early: #5f8ad6; --h-eday: #b3c6ec; --h-none: #e0a040;
+    --seq-0: #1e2a3d; --seq-1: #1d3d6b; --seq-2: #1f5aa3; --seq-3: #2f7bd8; --seq-4: #6aa3ea; --seq-5: #b2d0f5;
+    --div-r3: #f08b85; --div-r2: #d2473f; --div-r1: #8a3532; --div-r0: #4a2a2b;
+    --div-d0: #263750; --div-d1: #2c5a9a; --div-d2: #4f8fe0; --div-d3: #9ec5f4;
+    color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --bg: #14171d; --panel: #1b1f27; --fg: #e8eaef; --muted: #9aa2b1; --line: #2c323d;
+    --grid: #262b35; --axis: #3a414e; --ref: #8a92a2; --track: #232833;
+    --pop: #222733; --pop-border: #343b48; --pop-shadow: 0 4px 16px rgba(0,0,0,.4);
+    --dem: #5b93e0; --rep: #e2615a; --y22: #a98bbd; --y26: #e08a2e;
+    --h-early: #5f8ad6; --h-eday: #b3c6ec; --h-none: #e0a040;
+    --seq-0: #1e2a3d; --seq-1: #1d3d6b; --seq-2: #1f5aa3; --seq-3: #2f7bd8; --seq-4: #6aa3ea; --seq-5: #b2d0f5;
+    --div-r3: #f08b85; --div-r2: #d2473f; --div-r1: #8a3532; --div-r0: #4a2a2b;
+    --div-d0: #263750; --div-d1: #2c5a9a; --div-d2: #4f8fe0; --div-d3: #9ec5f4;
+    color-scheme: dark; }
+
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); }
+  #dash-root { max-width: 1120px; margin-inline: auto; padding-block: 24px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  :focus-visible { outline: 2px solid var(--dem); outline-offset: 2px; }
+  .ga { display: grid; gap: var(--gap-lg); font-size: var(--fs-body); }
+  .ga h1 { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-title); line-height: 1.15; margin: 0; text-wrap: balance; }
+  .ga h2 { font-size: var(--fs-head); font-weight: 500; margin: 0; text-wrap: balance; }
+  .ga h3 { font-size: var(--fs-body); font-weight: 600; margin: 0; }
+  .ga p { margin: 0; }
+  .snap-note { font-size: var(--fs-cap); color: var(--muted); }
+  .head { display: grid; gap: var(--gap-sm); }
+  .take { color: var(--muted); max-width: 70ch; line-height: 1.55; }
+  .take b { color: var(--fg); font-weight: 500; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--gap-md); }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-md) var(--pad-lg); display: grid; gap: var(--gap-xs); align-content: start; }
+  .tile .k { font-size: var(--fs-cap); color: var(--muted); }
+  .tile .v { font-family: var(--font-serif); font-size: var(--fs-title); line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .tile .v.y26 { color: var(--y26); }
+  .tile .s { font-size: var(--fs-cap); color: var(--muted); font-variant-numeric: tabular-nums; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-lg); display: grid; gap: var(--gap-md); min-width: 0; }
+  .note { font-size: var(--fs-cap); color: var(--muted); line-height: 1.55; max-width: 80ch; }
+  .note a, .sources a, .ga td a { color: inherit; text-decoration-color: var(--axis); text-underline-offset: 2px; }
+  .legend { display: flex; flex-wrap: wrap; gap: var(--gap-sm) var(--gap-lg); font-size: var(--fs-cap); color: var(--muted); align-items: center; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex: none; }
+  .legend i.line { height: 2px; border-radius: 1px; width: 14px; }
+  .legend i.dot { border-radius: 50%; }
+
+  .tabs { display: flex; gap: var(--gap-xs); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .tabs button { font: inherit; background: transparent; border: 0; border-bottom: 2px solid transparent; color: var(--muted); padding: var(--pad-sm) var(--pad-md); cursor: pointer; margin-bottom: -1px; }
+  .tabs button:hover { color: var(--fg); }
+  .tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--fg); font-weight: 500; }
+  .page { display: grid; gap: var(--gap-lg); }
+  .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .seg button { font: inherit; font-size: var(--fs-cap); background: transparent; color: var(--muted); border: 0; padding: var(--pad-xs) var(--pad-md); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--bg); color: var(--fg); font-weight: 500; }
+  .cardhead { display: flex; flex-wrap: wrap; gap: var(--gap-sm); align-items: center; justify-content: space-between; }
+
+  /* bars built in HTML */
+  .rel { position: relative; }
+  .rows { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr) 3.6rem; gap: var(--gap-sm) var(--gap-md); align-items: center; }
+  .row .lab { font-size: var(--fs-cap); line-height: 1.35; min-width: 0; }
+  .row .lab b { font-weight: 500; font-size: var(--fs-body); display: block; }
+  .row .lab small { color: var(--muted); font-size: var(--fs-cap); font-variant-numeric: tabular-nums; }
+  .row .val { font-size: var(--fs-cap); font-variant-numeric: tabular-nums; text-align: right; }
+  .track { position: relative; height: 14px; }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; background: var(--y26); border-radius: 0 4px 4px 0; }
+  .refline { position: absolute; top: -5px; bottom: -5px; width: 0; border-left: 1.5px dashed var(--ref); }
+  .chip { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .grp { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-top: var(--gap-sm); }
+  .grp:first-child { margin-top: 0; }
+  .stack { display: flex; gap: 2px; height: 20px; }
+  .stack div { position: relative; height: 100%; font-size: 11px; line-height: 20px; color: #fff; text-align: center; font-variant-numeric: tabular-nums; overflow: hidden; white-space: nowrap; }
+  .stack div:first-child { border-radius: 4px 0 0 4px; }
+  .stack div:last-child { border-radius: 0 4px 4px 0; }
+  .stack .s-eday { color: #1c2230; }
+  .stack .s-none { color: #1c2230; }
+  .row.hab { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); }
+  .pair { display: grid; gap: 3px; }
+  .pair .t { position: relative; height: 10px; display: flex; align-items: center; }
+  .pair .t .bar { border-radius: 0 3px 3px 0; }
+  .pair .t span { position: absolute; font-size: 11px; font-variant-numeric: tabular-nums; color: var(--muted); padding-left: 6px; white-space: nowrap; }
+  .row.nv { grid-template-columns: minmax(0, 7rem) minmax(0, 1fr); }
+
+  .tip { position: absolute; z-index: 5; pointer-events: none; background: var(--pop); border: 1px solid var(--pop-border); border-radius: var(--radius); box-shadow: var(--pop-shadow); padding: var(--pad-xs) var(--pad-sm); font-size: var(--fs-cap); line-height: 1.45; width: max-content; max-width: 15rem; }
+  .tip .h { font-weight: 500; margin-bottom: 2px; }
+  .tip .r { display: flex; justify-content: space-between; gap: var(--gap-md); font-variant-numeric: tabular-nums; }
+  .tip .r span:first-child { color: var(--muted); }
+
+  .tablewrap { overflow-x: auto; }
+  .ga table { border-collapse: collapse; width: 100%; font-size: var(--fs-cap); font-variant-numeric: tabular-nums; }
+  .ga th { text-align: right; font-weight: 500; color: var(--muted); padding: var(--pad-xs) var(--pad-sm); border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: bottom; }
+  .ga td { text-align: right; padding: 5px var(--pad-sm); border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .ga th:first-child, .ga td:first-child, .ga .l { text-align: left; }
+  .ga td.wrap { white-space: normal; min-width: 12rem; color: var(--muted); }
+  .ga th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; }
+  .ga th button:hover { color: var(--fg); }
+  .ga th[aria-sort] button { color: var(--fg); }
+  .ga th[aria-sort="descending"] button::after { content: " \2193"; }
+  .ga th[aria-sort="ascending"] button::after { content: " \2191"; }
+  .ga td.d { color: var(--dem); } .ga td.r { color: var(--rep); }
+  .ga tr.tot td { font-weight: 500; }
+  .ga td .mini { display: inline-block; vertical-align: middle; height: 6px; background: var(--y26); border-radius: 0 3px 3px 0; margin-left: 6px; }
+  .ga td.na { color: var(--muted); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--gap-sm) var(--gap-md); align-items: center; font-size: var(--fs-cap); color: var(--muted); }
+  .controls input { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px var(--pad-sm); width: 12rem; max-width: 100%; }
+  .btn { font: inherit; font-size: var(--fs-cap); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px var(--pad-md); cursor: pointer; justify-self: start; }
+  .btn:hover { border-color: var(--axis); }
+
+  svg text { fill: var(--muted); font-family: var(--font-sans); font-size: 11px; }
+  svg .gridl { stroke: var(--grid); stroke-width: 1; }
+  svg .axisl { stroke: var(--axis); stroke-width: 1; }
+  .mapwrap { position: relative; max-width: 560px; width: 100%; margin-inline: auto; }
+  .mapwrap svg { display: block; width: 100%; height: auto; }
+  .mapwrap path.c { stroke: var(--panel); stroke-width: .6; cursor: pointer; }
+  .mapwrap path.c.on { stroke: var(--fg); stroke-width: 1.6; }
+  .mapwrap path.o { fill: none; stroke: var(--axis); stroke-width: 1; pointer-events: none; }
+  .sources { margin: 0; padding-left: 1.1rem; display: grid; gap: 4px; font-size: var(--fs-cap); color: var(--muted); line-height: 1.5; }
+  .ga ul.notes { margin: 0; padding-left: 1.1rem; display: grid; gap: 6px; font-size: var(--fs-cap); color: var(--muted); line-height: 1.55; max-width: 80ch; }
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--gap-md); }
+  .proj { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-md) var(--pad-lg); display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .proj .top { display: flex; justify-content: space-between; align-items: baseline; gap: var(--gap-sm); flex-wrap: wrap; }
+  .pill { font-size: 11px; letter-spacing: .03em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--fg); background: var(--bg); white-space: nowrap; }
+  .cands { display: flex; justify-content: space-between; gap: var(--gap-md); }
+  .cand { display: grid; gap: 2px; }
+  .cand.r { text-align: right; }
+  .cand .nm { font-size: var(--fs-cap); color: var(--muted); }
+  .cand .pct { font-family: var(--font-serif); font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cand.d .pct { color: var(--dem); } .cand.r .pct { color: var(--rep); }
+  .split { position: relative; display: flex; gap: 2px; height: 14px; }
+  .split .sd { background: var(--dem); border-radius: 4px 0 0 4px; }
+  .split .sr { background: var(--rep); border-radius: 0 4px 4px 0; flex: 1 1 0; }
+  .split .half { position: absolute; left: 50%; top: -4px; bottom: -4px; border-left: 1.5px solid var(--fg); }
+  .pm { font-size: var(--fs-cap); color: var(--muted); line-height: 1.5; font-variant-numeric: tabular-nums; }
+  .pm b { color: var(--fg); font-weight: 500; }
+  .dials { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--gap-lg); }
+  .dial { display: grid; gap: 6px; min-width: 0; }
+  .dial svg { display: block; overflow: visible; }
+  .ga td.dm { color: var(--dem); } .ga td.rm { color: var(--rep); }
+  @media (max-width: 560px) {
+    .ga { --fs-title: 26px; }
+    .row { grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr) 3.2rem; }
+    .row.hab { grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr); }
+    .row.nv { grid-template-columns: minmax(0, 5.5rem) minmax(0, 1fr); }
+    .card { padding: var(--pad-md); }
+  }
+  .cands3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-sm); }
+  .cand.i .pct { color: var(--y22); }
+  .cand.c { text-align: center; }
+  .split .si { background: var(--y22); }
+  .split.three .sr { border-radius: 0 4px 4px 0; }
+  .grp-sub { font-size: var(--fs-cap); color: var(--muted); }
+  .bar.b22 { background: var(--y22); }
+  .bar.bfin { background: var(--axis); }
+  [hidden]:not([hidden=until-found i]) { display: none !important; }
+  .ga td.wrapl { white-space: normal; min-width: 13rem; color: var(--muted); text-align: left; }
+  .stale { color: var(--rep); }
+  .card > div, #who-cards, #poll-tables { min-width: 0; }
+  #poll-tables { display: grid; gap: var(--gap-sm); }
+  #who-cards { display: grid; gap: var(--gap-lg); }
+  .pair .t span { pointer-events: none; }
+</style>
+
+<div id="dash-root">
+<div class="ga">
+  <div class="head">
+    <p class="snap-note">Early-vote figures from the SC Election Commission's early-voting file of 25 October (EV-Totals-10-25-26.csv), covering early voting from Monday 19 October through Saturday 24 October, all 46 counties. In-person early votes only; absentee ballots by mail are published only in a spreadsheet this page cannot read (in 2022 they were about 3% of all ballots). Polls through 21 October. Page refreshed 25 October, 5:57 p.m. ET.</p>
+    <h1>South Carolina early vote: who is turning out</h1>
+    <p class="take">South Carolinians have cast <b>501,944</b> ballots so far, <b>110% more</b> after four days than in the first four days of 2022 and <b>29%</b> of 2022's entire vote. On the polls, the U.S. Senate race is a <b>toss-up</b> and the governor's race strongly favors <b>Wilson</b>.</p>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><span class="k">Ballots cast so far</span><span class="v y26">501,944</span><span class="s"></span></div>
+    <div class="tile"><span class="k">Against 2022, same point</span><span class="v">+110.0%</span><span class="s">363,566 after four days, against 173,107 in 2022</span></div>
+    <div class="tile"><span class="k">Share of 2022's total vote</span><span class="v">29.2%</span><span class="s">of about 1.72 million ballots</span></div>
+    <div class="tile" id="tile4"><span class="k">Share of registered voters</span><span class="v">14.5%</span><span class="s">of 3,456,362 registered</span></div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Tracker sections">
+    <button role="tab" id="tab-projection" aria-controls="projection" aria-selected="true" data-page="projection">Projection</button>
+    <button role="tab" id="tab-counties" aria-controls="counties" aria-selected="false" data-page="counties" tabindex="-1">Counties</button>
+    <button role="tab" id="tab-days" aria-controls="days" aria-selected="false" data-page="days" tabindex="-1">Day by day</button>
+    <button role="tab" id="tab-who" aria-controls="who" aria-selected="false" data-page="who" tabindex="-1">Who's voting</button>
+    <button role="tab" id="tab-districts" aria-controls="districts" aria-selected="false" data-page="districts" tabindex="-1">Districts</button>
+    <button role="tab" id="tab-map" aria-controls="map" aria-selected="false" data-page="map" tabindex="-1">Map</button>
+  </div>
+
+  <!-- PROJECTION -->
+  <section class="page" id="projection" role="tabpanel" aria-labelledby="tab-projection">
+    <div class="card">
+      <h2>Where the races stand<span id="stand-sub"></span></h2>
+      <p class="note" id="stand-note"></p>
+      <div class="proj-grid" id="proj-grid"></div>
+    </div>
+    <div class="card" id="ev-card">
+      <h2 id="ev-title">Three readings of the early vote</h2>
+      <p class="note" id="ev-note"></p>
+      <div class="tablewrap" id="scen-wrap"><table id="scen-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card" id="dial-card" hidden>
+      <h2>How each race moves with the electorate</h2>
+      <p class="note" id="dial-note"></p>
+      <div class="legend"><span><i class="dot" style="background:var(--fg)"></i>Reading of the early vote</span><span><i class="line" style="border-top:1.5px dashed var(--ref);height:0"></i>Full difference so far</span></div>
+      <div class="dials" id="dials"></div>
+    </div>
+    <div class="card" id="groups-card" hidden>
+      <h2>How each group is voting</h2>
+      <p class="note" id="groups-note"></p>
+      <div class="tablewrap"><table id="groups-table"><thead></thead><tbody></tbody></table></div>
+      <p class="note" id="groups-note2"></p>
+    </div>
+    <div class="card" id="lens-card" hidden>
+      <h2>Lenses on the ballots already cast</h2>
+      <p class="note" id="lens-note"></p>
+      <div class="tablewrap"><table id="lens-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>The polls</h2>
+      <p class="note" id="polls-note"></p>
+      <div id="poll-tables"></div>
+    </div>
+    <div class="card">
+      <h2>How this projection works</h2>
+      <ul class="notes" id="method"></ul>
+    </div>
+  </section>
+
+  <!-- COUNTIES -->
+  <section class="page" id="counties" role="tabpanel" aria-labelledby="tab-counties" hidden>
+    <div class="card">
+      <h2 id="bands-title">Turnout so far, by how each county voted in 2024</h2>
+      <p class="note" id="bands-note"></p>
+      <div class="legend"><span><i style="background:var(--y26)"></i>Share of 2022's vote already cast</span><span><i class="line" style="border-top:1.5px dashed var(--ref);height:0"></i>Statewide</span><span><i class="dot" style="background:var(--dem)"></i>Harris won</span><span><i class="dot" style="background:var(--rep)"></i>Trump won</span></div>
+      <div class="rel"><div class="rows" id="bands" role="img" aria-label="Share of 2022 vote cast so far, by 2024 result"></div></div>
+      <div class="tablewrap"><table id="bands-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>The numbers</h2>
+      <p class="note" id="ctable-note"></p>
+      <div class="controls"><label for="county-q" id="county-q-label">Find a county</label><input id="county-q" type="search" autocomplete="off"><span id="county-count"></span></div>
+      <div class="tablewrap"><table id="ctable"><thead><tr></tr></thead><tbody></tbody></table></div>
+      <button class="btn" id="county-more" type="button"></button>
+    </div>
+    <div class="card">
+      <h2 id="size-title">By county size</h2>
+      <p class="note" id="size-note"></p>
+      <div class="tablewrap"><table id="size-table"><thead></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- DAY BY DAY -->
+  <section class="page" id="days" role="tabpanel" aria-labelledby="tab-days" hidden>
+    <div class="card">
+      <h2>Ballots cast so far</h2>
+      <p class="note" id="days-note"></p>
+      <div class="legend"><span><i class="line" style="background:var(--y26)"></i>2026, all ballots</span><span id="leg22"><i class="dot" style="background:var(--y22)"></i>Same point in an earlier year</span></div>
+      <div class="rel" id="cp-chart" role="img" aria-label="Cumulative ballots cast at each reported checkpoint"></div>
+    </div>
+    <div class="card" id="pace-card" hidden>
+      <h2>Pace against 2022, day by day</h2>
+      <p class="note" id="pace-note"></p>
+      <div class="legend"><span><i class="line" style="background:var(--y26)"></i>2026</span><span><i class="line" style="background:var(--y22)"></i>2022, same day of early voting</span></div>
+      <div class="rel" id="pace-chart" role="img" aria-label="Cumulative in-person early votes as a share of registered voters, by day of early voting, 2026 against 2022"></div>
+    </div>
+    <div class="card">
+      <h2>The checkpoints</h2>
+      <div class="tablewrap"><table id="cp-table"><thead><tr><th>When</th><th>In person</th><th>Mail</th><th>All ballots</th><th id="cp-cmp-h">Earlier year, same point</th><th>Change</th><th class="l">Source</th></tr></thead><tbody></tbody></table></div>
+      <p class="note" id="cp-note"></p>
+    </div>
+  </section>
+
+  <!-- WHO -->
+  <section class="page" id="who" role="tabpanel" aria-labelledby="tab-who" hidden>
+    <div id="who-cards"></div>
+  </section>
+
+  <!-- DISTRICTS -->
+  <section class="page" id="districts" role="tabpanel" aria-labelledby="tab-districts" hidden>
+    <div class="card">
+      <h2 id="dist-title">Congressional districts</h2>
+      <p class="note" id="dist-note"></p>
+      <div class="rel"><div class="rows" id="cd-bars" role="img" aria-label="Ballots by district"></div></div>
+      <div class="tablewrap"><table id="cd-table"><thead><tr></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="page" id="map" role="tabpanel" aria-labelledby="tab-map" hidden>
+    <div class="card">
+      <div class="cardhead"><h2 id="map-title"></h2>
+        <div class="seg" role="group" aria-label="Map measure" id="map-seg"></div>
+      </div>
+      <div class="legend" id="map-legend"></div>
+      <div class="mapwrap" id="mapwrap"></div>
+      <p class="note" id="map-note"></p>
+    </div>
+    <div class="card">
+      <h2>Reading the map</h2>
+      <ul class="notes" id="map-read"></ul>
+    </div>
+  </section>
+
+  <div class="card">
+    <h2>How to read this</h2>
+    <ul class="notes" id="read-notes"></ul>
+    <h3>Sources</h3>
+    <ol class="sources" id="sources"></ol>
+  </div>
+</div>
+</div>
+
+<script>
+const D = {"st":{"name":"South Carolina","abbr":"SC","unit":"county","units":"counties","unit_suffix":" County","ev_start":"2026-10-19","ev_end":"2026-10-31","count_start":"2026-10-19","base22":"2022 governor's race vote","pres24":"Statewide: Trump won by 17.9 points.","dist_label":"Congressional districts","dist_note":"","who_note":"","counties_note":"Places where more people habitually vote early will read higher at this stage, so part of any gap is timing. Registered voters are from the Commission's 3 August county file, about 45,000 below today's statewide figure.","map_note":"","days_note":"Running in-person totals at the close of each early-voting day, added up from the Election Commission's day-by-day county file. The purple mark is 2022 after the same number of days (four). There was no early voting on Sunday 25 October.","cp_note":"Day 1 was first reported as 97,968 (ABC News 4); the Commission's later file puts it at 98,695. Rows marked from the Commission's file are running sums of its daily columns.","notes_read":["Counts are in-person early votes from the South Carolina Election Commission's early-voting file, by county and day. Absentee ballots by mail need an excuse and are published separately, in a spreadsheet this page cannot read, so they are not included. In 2022 they were 58,062 of 1,718,626 ballots.","Early voting runs Monday 19 to Saturday 31 October, 8:30 a.m. to 6 p.m., closed Sunday. 2022 was the state's first general election with no-excuse early voting; 561,563 people used it.","South Carolina has no party registration. The voter file records race, but the early-voting file has no race, age or gender columns.","Lindsey Graham won the June Republican primary and died on 11 July. Governor McMaster appointed his sister, Darline Graham, who then won an August special primary and runoff for the nomination.","\"Of 2022 vote\" divides ballots cast so far by each county's vote in the 2022 governor's race. 2024 results are certified presidential returns and describe places, not this year's voters."],"sources":["<a href=\"https://scvotes.gov/elections-statistics/voter-participation/\" target=\"_blank\" rel=\"noopener\">SC Election Commission<\/a>: <a href=\"https://scvotes.gov/wp-content/uploads/2026/10/EV-Totals-10-25-26.csv\" target=\"_blank\" rel=\"noopener\">early-voting file of 25 October<\/a> (county and daily counts), <a href=\"https://scvotes.gov/wp-content/uploads/2026/10/Voter-Participation-History-1998-2026.pdf\" target=\"_blank\" rel=\"noopener\">turnout history<\/a> and <a href=\"https://scvotes.gov/wp-content/uploads/2026/10/Voter-History-Absentee-History-1998-2026.pdf\" target=\"_blank\" rel=\"noopener\">early and absentee history<\/a> for 2022; <a href=\"https://scvotes.gov/voters/early-voting/\" target=\"_blank\" rel=\"noopener\">early voting page<\/a> for registration.","<a href=\"https://abcnews4.com/news/lowcountry-and-state-politics/connect-to-the-capitol-trump-rallies-for-graham-in-sc-video-alleges\" target=\"_blank\" rel=\"noopener\">ABC News 4, 25 October<\/a>: the 2022 four-day comparison. <a href=\"https://abcnews4.com/news/state/nearly-98000-cast-ballots-on-first-day-of-early-voting-in-south-carolina-election-midterms\" target=\"_blank\" rel=\"noopener\">ABC News 4, 20 October<\/a>: day 1.","Polls: <a href=\"https://www.thetrafalgargroup.org/wp-content/uploads/2026/10/SC-Midterms-Survey-Report-1019.pdf\" target=\"_blank\" rel=\"noopener\">Trafalgar Senate<\/a> and <a href=\"https://www.thetrafalgargroup.org/wp-content/uploads/2026/10/SC-Midterms-Survey-Report-1020.pdf\" target=\"_blank\" rel=\"noopener\">governor<\/a> reports; <a href=\"https://freshstartpac.org/wp-content/uploads/2026/10/SC-Senate-Track-Public-Memo.pdf\" target=\"_blank\" rel=\"noopener\">Impact Research memo<\/a>; InsiderAdvantage, NPA Polling and Resonance as linked in the poll tables; <a href=\"https://www.realclearpolling.com/polls/senate/general/2026/south-carolina/graham-vs-andrews\" target=\"_blank\" rel=\"noopener\">RealClearPolitics<\/a>, <a href=\"https://www.270towin.com/2026-senate-polls/south-carolina\" target=\"_blank\" rel=\"noopener\">270toWin<\/a> and <a href=\"https://www.poliwave.com/us/sc/sen-fed\" target=\"_blank\" rel=\"noopener\">Poliwave<\/a> poll lists; <a href=\"https://en.wikipedia.org/wiki/2026_United_States_Senate_election_in_South_Carolina\" target=\"_blank\" rel=\"noopener\">Wikipedia<\/a> for candidates, poll marks and ratings.","Voting by group: <a href=\"https://www.foxnews.com/elections/2024/general-results/state/south-carolina\" target=\"_blank\" rel=\"noopener\">Fox News Voter Analysis, 2024<\/a>. No exit poll of South Carolina's 2022 races was found.","2022 county results: <a href=\"https://github.com/MEDSL/2022-elections-official\" target=\"_blank\" rel=\"noopener\">MIT Election Data and Science Lab<\/a>; 2024: <a href=\"https://github.com/tonmcg/US_County_Level_Election_Results_08-24\" target=\"_blank\" rel=\"noopener\">US County Level Election Results<\/a>; county outlines: US Census Bureau via us-atlas.","Pollster quality: <a href=\"https://github.com/fivethirtyeight/data/tree/master/pollster-ratings\" target=\"_blank\" rel=\"noopener\">538 pollster ratings and poll archive<\/a> (last published ratings; leans computed for this page); <a href=\"https://igs.berkeley.edu/node/1694\" target=\"_blank\" rel=\"noopener\">Berkeley IGS<\/a> on the New York Times' select-pollster standard."],"method_extra":[],"no_signal_note":"South Carolina does not register voters by party, and the one file that breaks early voters down by race is a spreadsheet this page cannot read, so there is no 2022 benchmark to compare the early vote against. The projection rests on the polls alone. Turnout so far is running far ahead of 2022: more than double after four days.","election_rule":"The most votes wins in November; South Carolina's runoffs apply only to primaries.","other_views":"RealClearPolitics' Senate average was Graham +2.7 (polls 28 September to 18 October, including a Rasmussen poll this page leaves out) and 270toWin's was Graham +2.0 on 25 October. Cook rates the Senate race Lean Republican (as of 20 October), as does Inside Elections (15 October); Sabato's Crystal Ball has it at Likely Republican (14 October). In September Cook, Inside Elections and Sabato all rated the governor's race Solid or Safe Republican.","excluded":"Rasmussen Reports (two South Carolina Senate polls), Wedgewood Polls and ActiVote; an On Point Politics Senate poll is also left out because its numbers could only be found on an aggregator","window_start":"2026-09-14","half_life":28.0,"prior":2.0,"sd":5.0,"checked":"2026-10-25"},"races":[{"key":"sen","office":"U.S. Senate","seat_note":"Lindsey Graham's seat","D":{"name":"Annie Andrews","short":"Andrews"},"R":{"name":"Darline Graham","short":"Graham"},"min_polls":3},{"key":"gov","office":"Governor","seat_note":"open seat","D":{"name":"Jermaine Johnson","short":"Johnson"},"R":{"name":"Alan Wilson","short":"Wilson"},"min_polls":3}],"total":501944,"ip":501944,"mail":null,"same":173107,"tot22":1718626,"reg":3456362,"vs":110.02385807621877,"of22":29.206121634375364,"counties":[{"f":"45001","n":"Abbeville","v":1884,"e":1884,"m":null,"rv":15629,"pd":null,"pr":null,"po":null,"t22":8606,"mg":-42.4,"t24":12048},{"f":"45003","n":"Aiken","v":18975,"e":18975,"m":null,"rv":115894,"pd":null,"pr":null,"po":null,"t22":55057,"mg":-25.9,"t24":86091},{"f":"45005","n":"Allendale","v":805,"e":805,"m":null,"rv":4390,"pd":null,"pr":null,"po":null,"t22":1821,"mg":44.7,"t24":3023},{"f":"45007","n":"Anderson","v":14182,"e":14182,"m":null,"rv":129941,"pd":null,"pr":null,"po":null,"t22":63791,"mg":-47.4,"t24":98296},{"f":"45009","n":"Bamberg","v":1030,"e":1030,"m":null,"rv":7757,"pd":null,"pr":null,"po":null,"t22":3986,"mg":15.3,"t24":5694},{"f":"45011","n":"Barnwell","v":2082,"e":2082,"m":null,"rv":12903,"pd":null,"pr":null,"po":null,"t22":6269,"mg":-15.5,"t24":9803},{"f":"45013","n":"Beaufort","v":22591,"e":22591,"m":null,"rv":141682,"pd":null,"pr":null,"po":null,"t22":72129,"mg":-14.5,"t24":104403},{"f":"45015","n":"Berkeley","v":24025,"e":24025,"m":null,"rv":160944,"pd":null,"pr":null,"po":null,"t22":71426,"mg":-16.3,"t24":112834},{"f":"45017","n":"Calhoun","v":1495,"e":1495,"m":null,"rv":9984,"pd":null,"pr":null,"po":null,"t22":5636,"mg":-14.3,"t24":7914},{"f":"45019","n":"Charleston","v":46898,"e":46898,"m":null,"rv":276773,"pd":null,"pr":null,"po":null,"t22":154177,"mg":5.7,"t24":214521},{"f":"45021","n":"Cherokee","v":3503,"e":3503,"m":null,"rv":33748,"pd":null,"pr":null,"po":null,"t22":16213,"mg":-51.4,"t24":24839},{"f":"45023","n":"Chester","v":2593,"e":2593,"m":null,"rv":20231,"pd":null,"pr":null,"po":null,"t22":9583,"mg":-17.2,"t24":15556},{"f":"45025","n":"Chesterfield","v":2207,"e":2207,"m":null,"rv":25982,"pd":null,"pr":null,"po":null,"t22":12559,"mg":-28.1,"t24":18391},{"f":"45027","n":"Clarendon","v":3750,"e":3750,"m":null,"rv":21394,"pd":null,"pr":null,"po":null,"t22":11479,"mg":-12.3,"t24":16320},{"f":"45029","n":"Colleton","v":3546,"e":3546,"m":null,"rv":24508,"pd":null,"pr":null,"po":null,"t22":12546,"mg":-18.2,"t24":18276},{"f":"45031","n":"Darlington","v":5702,"e":5702,"m":null,"rv":41288,"pd":null,"pr":null,"po":null,"t22":20048,"mg":-13.3,"t24":30331},{"f":"45033","n":"Dillon","v":1445,"e":1445,"m":null,"rv":16599,"pd":null,"pr":null,"po":null,"t22":7932,"mg":-10.8,"t24":11861},{"f":"45035","n":"Dorchester","v":17670,"e":17670,"m":null,"rv":107088,"pd":null,"pr":null,"po":null,"t22":49806,"mg":-14.6,"t24":77764},{"f":"45037","n":"Edgefield","v":2462,"e":2462,"m":null,"rv":17946,"pd":null,"pr":null,"po":null,"t22":8826,"mg":-31.8,"t24":13919},{"f":"45039","n":"Fairfield","v":2325,"e":2325,"m":null,"rv":15374,"pd":null,"pr":null,"po":null,"t22":8422,"mg":13.2,"t24":11215},{"f":"45041","n":"Florence","v":12910,"e":12910,"m":null,"rv":82320,"pd":null,"pr":null,"po":null,"t22":41464,"mg":-8.0,"t24":61140},{"f":"45043","n":"Georgetown","v":9116,"e":9116,"m":null,"rv":47188,"pd":null,"pr":null,"po":null,"t22":27515,"mg":-19.5,"t24":37754},{"f":"45045","n":"Greenville","v":49790,"e":49790,"m":null,"rv":345809,"pd":null,"pr":null,"po":null,"t22":179278,"mg":-22.2,"t24":263316},{"f":"45047","n":"Greenwood","v":5535,"e":5535,"m":null,"rv":41435,"pd":null,"pr":null,"po":null,"t22":21945,"mg":-29.0,"t24":30888},{"f":"45049","n":"Hampton","v":1660,"e":1660,"m":null,"rv":10894,"pd":null,"pr":null,"po":null,"t22":5638,"mg":6.4,"t24":8233},{"f":"45051","n":"Horry","v":41594,"e":41594,"m":null,"rv":282989,"pd":null,"pr":null,"po":null,"t22":133829,"mg":-38.5,"t24":205954},{"f":"45053","n":"Jasper","v":4583,"e":4583,"m":null,"rv":26511,"pd":null,"pr":null,"po":null,"t22":11138,"mg":-9.6,"t24":18227},{"f":"45055","n":"Kershaw","v":6911,"e":6911,"m":null,"rv":42177,"pd":null,"pr":null,"po":null,"t22":22418,"mg":-28.2,"t24":33533},{"f":"45057","n":"Lancaster","v":12809,"e":12809,"m":null,"rv":70620,"pd":null,"pr":null,"po":null,"t22":34690,"mg":-24.8,"t24":54427},{"f":"45059","n":"Laurens","v":3882,"e":3882,"m":null,"rv":41592,"pd":null,"pr":null,"po":null,"t22":19907,"mg":-40.8,"t24":30213},{"f":"45061","n":"Lee","v":1568,"e":1568,"m":null,"rv":9899,"pd":null,"pr":null,"po":null,"t22":5257,"mg":17.7,"t24":8076},{"f":"45063","n":"Lexington","v":24650,"e":24650,"m":null,"rv":192680,"pd":null,"pr":null,"po":null,"t22":100141,"mg":-33.5,"t24":146903},{"f":"45067","n":"Marion","v":2404,"e":2404,"m":null,"rv":19634,"pd":null,"pr":null,"po":null,"t22":8446,"mg":10.5,"t24":13388},{"f":"45069","n":"Marlboro","v":1557,"e":1557,"m":null,"rv":14198,"pd":null,"pr":null,"po":null,"t22":6550,"mg":2.4,"t24":10152},{"f":"45065","n":"McCormick","v":1806,"e":1806,"m":null,"rv":7768,"pd":null,"pr":null,"po":null,"t22":4581,"mg":-17.1,"t24":6153},{"f":"45071","n":"Newberry","v":2935,"e":2935,"m":null,"rv":23508,"pd":null,"pr":null,"po":null,"t22":12840,"mg":-34.3,"t24":18129},{"f":"45073","n":"Oconee","v":7347,"e":7347,"m":null,"rv":54650,"pd":null,"pr":null,"po":null,"t22":29027,"mg":-51.5,"t24":42264},{"f":"45075","n":"Orangeburg","v":7202,"e":7202,"m":null,"rv":49510,"pd":null,"pr":null,"po":null,"t22":26206,"mg":24.6,"t24":36970},{"f":"45077","n":"Pickens","v":10738,"e":10738,"m":null,"rv":77415,"pd":null,"pr":null,"po":null,"t22":40469,"mg":-52.7,"t24":60451},{"f":"45079","n":"Richland","v":43615,"e":43615,"m":null,"rv":255900,"pd":null,"pr":null,"po":null,"t22":127720,"mg":34.6,"t24":182411},{"f":"45081","n":"Saluda","v":1275,"e":1275,"m":null,"rv":11839,"pd":null,"pr":null,"po":null,"t22":6564,"mg":-44.4,"t24":9014},{"f":"45083","n":"Spartanburg","v":26360,"e":26360,"m":null,"rv":215469,"pd":null,"pr":null,"po":null,"t22":97477,"mg":-33.6,"t24":155597},{"f":"45085","n":"Sumter","v":9366,"e":9366,"m":null,"rv":60637,"pd":null,"pr":null,"po":null,"t22":30703,"mg":4.9,"t24":45170},{"f":"45087","n":"Union","v":1780,"e":1780,"m":null,"rv":16170,"pd":null,"pr":null,"po":null,"t22":8719,"mg":-32.7,"t24":12289},{"f":"45089","n":"Williamsburg","v":2917,"e":2917,"m":null,"rv":18724,"pd":null,"pr":null,"po":null,"t22":9804,"mg":21.7,"t24":14330},{"f":"45091","n":"York","v":28464,"e":28464,"m":null,"rv":191489,"pd":null,"pr":null,"po":null,"t22":96631,"mg":-19.1,"t24":150059}],"has":{"reg":true,"ip":true,"mail":false,"party":false,"map":true,"districts":false},"county_sum":501944,"districts":[],"groups":{},"cps":[{"t":"2026-10-19T18:00","when":"Mon 19 Oct, close of day 1","ip":97968,"mail":null,"all":97968,"c22":null,"c22k":"reported only as 'more than double' 2022's first day, no number","src":"ABC News 4","href":"https://abcnews4.com/news/state/nearly-98000-cast-ballots-on-first-day-of-early-voting-in-south-carolina-election-midterms","note":"the SEC's later file revised day 1 to 98,695"},{"t":"2026-10-20T18:00","when":"Tue 20 Oct, close of day 2","ip":192572,"mail":null,"all":192572,"allDerived":true,"c22":null,"c22k":null,"src":"SC Election Commission (sum of daily columns)","href":"https://scvotes.gov/wp-content/uploads/2026/10/EV-Totals-10-25-26.csv"},{"t":"2026-10-21T18:00","when":"Wed 21 Oct, close of day 3","ip":280680,"mail":null,"all":280680,"allDerived":true,"c22":null,"c22k":null,"src":"SC Election Commission (sum of daily columns)","href":"https://scvotes.gov/wp-content/uploads/2026/10/EV-Totals-10-25-26.csv"},{"t":"2026-10-22T18:00","when":"Thu 22 Oct, close of day 4","ip":363566,"mail":null,"all":363566,"c22":173107,"c22k":"in-person early votes, first four days of 2022","src":"SC Election Commission; 2022 figure from ABC News 4","href":"https://scvotes.gov/wp-content/uploads/2026/10/EV-Totals-10-22-26.csv","href22":"https://abcnews4.com/news/lowcountry-and-state-politics/connect-to-the-capitol-trump-rallies-for-graham-in-sc-video-alleges"},{"t":"2026-10-23T18:00","when":"Fri 23 Oct, close of day 5","ip":451366,"mail":null,"all":451366,"allDerived":true,"c22":null,"c22k":null,"src":"SC Election Commission (sum of daily columns)","href":"https://scvotes.gov/wp-content/uploads/2026/10/EV-Totals-10-25-26.csv"},{"t":"2026-10-24T18:00","when":"Sat 24 Oct, close of day 6","ip":501944,"mail":null,"all":501944,"c22":null,"c22k":null,"src":"SC Election Commission","href":"https://scvotes.gov/wp-content/uploads/2026/10/EV-Totals-10-25-26.csv"}],"proj":{"sen":{"key":"sen","office":"U.S. Senate","polls":[{"p":"Impact Research","d":"15–21 Oct","end":"2026-10-21","n":800,"pop":"LV","D":45.0,"R":44.0,"src":"https://freshstartpac.org/wp-content/uploads/2026/10/SC-Senate-Track-Public-Memo.pdf","note":"Democratic firm; memo hosted by Fresh Start PAC, sponsor not named in the memo; Whitener 3, Hackett 2, undecided 5","m":1.0,"tp":50.56179775280899,"err":3.61,"grade":1.5,"aligned":"D","why":"538 partisan_work 1.0; earlier SC polls were for the Andrews campaign; marked (D) by Wikipedia and Poliwave","lean":1.34,"lean_src":"538 record (39 polls)","age":4,"w":0.22643091606597668,"m2":1.1235955056179847,"adj":-0.21640449438201537,"share":45.31685327087167},{"p":"Trafalgar Group","d":"16–18 Oct","end":"2026-10-18","n":1095,"pop":"LV","D":45.6,"R":48.6,"src":"https://www.thetrafalgargroup.org/wp-content/uploads/2026/10/SC-Midterms-Survey-Report-1019.pdf","note":"Whitener (L) 3.9, Hackett (C) 0.8, undecided 1.2","m":-3.0,"tp":48.40764331210191,"err":-2.52,"grade":0.7,"aligned":"R","why":"538 counts all of its work as partisan (partisan_work 1.0); marked (R) in Wikipedia's SC Senate poll table","lean":-3.28,"lean_src":"538 record (150 polls)","age":7,"w":0.09810458177960002,"m2":-3.1847133757961785,"adj":0.09528662420382128,"share":19.634204617230647},{"p":"InsiderAdvantage","d":"28–29 Sep","end":"2026-09-29","n":1200,"pop":"LV","D":45.0,"R":46.0,"src":"https://insideradvantage.com/insideradvantage-south-carolina-senate-graham-leads-by-one-point/","note":"Hackett (C) 3, Whitener (L) 2, undecided 4","m":-1.0,"tp":49.45054945054945,"err":-0.68,"grade":2.0,"aligned":"R","why":"Its 8–9 Sep SC Senate poll is marked (R) in Wikipedia's 2026 SC Senate poll table (538 partisan_work 0)","lean":-1.18,"lean_src":"538 record (80 polls)","age":26,"w":0.17512610644220322,"m2":-1.098901098901095,"adj":0.08109890109890494,"share":35.048942111897674}],"M":-0.05093462952209939,"plainM":-1.053339656359763,"altM":-1.4040918644213274,"nonpart":0,"I":null,"avg_D":45.199999999999996,"avg_R":46.199999999999996,"avg_I":null,"raw":-1.0,"n":3,"scen":[{"name":"Polls","k":0.0,"m":-0.05093462952209939,"D":49.97453268523895,"R":50.02546731476105,"pD":0.49593607483746066,"pR":0.5040639251625394}],"head":{"name":"Polls","k":0.0,"m":-0.05093462952209939,"D":49.97453268523895,"R":50.02546731476105,"pD":0.49593607483746066,"pR":0.5040639251625394}},"gov":{"key":"gov","office":"Governor","polls":[{"p":"Trafalgar Group","d":"16–18 Oct","end":"2026-10-18","n":1095,"pop":"LV","D":36.5,"R":52.5,"src":"https://www.thetrafalgargroup.org/wp-content/uploads/2026/10/SC-Midterms-Survey-Report-1020.pdf","note":"Addison (United Citizens) 4.2, Hakim (Green) 1.6, undecided 5.2","m":-16.0,"tp":41.01123595505618,"err":-2.52,"grade":0.7,"aligned":"R","why":"538 counts all of its work as partisan (partisan_work 1.0); marked (R) in Wikipedia's SC Senate poll table","lean":-3.28,"lean_src":"538 record (150 polls)","age":7,"w":0.09810458177960002,"m2":-17.97752808988764,"adj":-14.697528089887642,"share":21.255873747452807},{"p":"NPA Polling","d":"13–16 Oct","end":"2026-10-16","n":604,"pop":"LV","D":41.0,"R":51.0,"src":"https://www.fitsnews.com/2026/10/20/crossroads-2026-alan-wilson-retains-double-digit-lead-in-s-c-governors-race/","note":"National Public Affairs (natpublicaffairs.com); sponsor not stated; Addison 1, Hakim 1, undecided 7; full memo paywalled","m":-10.0,"tp":44.565217391304344,"err":0.0,"grade":null,"aligned":null,"why":"National Public Affairs; no 538 rating, not marked (R)/(D) in a source read, sponsor not stated (see notes.md)","lean":0.0,"lean_src":"no record","age":9,"w":0.2667590141936551,"m2":-10.869565217391312,"adj":-10.869565217391312,"share":57.79746290987574},{"p":"Resonance (Rick Quinn)","d":"29 Sep–3 Oct","end":"2026-10-03","n":638,"pop":"RV","D":35.03,"R":45.17,"src":"https://www.fitsnews.com/2026/10/06/exclusive-alan-wilson-enjoys-double-digit-lead-in-s-c-governors-race/","note":"registered voters, live callers; Addison 2.85, Hakim 1.11, undecided 15.84; sponsor not stated","m":-10.14,"tp":43.67830423940149,"err":0.0,"grade":null,"aligned":"R","why":"Survey by Republican strategist Rick Quinn, reported by FITSNews; no 538 rating (judgement call, see notes.md)","lean":-2.0,"lean_src":"no record: average for aligned pollsters","age":22,"w":0.09667744884668023,"m2":-12.643391521197017,"adj":-10.643391521197017,"share":20.946663342671453}],"M":-11.635856329957004,"plainM":-13.83016160949199,"altM":-12.216334237291075,"nonpart":57.79746290987574,"I":null,"avg_D":37.51,"avg_R":49.55666666666667,"avg_I":null,"raw":-12.046666666666667,"n":3,"scen":[{"name":"Polls","k":0.0,"m":-11.635856329957004,"D":44.182071835021496,"R":55.817928164978504,"pD":0.009978075847640877,"pR":0.9900219241523591}],"head":{"name":"Polls","k":0.0,"m":-11.635856329957004,"D":44.182071835021496,"R":55.817928164978504,"pD":0.009978075847640877,"pR":0.9900219241523591}}},"signal":null,"bench":{"pres24":{"label":"2024 President: Harris (D) vs Trump (R)","src":"https://www.foxnews.com/elections/2024/general-results/state/south-carolina","source":"Fox News Voter Analysis","race":{"White":[72,26,73],"Black":[23,85,13],"Hispanic":[2,41,58],"Asian":null,"Other":[2,35,62]},"party":{"Democrats":[36,95,4],"Republicans":[58,5,94],"Independents":[6,53,39]},"gender":{"Men":[44,32,66],"Women":[56,46,52]},"age":{"18-29":[14,39,60],"30-44":[24,45,53],"45-64":[32,38,61],"65+":[30,40,60]},"note":"Fox reports Asian voters within 'Other'. Party groups are 'Democrat/lean Democrat' and 'Republican/lean Republican'. Hispanic is Fox's 'Latino'.","short":"Harris 2024"}},"xtab":[{"poll":"Trafalgar Group","dates":"16–18 Oct","pop":"LV","src":"https://www.thetrafalgargroup.org/wp-content/uploads/2026/10/SC-Midterms-Survey-Report-1019.pdf","sen":{"White":[37.7,55.2],"Black":[67.9,30.1],"Hispanic":[40.1,59.9],"Asian":[77.3,22.7]}},{"poll":"Trafalgar Group","dates":"16–18 Oct","pop":"LV","src":"https://www.thetrafalgargroup.org/wp-content/uploads/2026/10/SC-Midterms-Survey-Report-1020.pdf","gov":{"White":[30.0,60.1],"Black":[56.2,30.1],"Hispanic":[34.5,59.9],"Asian":[66.7,33.3]}}],"pxtab":[{"poll":"Impact Research","dates":"15–21 Oct","src":"https://freshstartpac.org/wp-content/uploads/2026/10/SC-Senate-Track-Public-Memo.pdf","sen":{"Democrats":null,"Republicans":[10,76],"Independents":[61,23]}}],"map":{"w":560,"h":451,"c":{"45001":"M72.4,143.3L113.2,112.8L121.9,105.7L121.9,107.6L129.6,116.2L119.6,125.4L122,128.5L122.4,134.5L129.3,142.6L130,150.4L126.6,158L119.9,164L105.5,164.4L101.8,161.4L96.4,162.6L88.9,170.6L88.9,168.2L83.2,162.4L80,154.4L75.1,151.4Z","45003":"M155.1,238.3L197.3,199.5L206.4,190.9L213.4,199.7L219.2,202L224.5,211.1L231.2,212.3L240.3,216.1L250.6,222.2L229.4,244.6L184.6,284.9L181.7,281.7L178.8,283.1L173.4,278L175.1,274.5L163.5,264.6L165.2,260.8L163.6,256.1L166.6,251L164.9,248.1L158.7,245Z","45005":"M200.8,299.5L209.2,290.7L230,297.7L250,296.3L257.9,305.4L262.9,309.1L244.5,321L244.5,325.7L239.9,327.7L242,335.1L234,342.1L232.7,344.8L224.3,348.1L222.7,344.9L222.7,334.8L219,332.9L218.2,327.1L213.2,319.4L215.3,311.5L209.1,306.3Z","45007":"M44.3,105.2L60.6,87.5L61.5,86.1L62.3,85.5L68.2,78.8L102.9,59L106.9,65L105.1,74.8L106.2,86L109.4,89.9L110.6,96L121.9,105.7L113.2,112.8L72.4,143.3L72.5,137.2L68.9,132.1L67,124.9L62.1,121.2L61,113.6L57.8,105.9L54.6,104.4Z","45009":"M246.4,251.7L250.5,255.7L263,260.7L279.2,270.6L290.1,279.7L291.3,284.6L295.9,288.2L284.7,295.4L285.9,300.8L283.4,304.5L279.6,298.5L262.9,309.1L257.9,305.4L250,296.3L245.9,290.5L246.7,284.2L247.6,257.6Z","45011":"M184.6,284.9L229.4,244.6L237.3,246L246.4,251.7L247.6,257.6L246.7,284.2L245.9,290.5L250,296.3L230,297.7L209.2,290.7L200.8,299.5L197,299.4L185.8,292.8L182.5,287.4Z","45013":"M287.6,359.9L292.6,353.8L299.8,357.9L302.7,356.9L311.1,358.9L312,366.6L316.6,370.8L324.6,373L330.1,382.5L333.5,384.1L333.1,389.4L339,397.3L336.1,406.2L322.6,413.6L314.6,416L313.8,411.2L305.8,406.4L301.1,409L300.3,412.7L305.4,414.5L311.3,421.5L305,429.3L294.4,436.4L290.6,436.4L286.4,440.5L283,440.8L283.9,436.1L279.2,432.6L278.4,428.4L272.9,424.3L270.8,418.8L273.3,414.4L271.7,409.1L280.1,409.9L281.3,402.7L286.8,403.6L291,398.2L290.2,392.1L293.5,383.5L291,379.2L291.8,368.9Z","45015":"M362.4,250.9L370.7,250.2L370.6,246.1L376.4,243.4L378.5,242.2L391.4,242.8L400.6,249.2L405.2,256.2L413.6,260.9L416.6,266.2L425.8,269.6L452.6,281.9L447.2,285L444,291.3L439.8,290L429.9,295.2L420.4,310L416.3,313.6L416.4,317.9L409.3,323.2L404.8,330.2L401,331.8L401.1,335.7L397.3,336.7L396.8,332.8L393,329.2L394.7,324.7L387.6,326.2L382.4,312.4L377.4,314.1L371.1,309.5L356,296L350.1,292L353.9,287.3L350.1,285.1L346.3,276.9L348.4,274L352.1,275.9L358.8,270.9Z","45017":"M271,190.6L273.8,195L282.1,199.9L286.3,199.5L292.1,204.8L299.9,205.4L308.6,207.9L311.5,205.5L316.1,209.6L316.9,213.9L326.1,223.3L325.3,225.4L329.9,230.6L330.7,235.2L329.1,237.9L324.1,234.3L317.4,236.3L319.9,238L315.8,243.5L317.5,247.4L311.6,247.4L307.9,240.3L294.6,229L285.4,227L279.2,228.3L278.8,223.5L276.3,226L267.6,214.7L280.9,207.8L276.3,204.9L270.9,204.3L268,209.3L265.6,209.1L268.1,191.9Z","45019":"M342,332.3L353.7,333.1L370.5,337.6L370,329.9L377.6,328.2L379.6,322.4L372.4,315.3L375.8,314.5L369.1,312.1L371.1,309.5L377.4,314.1L382.4,312.4L387.6,326.2L394.7,324.7L393,329.2L396.8,332.8L397.3,336.7L401.1,335.7L401,331.8L404.8,330.2L409.3,323.2L416.4,317.9L416.3,313.6L420.4,310L429.9,295.2L439.8,290L444,291.3L447.2,285L452.6,281.9L464,290L473.6,292.5L471.2,296L466.6,298.8L463.1,310.5L455.9,309.4L448.9,311.4L444.2,306.8L437.6,310.8L433.5,318.4L434.8,322.1L438.1,320.8L438.2,324.8L431.9,327.2L424.5,332.7L420.8,338.9L406.6,346.1L402.4,341.6L397.8,342.5L397.4,346.3L404.5,348.9L402.5,356L392.1,362.3L389.2,367.1L385,366.5L375,369.2L367.9,376.3L365.3,374.2L357,379.6L356.1,377.7L348.2,382L340.6,375.6L343.9,371.7L343.8,360.8L340.1,358.5L339.6,352.3L336.2,348.8L338.3,342.1L341.6,338.9Z","45021":"M173.3,9.1L185.1,9.8L230.7,12.2L227,16.1L225.8,28.3L220.9,28.3L216.8,31.2L218.4,37.4L216.3,42.4L220.3,57.4L217.5,53.5L210.5,53L205.6,50.6L199.5,51.4L198.7,48.8L191.4,46.9L186.5,44.2L182.1,29.8Z","45023":"M217.9,59.7L284.1,60L288.2,77.4L284.1,86.3L286.6,98.5L272.2,97.9L244.3,95.6L224.2,94.5L225.1,85.9L220.6,80.2L220.2,73.4L217.4,70.5L220.7,68.2Z","45025":"M322.6,60.4L350,60.8L394.6,61.5L395.1,67.2L398.8,70.4L400.9,76.8L405.9,82.1L410,83.3L412.1,88.1L409.2,88.8L406.1,99.5L400,105.2L390.9,105.8L388.9,103.9L381.5,105.3L354.1,122.9L354.5,119L350.3,114.5L349.4,104.7L344.1,97.9L343.2,92.8L339.9,88.5L337.4,82.3L330.8,76.1L327.5,68Z","45027":"M326.1,223.3L330.2,219.1L332.7,213.5L338.1,210.1L337.7,213.8L342.6,213.3L341.8,206.1L356.2,203.5L358.3,200.9L371.9,191.9L373.5,191.8L390.4,180.9L393.8,189.2L402.1,189.2L397.6,198.6L388.1,205.7L390.7,212.1L388.6,214.5L376.4,243.4L370.6,246.1L370.7,250.2L362.4,250.9L356.1,250.6L347,252.9L337.8,246.4L336.1,239.8L330.7,235.2L329.9,230.6L325.3,225.4Z","45029":"M262.9,309.1L279.6,298.5L283.4,304.5L285.9,300.8L284.7,295.4L295.9,288.2L296.7,287.6L305.9,291.1L310.5,298.4L319.7,304.8L326.8,303.1L333.5,303.8L343.6,308.1L340.3,316L341.6,324.5L344.1,328.4L342,332.3L341.6,338.9L338.3,342.1L336.2,348.8L339.6,352.3L340.1,358.5L343.8,360.8L343.9,371.7L340.6,375.6L348.2,382L356.1,377.7L357,379.6L350.3,385L346.9,382.5L340.6,385.9L339.8,382.3L333.5,384.1L330.1,382.5L324.6,373L316.6,370.8L312,366.6L311.1,358.9L302.7,356.9L299.8,357.9L292.6,353.8L283.8,336L273.8,326.5L272.5,322.4Z","45031":"M354.1,122.9L381.5,105.3L388.9,103.9L390.9,105.8L400,105.2L406.1,99.5L408.6,105.8L414.7,103L418.9,105.5L415.6,108.2L415.6,112.5L419.4,118.5L423.1,117.7L422.4,123.5L426.1,130.7L423.3,133.6L417.9,132.2L415.5,138.4L409.8,137.9L379.1,161.7L372,155.8L369.1,151.3L374.4,146.2L371.4,134.2L366.9,128.4L366.8,122.8L359,128.8L354.1,123.2Z","45033":"M429,131.7L449.4,86.6L460.2,96.9L473.2,110.5L493.6,130.5L487.2,136.9L481.7,132.3L477.3,136.8L467,135.1L458.7,131.2L446.8,132.8L439,140.9L432.8,132.7Z","45035":"M296.7,287.6L330,266.2L332.1,273.8L338.8,276.9L346.3,276.9L350.1,285.1L353.9,287.3L350.1,292L356,296L371.1,309.5L369.1,312.1L375.8,314.5L372.4,315.3L379.6,322.4L377.6,328.2L370,329.9L370.5,337.6L353.7,333.1L342,332.3L344.1,328.4L341.6,324.5L340.3,316L343.6,308.1L333.5,303.8L326.8,303.1L319.7,304.8L310.5,298.4L305.9,291.1Z","45037":"M151.9,179.8L156.5,178.6L169.3,176.9L172.1,188.5L176.2,192.2L197.3,199.5L155.1,238.3L153.4,236.4L143.5,229.2L145.7,224.1L137.9,216.1L135.9,211.4L137.2,205.6L143.9,196.9L139,188.8L139.1,183Z","45039":"M224.2,94.5L244.3,95.6L272.2,97.9L286.6,98.5L284.1,106.4L286.2,110.5L290.7,115.8L296.1,116.7L299,121.7L292.4,136.7L276.8,139L261.5,144.3L251.6,143.3L252,149.8L240.5,142L236,140.7L230.3,128.6L224.2,110.8L224.2,105.2Z","45041":"M379.1,161.7L409.8,137.9L415.5,138.4L417.9,132.2L423.3,133.6L426.1,130.7L429,131.7L432.8,132.7L439,140.9L436.2,147.2L443,159.4L443.2,173.7L445.8,179.8L460.5,194.5L466.7,196.6L465.5,200.5L462.6,198.2L452.3,202.7L445.7,204L424.9,198.8L419.5,198.9L417.4,196.1L410.8,196.1L406.6,189.6L402.1,189.2L393.8,189.2L390.4,180.9L399.8,175.1L398.6,173.1L387.4,166.8L384.5,163.3Z","45043":"M466.4,203.1L470.7,211.8L474.9,214.6L481.5,213.1L487.4,218.8L492.2,231.5L503.4,231.3L500.6,236.7L494,243.8L488.4,254.9L483.4,275.8L484.7,282.3L481.9,288.1L476.2,293.8L471.2,296L473.6,292.5L464,290L452.6,281.9L425.8,269.6L425.7,265.2L430.7,260.2L435.5,250.3L441.7,242.7L446.2,240L453.6,231.4L452.3,228.8L457.8,212.6Z","45045":"M93.8,13.7L106.9,9.1L109.7,10.3L114.7,4.1L118.7,7.4L134.6,7L132.8,55.1L141.7,64.1L131.1,91.5L131,98.7L121.9,105.7L110.6,96L109.4,89.9L106.2,86L105.1,74.8L106.9,65L102.9,59L102.2,48.4L99.9,44.1L97.6,31.6L91.1,32.5L90.7,28L94.1,23.4L85.9,25.3L81.8,24.5L73.6,26.7L72,23.9L84.4,17Z","45047":"M129.6,116.2L137.3,123.5L138.5,127.3L143.8,131L148.3,131.7L156.9,139.9L160.2,140.4L163.8,145.2L172.4,154.7L165.7,162.6L163.6,168L158.6,173.7L156.5,178.6L151.9,179.8L152,175.6L140,175L134.2,176.1L130.1,171.2L122.2,176.9L119.9,164L126.6,158L130,150.4L129.3,142.6L122.4,134.5L122,128.5L119.6,125.4Z","45049":"M224.3,348.1L232.7,344.8L234,342.1L242,335.1L239.9,327.7L244.5,325.7L244.5,321L262.9,309.1L272.5,322.4L273.8,326.5L283.8,336L292.6,353.8L287.6,359.9L283.8,365.3L277.1,362.4L278.8,356.2L270.4,347L239.3,374.3L234.7,373.9L226.8,368.9L223.4,364.1L226.4,360.8L224.7,355L222.2,354.1Z","45051":"M487.2,136.9L493.6,130.5L542.9,178.8L556,191.4L550.6,192.5L535.9,198.9L524.9,207L510.7,221.7L503.4,231.3L492.2,231.5L487.4,218.8L481.5,213.1L472.9,198.1L472.3,187.4L468.6,186.2L463.5,176.6L467.9,168.5L474.4,163L473.6,159.9L478.4,153.9L479.9,147.8L486.8,141.4Z","45053":"M239.3,374.3L270.4,347L278.8,356.2L277.1,362.4L283.8,365.3L287.6,359.9L291.8,368.9L291,379.2L293.5,383.5L290.2,392.1L291,398.2L286.8,403.6L281.3,402.7L280.1,409.9L271.7,409.1L273.3,414.4L270.8,418.8L272.9,424.3L278.4,428.4L279.2,432.6L283.9,436.1L283,440.8L286.4,440.5L283.5,444.4L285.6,446.9L281.8,446.4L272.5,437.9L267.8,439.9L259,435.9L256.9,428.5L258.6,425.4L255.2,420.1L253.9,418.1L258.2,412.1L255.7,403.1L254,403.6L247.7,391L249.4,387L239.7,377.3Z","45055":"M286.2,110.5L301.8,99L302.2,107.3L308,102.4L311.7,107.6L316.6,104.6L324,105.5L326.4,103.9L323.9,96.2L339.9,88.5L343.2,92.8L344.1,97.9L349.4,104.7L350.3,114.5L354.5,119L354.1,122.9L354.1,123.2L349.6,126.7L345.5,126.6L346.7,131.7L336.9,134.4L337.7,142.4L332,150.4L320.5,160L316.4,160.1L304.8,164.3L289.5,149.8L287.5,148.7L292.4,136.7L299,121.7L296.1,116.7L290.7,115.8Z","45057":"M283.3,24.6L290.6,35L297.2,44L295.6,60.1L322.6,60.4L327.5,68L330.8,76.1L337.4,82.3L339.9,88.5L323.9,96.2L326.4,103.9L324,105.5L316.6,104.6L311.7,107.6L308,102.4L302.2,107.3L301.8,99L286.2,110.5L284.1,106.4L286.6,98.5L284.1,86.3L288.2,77.4L284.1,60L287.8,56.3L286.2,54.3L287.4,45L285.8,39.9L285.8,39.7L285.8,39.9L285.8,39.9L285.8,39.7L285.3,37.4L285.3,37.4L282.9,32.8Z","45059":"M121.9,105.7L131,98.7L131.1,91.5L141.7,64.1L145.3,69.2L148.6,69.9L150.2,75.5L157.9,81.6L161.6,82.2L168.5,89.7L173.8,92.9L175,91.1L190.6,96.8L195.1,96.2L198.8,99.7L192.1,110.9L189.7,111.2L182.6,123L176.4,126L170.2,131.4L168.9,137L163.8,145.2L160.2,140.4L156.9,139.9L148.3,131.7L143.8,131L138.5,127.3L137.3,123.5L129.6,116.2L121.9,107.6Z","45061":"M332,150.4L337.7,142.4L336.9,134.4L346.7,131.7L345.5,126.6L349.6,126.7L354.1,123.2L359,128.8L366.8,122.8L366.9,128.4L371.4,134.2L374.4,146.2L369.1,151.3L372,155.8L379.1,161.7L384.5,163.3L387.4,166.8L384.5,172.4L379.2,172.5L366.8,180.4L366,173L358.5,174.8L356.4,168.9L353.5,168.3L350.2,162.6L340.7,162.5L332,158.3Z","45063":"M218.1,163.3L218.6,161.7L227.6,162.7L222.3,155.8L226.1,149.2L233.5,146.5L238,150.9L236.8,154.3L240.9,160.4L252.4,161.5L256.5,164.5L260.6,170.8L266,173.8L270.5,183.4L271,190.6L268.1,191.9L265.6,209.1L268,209.3L270.9,204.3L276.3,204.9L280.9,207.8L267.6,214.7L262.2,216.2L250.6,222.2L240.3,216.1L231.2,212.3L224.5,211.1L219.2,202L213.4,199.7L206.4,190.9Z","45065":"M88.9,170.6L96.4,162.6L101.8,161.4L105.5,164.4L119.9,164L122.2,176.9L130.1,171.2L134.2,176.1L140,175L152,175.6L151.9,179.8L139.1,183L139,188.8L143.9,196.9L137.2,205.6L135.9,211.4L137.9,216.1L145.7,224.1L143.5,229.2L139.4,229L134,224.4L131.7,216.6L128.4,207.4L116.6,195.6L104.7,189.2L97,180.5L92.4,178.7Z","45067":"M439,140.9L446.8,132.8L458.7,131.2L467,135.1L477.3,136.8L481.7,132.3L487.2,136.9L486.8,141.4L479.9,147.8L478.4,153.9L473.6,159.9L474.4,163L467.9,168.5L463.5,176.6L468.6,186.2L472.3,187.4L472.9,198.1L481.5,213.1L474.9,214.6L470.7,211.8L466.4,203.1L465.5,200.5L466.7,196.6L460.5,194.5L445.8,179.8L443.2,173.7L443,159.4L436.2,147.2Z","45069":"M394.6,61.5L421.6,61.4L423.6,61.4L448.1,85.3L449.4,86.6L429,131.7L426.1,130.7L422.4,123.5L423.1,117.7L419.4,118.5L415.6,112.5L415.6,108.2L418.9,105.5L414.7,103L408.6,105.8L406.1,99.5L409.2,88.8L412.1,88.1L410,83.3L405.9,82.1L400.9,76.8L398.8,70.4L395.1,67.2Z","45071":"M163.8,145.2L168.9,137L170.2,131.4L176.4,126L182.6,123L189.7,111.2L192.1,110.9L198.8,99.7L209,107.6L210.6,112.1L216.8,105.8L224.2,105.2L224.2,110.8L230.3,128.6L236,140.7L233.5,146.5L226.1,149.2L222.3,155.8L227.6,162.7L218.6,161.7L218.1,163.3L210.3,162.5L199.2,153.5L188.6,147.6L182.3,150.5L173.7,148.6L172.4,154.7Z","45073":"M32.7,32.5L44.2,29.1L56.9,25.3L51.4,34.6L54.6,36.9L56.2,60.4L57.8,62L55.7,68.9L60.9,71.4L62.3,85.5L61.5,86.1L60.6,87.5L44.3,105.2L37.8,102.8L31.7,96.9L24.6,87.2L17.6,86.2L5.5,75.5L4,71.4L7.8,65.5L7.5,61.2L18.4,48.9L31.3,41.1Z","45075":"M229.4,244.6L250.6,222.2L262.2,216.2L267.6,214.7L276.3,226L278.8,223.5L279.2,228.3L285.4,227L294.6,229L307.9,240.3L311.6,247.4L317.5,247.4L315.8,243.5L319.9,238L317.4,236.3L324.1,234.3L329.1,237.9L330.7,235.2L336.1,239.8L337.8,246.4L347,252.9L356.1,250.6L362.4,250.9L358.8,270.9L352.1,275.9L348.4,274L346.3,276.9L338.8,276.9L332.1,273.8L330,266.2L296.7,287.6L295.9,288.2L291.3,284.6L290.1,279.7L279.2,270.6L263,260.7L250.5,255.7L246.4,251.7L237.3,246Z","45077":"M61.5,86.1L60.6,87.5L61.5,86.1ZM56.9,25.3L70,21.4L72,23.9L73.6,26.7L81.8,24.5L85.9,25.3L94.1,23.4L90.7,28L91.1,32.5L97.6,31.6L99.9,44.1L102.2,48.4L102.9,59L68.2,78.8L62.3,85.5L60.9,71.4L55.7,68.9L57.8,62L56.2,60.4L54.6,36.9L51.4,34.6Z","45079":"M236,140.7L240.5,142L252,149.8L251.6,143.3L261.5,144.3L276.8,139L292.4,136.7L287.5,148.7L289.5,149.8L304.8,164.3L316.4,160.1L314.3,162.4L318.4,168.5L313.1,174L316,183.1L314.8,194.4L319,203.5L316.1,209.6L311.5,205.5L308.6,207.9L299.9,205.4L292.1,204.8L286.3,199.5L282.1,199.9L273.8,195L271,190.6L270.5,183.4L266,173.8L260.6,170.8L256.5,164.5L252.4,161.5L240.9,160.4L236.8,154.3L238,150.9L233.5,146.5Z","45081":"M172.4,154.7L173.7,148.6L182.3,150.5L188.6,147.6L199.2,153.5L210.3,162.5L218.1,163.3L206.4,190.9L197.3,199.5L176.2,192.2L172.1,188.5L169.3,176.9L156.5,178.6L158.6,173.7L163.6,168L165.7,162.6Z","45083":"M134.6,7L162.3,8.6L173.3,9.1L182.1,29.8L186.5,44.2L191.4,46.9L183.1,57.4L178.4,79.2L175,91.1L173.8,92.9L168.5,89.7L161.6,82.2L157.9,81.6L150.2,75.5L148.6,69.9L145.3,69.2L141.7,64.1L132.8,55.1Z","45085":"M316.4,160.1L320.5,160L332,150.4L332,158.3L340.7,162.5L350.2,162.6L353.5,168.3L356.4,168.9L358.5,174.8L366,173L366.8,180.4L379.2,172.5L384.5,172.4L387.4,166.8L398.6,173.1L399.8,175.1L390.4,180.9L373.5,191.8L371.9,191.9L358.3,200.9L356.2,203.5L341.8,206.1L342.6,213.3L337.7,213.8L338.1,210.1L332.7,213.5L330.2,219.1L326.1,223.3L316.9,213.9L316.1,209.6L319,203.5L314.8,194.4L316,183.1L313.1,174L318.4,168.5L314.3,162.4Z","45087":"M175,91.1L178.4,79.2L183.1,57.4L191.4,46.9L198.7,48.8L199.5,51.4L205.6,50.6L210.5,53L217.5,53.5L220.3,57.4L217.9,59.7L220.7,68.2L217.4,70.5L220.2,73.4L220.6,80.2L225.1,85.9L224.2,94.5L224.2,105.2L216.8,105.8L210.6,112.1L209,107.6L198.8,99.7L195.1,96.2L190.6,96.8Z","45089":"M376.4,243.4L388.6,214.5L390.7,212.1L388.1,205.7L397.6,198.6L402.1,189.2L406.6,189.6L410.8,196.1L417.4,196.1L419.5,198.9L424.9,198.8L445.7,204L452.3,202.7L462.6,198.2L465.5,200.5L466.4,203.1L457.8,212.6L452.3,228.8L453.6,231.4L446.2,240L441.7,242.7L435.5,250.3L430.7,260.2L425.7,265.2L425.8,269.6L416.6,266.2L413.6,260.9L405.2,256.2L400.6,249.2L391.4,242.8L378.5,242.2Z","45091":"M230.7,12.2L235.2,12.3L267.8,14.5L268.6,20.8L265.8,26.5L267.8,29L280,20.3L283.3,24.6L282.9,32.8L285.3,37.4L285.3,37.4L285.8,39.7L285.8,39.9L285.8,39.9L285.8,39.7L285.8,39.9L287.4,45L286.2,54.3L287.8,56.3L284.1,60L217.9,59.7L220.3,57.4L216.3,42.4L218.4,37.4L216.8,31.2L220.9,28.3L225.8,28.3L227,16.1Z"},"o":"M173.3,9.1L185.1,9.8L230.7,12.2L235.2,12.3L267.8,14.5L268.6,20.8L265.8,26.5L267.8,29L280,20.3L283.3,24.6L290.6,35L297.2,44L295.6,60.1L322.6,60.4L350,60.8L394.6,61.5L421.6,61.4L423.6,61.4L448.1,85.3L449.4,86.6L460.2,96.9L473.2,110.5L493.6,130.5L542.9,178.8L556,191.4L550.6,192.5L535.9,198.9L524.9,207L510.7,221.7L503.4,231.3L500.6,236.7L494,243.8L488.4,254.9L483.4,275.8L484.7,282.3L481.9,288.1L476.2,293.8L471.2,296L466.6,298.8L463.1,310.5L455.9,309.4L448.9,311.4L444.2,306.8L437.6,310.8L433.5,318.4L434.8,322.1L438.1,320.8L438.2,324.8L431.9,327.2L424.5,332.7L420.8,338.9L406.6,346.1L402.4,341.6L397.8,342.5L397.4,346.3L404.5,348.9L402.5,356L392.1,362.3L389.2,367.1L385,366.5L375,369.2L367.9,376.3L365.3,374.2L357,379.6L350.3,385L346.9,382.5L340.6,385.9L339.8,382.3L333.5,384.1L333.1,389.4L339,397.3L336.1,406.2L322.6,413.6L314.6,416L313.8,411.2L305.8,406.4L301.1,409L300.3,412.7L305.4,414.5L311.3,421.5L305,429.3L294.4,436.4L290.6,436.4L286.4,440.5L283.5,444.4L285.6,446.9L281.8,446.4L272.5,437.9L267.8,439.9L259,435.9L256.9,428.5L258.6,425.4L255.2,420.1L253.9,418.1L258.2,412.1L255.7,403.1L254,403.6L247.7,391L249.4,387L239.7,377.3L239.3,374.3L234.7,373.9L226.8,368.9L223.4,364.1L226.4,360.8L224.7,355L222.2,354.1L224.3,348.1L222.7,344.9L222.7,334.8L219,332.9L218.2,327.1L213.2,319.4L215.3,311.5L209.1,306.3L200.8,299.5L197,299.4L185.8,292.8L182.5,287.4L184.6,284.9L181.7,281.7L178.8,283.1L173.4,278L175.1,274.5L163.5,264.6L165.2,260.8L163.6,256.1L166.6,251L164.9,248.1L158.7,245L155.1,238.3L153.4,236.4L143.5,229.2L139.4,229L134,224.4L131.7,216.6L128.4,207.4L116.6,195.6L104.7,189.2L97,180.5L92.4,178.7L88.9,170.6L88.9,168.2L83.2,162.4L80,154.4L75.1,151.4L72.4,143.3L72.5,137.2L68.9,132.1L67,124.9L62.1,121.2L61,113.6L57.8,105.9L54.6,104.4L44.3,105.2L37.8,102.8L31.7,96.9L24.6,87.2L17.6,86.2L5.5,75.5L4,71.4L7.8,65.5L7.5,61.2L18.4,48.9L31.3,41.1L32.7,32.5L44.2,29.1L56.9,25.3L70,21.4L72,23.9L84.4,17L93.8,13.7L106.9,9.1L109.7,10.3L114.7,4.1L118.7,7.4L134.6,7L162.3,8.6Z"},"pace":null};
+(function () {
+  const S = D.st, C = D.counties || [], H = D.has, P = D.proj, RACES = D.races;
+  const $ = (s, r = document) => r.querySelector(s);
+  const fmt = (n) => n == null ? '' : Math.round(n).toLocaleString('en-US');
+  const pc = (x, d = 1) => x == null || !isFinite(x) ? 'n/a' : x.toFixed(d) + '%';
+  const mgl = (m) => m == null ? 'n/a' : (m >= 0 ? 'D+' : 'R+') + Math.abs(m).toFixed(0);
+  const fm = (m) => (m >= 0 ? 'D+' : 'R+') + Math.abs(m).toFixed(1);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const chance = (p) => { const v = Math.round(p * 100); return v >= 100 ? '>99%' : v <= 0 ? '<1%' : v + '%'; };
+  const NA = '<span class="na">n/a</span>';
+  const UNITCAP = S.units.charAt(0).toUpperCase() + S.units.slice(1);
+  const TOTAL = D.county_sum || D.total;
+  C.forEach((c) => { c.rvp = c.rv ? c.v / c.rv * 100 : null; c.p22 = c.t22 ? c.v / c.t22 * 100 : null; c.pnet = (c.pd != null && c.pr != null && c.v) ? (c.pd - c.pr) / c.v * 100 : null; });
+  const T22SUM = C.reduce((a, c) => a + (c.t22 || 0), 0);
+  const STATE22 = T22SUM ? TOTAL / T22SUM * 100 : null;
+  const RVSUM = C.reduce((a, c) => a + (c.rv || 0), 0);
+
+  /* ---------- tooltip ---------- */
+  function tipFor(host) { let t = host.querySelector(':scope > .tip'); if (!t) { t = document.createElement('div'); t.className = 'tip'; t.hidden = true; host.appendChild(t); } return t; }
+  function showTip(host, html, ev) {
+    const t = tipFor(host); t.innerHTML = html; t.hidden = false;
+    const r = host.getBoundingClientRect();
+    let x = ev.clientX - r.left + 12, y = ev.clientY - r.top + 12;
+    const w = t.offsetWidth, h = t.offsetHeight;
+    if (x + w > r.width) x = Math.max(0, ev.clientX - r.left - w - 12);
+    if (y + h > r.height + 40) y = Math.max(0, ev.clientY - r.top - h - 12);
+    t.style.left = x + 'px'; t.style.top = y + 'px';
+  }
+  function hideTip(host) { const t = host.querySelector(':scope > .tip'); if (t) t.hidden = true; }
+  const tipRows = (title, rows) => '<div class="h">' + esc(title) + '</div>' + rows.map(([k, v]) => '<div class="r"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('');
+  function bindTips(host, sel, htmlOf) {
+    host.addEventListener('pointermove', (e) => { const el = e.target.closest(sel); if (el && host.contains(el)) showTip(host, htmlOf(el), e); else hideTip(host); });
+    host.addEventListener('pointerleave', () => hideTip(host));
+    host.addEventListener('pointerdown', (e) => { const el = e.target.closest(sel); if (el) showTip(host, htmlOf(el), e); });
+  }
+
+  /* ---------- tabs ---------- */
+  const GROUPS = Object.entries(D.groups || {}).filter(([, g]) => g && g.rows && Object.keys(g.rows).length);
+  const avail = { projection: true, counties: C.length > 0, days: true, who: GROUPS.length > 0, districts: H.districts, map: H.map };
+  const tabs = [...document.querySelectorAll('[role="tab"]')].filter((b) => { if (!avail[b.dataset.page]) { b.remove(); $('#' + b.dataset.page).remove(); return false; } return true; });
+  $('#tab-counties') && ($('#tab-counties').textContent = UNITCAP);
+  const rendered = {};
+  function openTab(id, focus) {
+    tabs.forEach((b) => { const on = b.dataset.page === id; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; $('#' + b.dataset.page).hidden = !on; if (on && focus) b.focus(); });
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+    if (id === 'days') { drawCheckpoints(); drawPace(); }
+    if (id === 'projection') drawDials();
+    if (id === 'map' && !rendered.map) { drawMap(); rendered.map = true; }
+  }
+  tabs.forEach((b, i) => {
+    b.addEventListener('click', () => openTab(b.dataset.page));
+    b.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; openTab(n.dataset.page, true);
+    });
+  });
+  if (!$('#tile4 .k').textContent.trim()) $('#tile4').hidden = true;
+
+  /* ---------- reusable bar row ---------- */
+  function barRow(label, sub, val, scale, ref, chipColor, data, valText) {
+    const chip = chipColor ? '<span class="chip" style="background:' + chipColor + '"></span>' : '';
+    return '<div class="row" ' + data + '><div class="lab"><b>' + chip + esc(label) + '</b><small>' + sub + '</small></div>' +
+      '<div class="track"><div class="bar" style="width:' + Math.min(100, val / scale * 100) + '%"></div>' + (ref != null ? '<div class="refline" style="left:' + Math.min(100, ref / scale * 100) + '%"></div>' : '') + '</div>' +
+      '<div class="val">' + (valText || pc(val)) + '</div></div>';
+  }
+  const niceMax = (v) => { const s = [10, 20, 25, 30, 40, 50, 60, 75, 80, 100, 120, 150]; return s.find((x) => x >= v * 1.08) || Math.ceil(v * 1.1 / 10) * 10; };
+
+  /* ================= PROJECTION ================= */
+  const SIG = D.signal;
+  const RN = Object.fromEntries(RACES.map((r) => [r.key, r]));
+  function pill(row, rc) {
+    const probs = [['D', row.pD], ['R', row.pR]].concat(row.pI != null ? [['I', row.pI]] : []);
+    probs.sort((a, b) => b[1] - a[1]); const [who, hi] = probs[0];
+    if (hi < 0.6) return 'Toss-up';
+    return (hi < 0.75 ? 'Slight edge: ' : hi < 0.9 ? 'Favored: ' : 'Strongly favored: ') + rc[who].short;
+  }
+  $('#stand-note').textContent = SIG
+    ? 'Projected vote with the middle reading of the early vote (below). The chance is how often each candidate finishes first when the projection misses by as much as recent polling averages have. ' + (S.election_rule || '')
+    : 'Projected vote from the weighted polling average; the early vote does not move it here (see below). The chance is how often each candidate finishes first when the projection misses by as much as recent polling averages have. ' + (S.election_rule || '');
+  $('#proj-grid').innerHTML = RACES.map((rc) => '<div class="proj" id="proj-' + rc.key + '"></div>').join('');
+  RACES.forEach((rc) => {
+    const r = P[rc.key], c = r.head, three = c.I != null;
+    let cands, split;
+    if (three) {
+      cands = '<div class="cands3"><div class="cand d"><span class="nm">' + esc(rc.D.name) + ' (D)</span><span class="pct">' + c.D.toFixed(1) + '%</span></div>' +
+        '<div class="cand i c"><span class="nm">' + esc(rc.I.name) + ' (' + esc(rc.I.party_short || 'I') + ')</span><span class="pct">' + c.I.toFixed(1) + '%</span></div>' +
+        '<div class="cand r"><span class="nm">' + esc(rc.R.name) + ' (R)</span><span class="pct">' + c.R.toFixed(1) + '%</span></div></div>';
+      split = '<div class="split three" role="img" aria-label="Projected vote ' + c.D.toFixed(1) + ', ' + c.I.toFixed(1) + ', ' + c.R.toFixed(1) + '"><div class="sd" style="width:calc(' + c.D + '% - 2px)"></div><div class="si" style="width:calc(' + c.I + '% - 2px)"></div><div class="sr"></div></div>';
+    } else {
+      cands = '<div class="cands"><div class="cand d"><span class="nm">' + esc(rc.D.name) + ' (D)</span><span class="pct">' + c.D.toFixed(1) + '%</span></div><div class="cand r"><span class="nm">' + esc(rc.R.name) + ' (R)</span><span class="pct">' + c.R.toFixed(1) + '%</span></div></div>';
+      split = '<div class="split" role="img" aria-label="Projected two-party vote ' + c.D.toFixed(1) + ' to ' + c.R.toFixed(1) + '"><div class="sd" style="width:calc(' + c.D + '% - 1px)"></div><div class="sr"></div><i class="half"></i></div>';
+    }
+    let html = '<div class="top"><h3>' + esc(rc.office) + (rc.seat_note ? ' <span class="grp-sub">' + esc(rc.seat_note) + '</span>' : '') + '</h3><span class="pill">' + pill(c, rc) + '</span></div>' + cands + split +
+      '<p class="pm">' + (three ? 'Margin between the major-party nominees' : 'Projected margin') + ' <b>' + fm(c.m) + '</b> · chance of finishing first: <b>' + esc(rc.D.short) + ' ' + chance(c.pD) + '</b>' + (three ? ', <b>' + esc(rc.I.short) + ' ' + chance(c.pI) + '</b>' : '') + ', <b>' + esc(rc.R.short) + ' ' + chance(c.pR) + '</b></p>';
+    if (SIG) html += '<p class="pm">Polls alone: ' + fm(r.scen[0].m) + ' (' + esc(rc.D.short) + ' ' + chance(r.scen[0].pD) + '). If the early vote\'s edge holds: ' + fm(r.scen[2].m) + ' (' + esc(rc.D.short) + ' ' + chance(r.scen[2].pD) + ').</p>';
+    if (three) html += '<p class="pm">Two-party margin uses the major-party nominees; ' + esc(rc.I.short) + '\'s share is the weighted average of polls that include ' + (rc.I.pronoun || 'the independent') + '.</p>';
+    $('#proj-' + rc.key).innerHTML = html;
+  });
+
+  /* readings */
+  const SCN = SIG ? {
+    'Polls alone': 'This year\'s edge is only timing; the electorate ends like 2022\'s',
+    'Midpoint': 'Half of the edge survives to Election Day',
+    'Hold': 'The full ' + Math.abs(SIG.delta).toFixed(1) + '-point ' + (SIG.delta >= 0 ? 'edge' : 'gap') + ' against 2022 survives',
+  } : {};
+  const sigFmt = (x) => SIG.type === 'party' ? fm(x) : x.toFixed(1) + '%';
+  if (SIG) {
+    $('#ev-note').innerHTML = esc(SIG.label) + ': <b>' + sigFmt(SIG.now) + '</b> of ballots so far, against <b>' + sigFmt(SIG.bench) + '</b> at ' + esc(SIG.bench_label) + (SIG.final != null ? ', and ' + sigFmt(SIG.final) + ' in the ' + esc(SIG.final_label) : '') + '. ' + esc(SIG.why) +
+      ' The readings differ on how much of this year\'s ' + Math.abs(SIG.delta).toFixed(1) + '-point difference survives to Election Day. "Polls alone" assumes the polls already describe a 2022-like electorate.';
+    $('#scen-table thead').innerHTML = '<tr><th class="l">Reading</th><th class="l">What it assumes</th><th>Edge carried to Election Day</th>' +
+      RACES.map((rc) => '<th>' + esc(rc.office) + '</th><th>' + esc(rc.D.short) + ' / ' + esc(rc.R.short) + ' chance</th>').join('') + '</tr>';
+    $('#scen-table tbody').innerHTML = P[RACES[0].key].scen.map((s, i) => '<tr' + (i === 1 ? ' class="tot"' : '') + '><td>' + (i === 1 ? 'Midpoint (headline)' : s.name) + '</td><td class="wrapl">' + SCN[s.name] + '</td><td>' + (s.edge >= 0 ? '+' : '−') + Math.abs(s.edge).toFixed(1) + ' pts</td>' +
+      RACES.map((rc) => { const g = P[rc.key].scen[i]; return '<td class="' + (g.m >= 0 ? 'dm' : 'rm') + '">' + fm(g.m) + '</td><td>' + chance(g.pD) + ' / ' + chance(g.pR) + '</td>'; }).join('') + '</tr>').join('');
+  } else {
+    $('#ev-title').textContent = 'What the early vote can and cannot tell us here';
+    $('#ev-note').innerHTML = esc(S.no_signal_note || 'This state publishes no party or race breakdown of its early voters with a matching earlier-year figure, so the projection rests on the polls alone. The turnout figures on the other tabs show where ballots are coming from, not how anyone voted.');
+    $('#scen-wrap').remove();
+  }
+
+  function drawDial(rc, host) {
+    const r = P[rc.key];
+    const W = Math.max(280, host.clientWidth || 480), Hh = 230, m = { l: 44, r: 12, t: 24, b: 34 };
+    const d = SIG.delta, lo = Math.min(0, d), hi = Math.max(0, d), pad = Math.max(1, (hi - lo) * 0.4);
+    const x0 = lo - pad, x1 = hi + pad;
+    const curve = [x0, x1].map((x) => ({ x, m: r.M + r.slope * x }));
+    const ys = curve.map((c) => c.m).concat(r.scen.map((s) => s.m), [0]);
+    let y0 = Math.floor((Math.min(...ys) - 3) / 5) * 5, y1 = Math.ceil((Math.max(...ys) + 3) / 5) * 5;
+    const X = (b) => m.l + (b - x0) / (x1 - x0) * (W - m.l - m.r), Y = (v) => m.t + (y1 - v) / (y1 - y0) * (Hh - m.t - m.b);
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="img" aria-label="' + esc(rc.office) + ' projected margin by how much of the early-vote edge lasts">';
+    if (y1 > 0) s += '<rect x="' + m.l + '" y="' + Y(y1) + '" width="' + (W - m.l - m.r) + '" height="' + (Y(Math.max(0, y0)) - Y(y1)) + '" fill="var(--dem)" fill-opacity=".07"/>';
+    if (y0 < 0) s += '<rect x="' + m.l + '" y="' + Y(Math.min(0, y1)) + '" width="' + (W - m.l - m.r) + '" height="' + (Y(y0) - Y(Math.min(0, y1))) + '" fill="var(--rep)" fill-opacity=".07"/>';
+    const step = (y1 - y0) > 30 ? 10 : 5;
+    for (let v = y0; v <= y1; v += step) s += '<line class="' + (v === 0 ? 'axisl' : 'gridl') + '" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"' + (v === 0 ? ' style="stroke:var(--fg);stroke-opacity:.55"' : '') + '/><text x="' + (m.l - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + (v === 0 ? 'Even' : (v > 0 ? 'D+' : 'R+') + Math.abs(v)) + '</text>';
+    const xstep = (x1 - x0) > 12 ? 4 : (x1 - x0) > 6 ? 2 : 1;
+    for (let v = Math.ceil(x0 / xstep) * xstep; v <= x1; v += xstep) s += '<text x="' + X(v) + '" y="' + (Hh - m.b + 16) + '" text-anchor="middle">' + (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + '</text>';
+    s += '<text x="' + ((m.l + W - m.r) / 2) + '" y="' + (Hh - 2) + '" text-anchor="middle">Points of the early-vote edge that last to Election Day</text>';
+    s += '<line x1="' + X(d) + '" x2="' + X(d) + '" y1="' + Y(y1) + '" y2="' + Y(y0) + '" style="stroke:var(--ref)" stroke-dasharray="4 3" stroke-width="1.5"/>';
+    s += '<polyline fill="none" style="stroke:var(--fg)" stroke-width="2" points="' + curve.map((c) => X(c.x) + ',' + Y(c.m)).join(' ') + '"/>';
+    r.scen.forEach((c, i) => { s += '<circle data-i="' + i + '" cx="' + X(c.edge) + '" cy="' + Y(c.m) + '" r="5" style="fill:var(--fg);stroke:var(--panel)" stroke-width="2"/><circle data-i="' + i + '" cx="' + X(c.edge) + '" cy="' + Y(c.m) + '" r="14" fill="transparent"/>'; });
+    const c1 = r.scen[1];
+    s += '<text x="' + (X(c1.edge) + 8) + '" y="' + (Y(c1.m) + 17) + '" style="fill:var(--fg)">' + fm(c1.m) + '</text>';
+    s += '<text x="' + m.l + '" y="12" style="fill:var(--fg);font-size:13px;font-weight:500">' + esc(rc.office) + ': ' + esc(rc.D.short) + ' vs ' + esc(rc.R.short) + '</text></svg>';
+    host.innerHTML = s;
+    if (!host.dataset.b) { host.dataset.b = 1; bindTips(host, 'circle', (el) => { const c = P[rc.key].scen[+el.dataset.i]; return tipRows(c.name, [['Edge carried', (c.edge >= 0 ? '+' : '−') + Math.abs(c.edge).toFixed(1) + ' pts'], ['Margin', fm(c.m)], [rc.D.short + ' chance', chance(c.pD)], [rc.R.short + ' chance', chance(c.pR)]]); }); }
+  }
+  function drawDials() { if (!SIG || SIG.final == null && SIG.bench == null) return; RACES.forEach((rc) => drawDial(rc, $('#dial-' + rc.key))); }
+  if (SIG) {
+    $('#dial-card').hidden = false;
+    $('#dials').innerHTML = RACES.map((rc) => '<div class="dial rel" id="dial-' + rc.key + '"></div>').join('');
+    $('#dial-note').textContent = 'Projected margin for any amount of this year\'s early-vote difference from 2022 carried into the final electorate, with everything else held at the polling average. Above the line the Democrat leads; below it the Republican does. Dots mark the three readings; the dashed line is the full difference seen in the early vote so far.';
+  }
+
+  /* groups table */
+  const tp2 = (d, r) => d / (d + r) * 100;
+  const BENCH = D.bench || {};
+  const BKEYS = Object.keys(BENCH).filter((k) => BENCH[k] && typeof BENCH[k] === 'object');
+  function pickDim() {
+    if (SIG && SIG.type === 'race') return 'race';
+    if (SIG && SIG.type === 'party') return 'party';
+    for (const d of ['race', 'party']) if (BKEYS.some((k) => BENCH[k][d])) return d;
+    return null;
+  }
+  const DIM = pickDim();
+  const mapParty = (k) => /^dem/i.test(k) ? 'Democrats' : /^rep/i.test(k) ? 'Republicans' : 'Independents';
+  function evShares(dim) {
+    const g = (D.groups || {})[dim]; if (!g || !g.rows) return null;
+    const tot = Object.values(g.rows).reduce((a, b) => a + (+b || 0), 0); const out = {};
+    Object.entries(g.rows).forEach(([k, v]) => { const kk = dim === 'party' ? mapParty(k) : k; out[kk] = (out[kk] || 0) + (+v || 0) / tot * 100; });
+    return out;
+  }
+  if (DIM && (BKEYS.some((k) => BENCH[k][DIM]) || D.xtab.length || D.pxtab.length)) {
+    $('#groups-card').hidden = false;
+    const ev = evShares(DIM);
+    const groupsList = DIM === 'race' ? ['White', 'Black', 'Hispanic', 'Asian', 'Other'] : ['Democrats', 'Republicans', 'Independents'];
+    const firstB = BKEYS.find((k) => BENCH[k][DIM]);
+    const xtabs = DIM === 'race' ? D.xtab : D.pxtab;
+    const xt = (key, g) => (xtabs || []).filter((x) => x[key] && x[key][g]).map((x) => { const [d, r] = x[key][g]; return esc(x.poll) + (x.pop === 'RV' ? ' (RV)' : '') + ': ' + (d != null && r != null ? d + '–' + r : d != null ? esc(RN[key].D.short) + ' ' + d : esc(RN[key].R.short) + ' ' + r); }).join(' · ') || '<span class="na">none published</span>';
+    $('#groups-table thead').innerHTML = '<tr><th class="l">Group</th>' + (firstB ? '<th>Voters in exit poll</th>' : '') + (ev ? '<th>Early vote so far</th>' : '') +
+      BKEYS.filter((k) => BENCH[k][DIM]).map((k) => '<th>' + esc(BENCH[k].short || BENCH[k].label) + '</th>').join('') + RACES.map((rc) => '<th class="l">2026 polls: ' + esc(rc.office) + '</th>').join('') + '</tr>';
+    $('#groups-table tbody').innerHTML = groupsList.map((g) => {
+      const fb = firstB && BENCH[firstB][DIM][g];
+      return '<tr><td>' + (g === 'Other' ? 'Other or unknown' : g) + '</td>' + (firstB ? '<td>' + (fb ? fb[0] + '%' : NA) + '</td>' : '') + (ev ? '<td>' + (ev[g] != null ? pc(ev[g]) : NA) + '</td>' : '') +
+        BKEYS.filter((k) => BENCH[k][DIM]).map((k) => { const v = BENCH[k][DIM][g]; return '<td>' + (v && v[1] != null && v[2] != null ? tp2(v[1], v[2]).toFixed(0) + '%' : NA) + '</td>'; }).join('') +
+        RACES.map((rc) => '<td class="wrapl">' + xt(rc.key, g) + '</td>').join('') + '</tr>';
+    }).join('');
+    $('#groups-note').textContent = 'The Democrat\'s share of the two-party vote by ' + (DIM === 'race' ? 'race' : 'party identification') + ' in past exit polls, and what this year\'s polls report among each group (first number Democrat, second Republican, undecided voters left in).' +
+      (DIM === 'party' && ev ? ' The early-vote column uses registered party, a close but not identical measure: unaffiliated and minor-party registrants are grouped with independents.' : '');
+    $('#groups-note2').innerHTML = BKEYS.filter((k) => BENCH[k][DIM]).map((k) => esc(BENCH[k].label) + ': ' + '<a href="' + esc(BENCH[k].src) + '" target="_blank" rel="noopener">' + esc(BENCH[k].source || 'exit poll') + '</a>').join('; ') + '.';
+  }
+
+  /* lenses: how the ballots cast so far would split if each group votes as in its benchmark, shifted to today's average */
+  let LENSDIMS = ['race', 'gender', 'age'].filter((dim) => { const g = (D.groups || {})[dim]; return g && g.rows && BKEYS.some((k) => BENCH[k][dim]); });
+  const mapG = (dim, k) => dim === 'party' ? mapParty(k) : dim === 'gender' ? (/^f|^w/i.test(k) ? 'Women' : /^m/i.test(k) ? 'Men' : null) : k;
+  function lens(rc, dim) {
+      const bk = (rc.key === 'gov' ? ['gov22', 'sen22', 'pres24'] : ['sen22', 'gov22', 'pres24']).find((k) => BENCH[k] && BENCH[k][dim]);
+      if (!bk) return null;
+      const tab = BENCH[bk][dim]; const ok = Object.entries(tab).filter(([, v]) => v && v[1] != null && v[2] != null);
+      if (!ok.length) return null;
+      const base = ok.reduce((a, [, v]) => a + v[0], 0);
+      const S0 = 50 + P[rc.key].M / 2;
+      const shift = S0 - ok.reduce((a, [, v]) => a + v[0] * tp2(v[1], v[2]), 0) / base;
+      const evc = {}; Object.entries(D.groups[dim].rows).forEach(([k, v]) => { const g = mapG(dim, k); if (g && tab[g] && tab[g][1] != null) evc[g] = (evc[g] || 0) + (+v || 0); });
+      const tot = Object.values(evc).reduce((a, b) => a + b, 0); if (!tot) return null;
+      const est = Object.entries(evc).reduce((a, [g, n]) => a + n * (tp2(tab[g][1], tab[g][2]) + shift), 0) / tot;
+      return 2 * est - 100;
+    }
+  LENSDIMS = LENSDIMS.filter((dim) => RACES.some((rc) => lens(rc, dim) != null));
+  if (LENSDIMS.length) {
+    $('#lens-card').hidden = false;
+    $('#lens-note').textContent = 'How the ballots cast so far would split if each group\'s early voters vote the way that group did in the exit poll, shifted so the exit poll\'s electorate matches today\'s polling average. These are estimates from group averages, not counts of actual votes.' + (LENSDIMS.includes('race') ? ' Voters of other or unknown race are assumed to split like that group in the exit poll, which is rough where many voters have no race on file.' : '');
+    $('#lens-table thead').innerHTML = '<tr><th class="l">Lens</th>' + RACES.map((rc) => '<th>' + esc(rc.office) + '</th>').join('') + '</tr>';
+    const LN = { party: 'Registered party', race: 'Race', gender: 'Gender', age: 'Age' };
+    $('#lens-table tbody').innerHTML = LENSDIMS.map((dim) => '<tr><td>' + LN[dim] + '</td>' + RACES.map((rc) => { const v = lens(rc, dim); return v == null ? '<td>' + NA + '</td>' : '<td class="' + (v >= 0 ? 'dm' : 'rm') + '">' + fm(v) + '</td>'; }).join('') + '</tr>').join('') +
+      '<tr class="tot"><td>Whole electorate (poll average)</td>' + RACES.map((rc) => '<td class="' + (P[rc.key].M >= 0 ? 'dm' : 'rm') + '">' + fm(P[rc.key].M) + '</td>').join('') + '</tr>';
+  }
+
+  /* polls */
+  const ws = new Date(S.window_start + 'T12:00');
+  const MONL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const np = RACES.map((rc) => '<b>' + P[rc.key].nonpart.toFixed(0) + '%</b> of the ' + esc(rc.office) + ' weight').join(' and ');
+  $('#polls-note').innerHTML = 'The latest poll from each pollster with fieldwork since ' + ws.getDate() + ' ' + MONL[ws.getMonth()] + ', likely voters where published. In the spirit of the New York Times\' "select pollster" standard (nonpartisan sponsors with a record of accuracy), each poll counts in proportion to its 538 rating, partisan-aligned pollsters count half, and older polls fade with a ' + S.half_life + '-day half-life. Each margin is also corrected for the pollster\'s historical lean against other polls in the same races. Nonpartisan pollsters carry ' + np + '. Left out: ' + esc(S.excluded) + '.';
+  $('#poll-tables').innerHTML = RACES.map((rc) => '<h3>' + esc(rc.office) + '</h3><div class="tablewrap"><table id="polls-' + rc.key + '"><thead><tr><th class="l">Pollster</th><th class="l">Field dates</th><th>Sample</th><th>' + esc(rc.D.short) + ' (D)</th>' + (rc.I ? '<th>' + esc(rc.I.short) + ' (' + esc(rc.I.party_short || 'I') + ')</th>' : '') + '<th>' + esc(rc.R.short) + ' (R)</th><th>Margin</th><th>538 grade</th><th class="l">Alignment</th><th>Lean-corrected</th><th>Weight</th></tr></thead><tbody></tbody></table></div>').join('');
+  RACES.forEach((rc) => {
+    const r = P[rc.key], three = !!rc.I;
+    const al = (q) => q.aligned ? '<span title="' + esc(q.why) + '">' + q.aligned + '-aligned</span>' : '<span class="na">Nonpartisan</span>';
+    const n1 = (v) => v == null ? NA : v.toFixed(v % 1 ? 1 : 0) + '%';
+    $('#polls-' + rc.key + ' tbody').innerHTML = r.polls.map((q) => '<tr><td><a href="' + esc(q.src) + '" target="_blank" rel="noopener">' + esc(q.p) + '</a>' + (q.note ? ' <span class="na" title="' + esc(q.note) + '">(' + esc(shortNote(q.note)) + ')</span>' : '') + '</td><td class="l">' + esc(q.d) + '</td><td>' + (q.n ? fmt(q.n) + (q.pop ? ' ' + esc(q.pop) : '') : NA) + '</td><td>' + n1(q.D) + '</td>' + (three ? '<td>' + n1(q.I) + '</td>' : '') + '<td>' + n1(q.R) + '</td><td class="' + (q.m >= 0 ? 'dm' : 'rm') + '">' + fm(q.m) + '</td>' +
+      '<td>' + (q.grade != null ? q.grade.toFixed(1) + ' / 3' : '<span class="na">unrated</span>') + '</td><td class="l">' + al(q) + '</td><td class="' + (q.adj >= 0 ? 'dm' : 'rm') + '" title="Lean correction: ' + esc(q.lean_src) + '">' + fm(q.adj) + '</td><td>' + q.share.toFixed(0) + '%</td></tr>').join('') +
+      '<tr><td>Plain average</td><td class="l"></td><td></td><td>' + r.avg_D.toFixed(1) + '%</td>' + (three ? '<td>' + (r.avg_I != null ? r.avg_I.toFixed(1) + '%' : '') + '</td>' : '') + '<td>' + r.avg_R.toFixed(1) + '%</td><td class="' + (r.raw >= 0 ? 'dm' : 'rm') + '">' + fm(r.raw) + '</td><td></td><td></td><td class="na">' + fm(r.plainM) + ' two-party</td><td></td></tr>' +
+      '<tr class="tot"><td>Weighted average (used)</td><td class="l"></td><td></td><td></td>' + (three ? '<td>' + (r.I != null ? r.I.toFixed(1) + '%' : '') + '</td>' : '') + '<td></td><td></td><td></td><td></td><td class="' + (r.M >= 0 ? 'dm' : 'rm') + '">' + fm(r.M) + '</td><td>100%</td></tr>';
+  });
+
+  function shortNote(n) { let t = String(n).split(/[;.,(]\s?/)[0].trim(); if (t.length > 34) t = t.slice(0, 32).replace(/\s+\S*$/, '') + '…'; return t; }
+
+  /* method */
+  const rnames = RACES.map((rc) => P[rc.key].n + ' ' + rc.office + ' poll' + (P[rc.key].n === 1 ? '' : 's')).join(' and ');
+  const M = [
+    '<b>Polls.</b> ' + rnames + '. A poll\'s weight is its 538 grade divided by 3 (unrated pollsters count as 1 star), halved if the pollster is partisan-aligned (marked R or D in Wikipedia\'s ' + esc(S.name) + ' poll tables, sponsored by a campaign, party or partisan outlet, or counted by 538 as doing mostly partisan work), then halved for every ' + S.half_life + ' days since the poll ended. Lean corrections come from 538\'s poll archive for 2016–2022: each pollster\'s average error minus the average of all polls in the same races, shrunk toward zero when it has few polls. Aligned pollsters with no record get ' + S.prior + ' points, the typical lean of Republican-aligned pollsters that have one. ' +
+      RACES.map((rc) => 'The weighted, corrected ' + esc(rc.office) + ' average is <b>' + fm(P[rc.key].M) + '</b> (plain average ' + fm(P[rc.key].plainM) + ')').join('; ') + '. 538 closed in 2025, so these are its last published ratings.',
+    '<b>Lean against other polls, not against results.</b> The correction measures how each pollster runs compared with other polls of the same races. Correcting each poll for its average miss against actual results instead would also build in the whole industry\'s misses, which in 2016 and 2020 underestimated Republicans; that version gives ' + RACES.map((rc) => '<b>' + fm(P[rc.key].altM) + '</b> for ' + esc(rc.office)).join(' and ') + (SIG ? ' before the early-vote adjustment.' : '.'),
+  ];
+  if (SIG) {
+    M.push('<b>Early vote.</b> ' + esc(SIG.label) + ' is ' + sigFmt(SIG.now) + ' of ballots so far against ' + sigFmt(SIG.bench) + ' at ' + esc(SIG.bench_label) + '. ' + RACES.map((rc) => 'Each point of difference in the final electorate moves the ' + esc(rc.office) + ' margin about ' + P[rc.key].slope.toFixed(2) + ' points').join('; ') + '. ' +
+      (SIG.type === 'party' ? 'That rate assumes registered Democrats and Republicans each back their own party\'s nominee by about 92 to 8, so shifting one point of the electorate from one party to the other moves the margin by about 0.84 points.' : 'That rate comes from a two-group model: ' + esc(SIG.label.replace(' share of ballots', '')) + ' voters split as in this year\'s crosstabs where published, everyone else as needed to match the poll average.') +
+      ' The headline uses the midpoint: half of this year\'s difference survives to Election Day.');
+  }
+  RACES.filter((rc) => rc.I).forEach((rc) => M.push('<b>Three-way race.</b> ' + esc(rc.I.name) + '\'s share is held at the weighted average of polls that include ' + (rc.I.pronoun || 'the independent') + '; the lean correction applies to the margin between the two major-party nominees. Chances come from 20,000 simulated outcomes with independent errors for each candidate, sized so any two candidates\' margin misses by about ' + S.sd + ' points.'));
+  (S.method_extra || []).forEach((x) => M.push(x));
+  M.push('<b>Updates.</b> A scheduled task rebuilds this page twice a day through Election Day with the newest early-vote figures and any new qualifying polls.');
+  M.push('<b>Uncertainty.</b> The chances assume the final margin can miss the projection with a standard error of ' + S.sd + ' points, roughly the size of recent polling misses in Senate and governor races. They are estimates for this page, not an official forecast.');
+  if (S.other_views) M.push('<b>Other views.</b> ' + esc(S.other_views));
+  $('#method').innerHTML = M.map((x) => '<li>' + x + '</li>').join('');
+
+  /* ================= COUNTIES ================= */
+  if (C.length) {
+    const U = S.unit, US = S.units;
+    const SCALE = STATE22 ? niceMax(Math.max(...C.map((c) => c.p22 || 0).filter((x) => x < 400)) * 0.75 + STATE22 * 0.25) : 100;
+    const BANDS = [
+      { n: 'Harris +30 or more', lo: 30, hi: 1e9, c: 'var(--dem)' }, { n: 'Harris by under 30', lo: 0, hi: 30, c: 'var(--dem)' },
+      { n: 'Trump by under 30', lo: -30, hi: 0, c: 'var(--rep)' }, { n: 'Trump +30 to +50', lo: -50, hi: -30, c: 'var(--rep)' }, { n: 'Trump +50 or more', lo: -1e9, hi: -50, c: 'var(--rep)' },
+    ];
+    function agg(list) {
+      const a = { k: list.length, rv: 0, v: 0, t22: 0, pd: 0, pr: 0 };
+      list.forEach((c) => { a.rv += c.rv || 0; a.v += c.v; a.t22 += c.t22 || 0; a.pd += c.pd || 0; a.pr += c.pr || 0; });
+      a.rvp = a.rv ? a.v / a.rv * 100 : null; a.p22 = a.t22 ? a.v / a.t22 * 100 : null; a.sh = a.v / TOTAL * 100; a.pnet = H.party && a.v ? (a.pd - a.pr) / a.v * 100 : null; return a;
+    }
+    BANDS.forEach((b) => { b.a = agg(C.filter((c) => c.mg != null && c.mg >= b.lo && c.mg < b.hi)); });
+    const bandsShown = BANDS.filter((b) => b.a.k);
+    $('#bands-title').textContent = 'Turnout so far, by how each ' + U + ' voted in 2024';
+    $('#bands-note').textContent = UNITCAP + ' grouped by their 2024 presidential margin. Each bar is the share of the group\'s ' + S.base22 + ' already cast this year; the dashed line is the statewide figure, ' + pc(STATE22) + '. This shows where ballots are coming from, not how anyone voted. ' + (S.counties_note || 'Places where more people habitually vote early will read higher at this stage, so part of any gap is timing.');
+    const bandsEl = $('#bands');
+    bandsEl.innerHTML = bandsShown.map((b, i) => barRow(b.n, b.a.k + ' ' + (b.a.k === 1 ? U : US) + ' · ' + pc(b.a.sh) + ' of ballots' + (H.party ? ' · party gap ' + fm(b.a.pnet) : ''), b.a.p22, SCALE, STATE22, b.c, 'data-i="' + i + '"')).join('');
+    bindTips(bandsEl.parentElement, '.row', (el) => { const b = bandsShown[+el.dataset.i]; return tipRows(b.n, [[UNITCAP, b.a.k], ['Ballots so far', fmt(b.a.v)]].concat(H.reg ? [['Of registered', pc(b.a.rvp)]] : []).concat([['Of 2022 vote', pc(b.a.p22)], ['Share of state', pc(b.a.sh)]]).concat(H.party ? [['Party gap', fm(b.a.pnet)]] : [])); });
+    const aggHead = '<tr><th class="l">' + UNITCAP + ' by 2024 result</th><th>' + UNITCAP + '</th>' + (H.reg ? '<th>Registered</th>' : '') + '<th>Ballots so far</th>' + (H.reg ? '<th>Of registered</th>' : '') + '<th>Of 2022 vote</th><th>Share of state\'s ballots</th>' + (H.party ? '<th>Party gap (D−R)</th>' : '') + '</tr>';
+    const aggRow = (label, a) => '<td>' + esc(label) + '</td><td>' + a.k + '</td>' + (H.reg ? '<td>' + fmt(a.rv) + '</td>' : '') + '<td>' + fmt(a.v) + '</td>' + (H.reg ? '<td>' + pc(a.rvp) + '</td>' : '') + '<td>' + pc(a.p22) + '</td><td>' + pc(a.sh) + '</td>' + (H.party ? '<td class="' + (a.pnet >= 0 ? 'dm' : 'rm') + '">' + fm(a.pnet) + '</td>' : '') ;
+    const all = agg(C);
+    $('#bands-table thead').innerHTML = aggHead;
+    $('#bands-table tbody').innerHTML = bandsShown.map((b) => '<tr>' + aggRow(b.n, b.a) + '</tr>').join('') + '<tr class="tot">' + aggRow(S.name, all) + '</tr>';
+
+    const sizeKey = H.reg ? 'rv' : 't22';
+    const SIZES = [['100,000 or more', 1e5, 1e12], ['25,000 to 100,000', 25e3, 1e5], ['Under 25,000', 0, 25e3]];
+    $('#size-title').textContent = 'By ' + U + ' size';
+    $('#size-note').textContent = UNITCAP + ' grouped by ' + (H.reg ? 'registered voters' : 'the number of votes cast in 2022') + '. The largest ' + US + ' hold ' + pc(agg(C.filter((c) => (c[sizeKey] || 0) >= 1e5)).sh, 0) + ' of this year\'s ballots.';
+    $('#size-table thead').innerHTML = aggHead.replace(UNITCAP + ' by 2024 result', H.reg ? 'Registered voters' : 'Votes cast in 2022');
+    $('#size-table tbody').innerHTML = SIZES.map(([n, lo, hi]) => { const l = C.filter((c) => (c[sizeKey] || 0) >= lo && (c[sizeKey] || 0) < hi); return l.length ? '<tr>' + aggRow(n, agg(l)) + '</tr>' : ''; }).join('') + '<tr class="tot">' + aggRow(S.name, all) + '</tr>';
+
+    const COLS = [['n', UNITCAP.replace(/s$/, '').replace(/ie$/, 'y'), 'l'], H.reg && ['rv', 'Registered'], ['v', 'Ballots so far'], H.ip && ['e', 'In person'], H.mail && ['m', 'Mail'], H.reg && ['rvp', 'Of registered'], ['p22', 'Of 2022 vote', 'l'], H.party && ['pnet', 'Party gap'], ['mg', '2024 result']].filter(Boolean);
+    $('#ctable thead tr').innerHTML = COLS.map(([k, l, cl]) => '<th data-k="' + k + '"' + (cl ? ' class="' + cl + '"' : '') + (k === 'v' ? ' aria-sort="descending"' : '') + '><button type="button">' + l + '</button></th>').join('');
+    $('#ctable-note').textContent = 'Every ' + U + '. "Of 2022 vote" is ballots cast so far as a share of the ' + U + '\'s ' + S.base22 + '.' + (H.party ? ' "Party gap" is registered Democrats minus Republicans as a share of the ' + U + '\'s ballots so far.' : '') + ' The 2024 result is the presidential margin in points (D for Democratic, R for Republican). Select a column heading to sort.';
+    $('#county-q-label').textContent = 'Find a ' + U;
+    $('#county-q').placeholder = 'e.g. ' + [...C].sort((a, b) => b.v - a.v)[0].n;
+    let sortK = 'v', sortDir = -1, showAll = false;
+    const ths = [...document.querySelectorAll('#ctable th')];
+    const cell = (c, k) => {
+      if (k === 'n') return '<td>' + esc(c.n) + '</td>';
+      if (k === 'p22') return '<td class="l">' + pc(c.p22) + (c.p22 != null ? '<span class="mini" style="width:' + Math.min(5, c.p22 / SCALE * 3.5).toFixed(2) + 'rem"></span>' : '') + '</td>';
+      if (k === 'rvp') return '<td>' + pc(c.rvp) + '</td>';
+      if (k === 'mg') return '<td class="' + (c.mg >= 0 ? 'd' : 'r') + '">' + mgl(c.mg) + '</td>';
+      if (k === 'pnet') return '<td class="' + (c.pnet >= 0 ? 'd' : 'r') + '">' + (c.pnet != null ? fm(c.pnet) : NA) + '</td>';
+      return '<td>' + (c[k] != null ? fmt(c[k]) : NA) + '</td>';
+    };
+    function drawTable() {
+      const q = $('#county-q').value.trim().toLowerCase();
+      let rows = C.filter((c) => !q || c.n.toLowerCase().includes(q));
+      rows.sort((a, b) => sortK === 'n' ? sortDir * a.n.localeCompare(b.n) : sortDir * ((a[sortK] ?? -1e9) - (b[sortK] ?? -1e9)));
+      const total = rows.length;
+      if (!showAll && !q) rows = rows.slice(0, 25);
+      $('#ctable tbody').innerHTML = rows.map((c) => '<tr>' + COLS.map(([k]) => cell(c, k)).join('') + '</tr>').join('') || '<tr><td colspan="' + COLS.length + '" class="na">No ' + U + ' matches "' + esc(q) + '".</td></tr>';
+      $('#county-count').textContent = q ? total + ' ' + (total === 1 ? U : US) : (showAll || C.length <= 25 ? 'All ' + C.length + ' ' + US : 'Top 25 of ' + C.length + ' by current sort');
+      $('#county-more').hidden = !!q || C.length <= 25;
+      $('#county-more').textContent = showAll ? 'Show 25 ' + US : 'Show all ' + C.length + ' ' + US;
+    }
+    ths.forEach((th) => th.querySelector('button').addEventListener('click', () => {
+      const k = th.dataset.k;
+      if (k === sortK) sortDir = -sortDir; else { sortK = k; sortDir = k === 'n' ? 1 : -1; }
+      ths.forEach((t) => t.removeAttribute('aria-sort'));
+      th.setAttribute('aria-sort', sortDir > 0 ? 'ascending' : 'descending');
+      drawTable();
+    }));
+    $('#county-q').addEventListener('input', drawTable);
+    $('#county-more').addEventListener('click', () => { showAll = !showAll; drawTable(); });
+    drawTable();
+  }
+
+  /* ================= DAY BY DAY ================= */
+  const CP = D.cps || [];
+  const chg = (a, b) => { const v = (a / b - 1) * 100; return (v >= 0 ? '+' : '') + pc(v); };
+  const cmpYears = [...new Set(CP.filter((p) => p.c22).map((p) => p.c22y || 2022))];
+  $('#cp-cmp-h').textContent = (cmpYears.length === 1 ? cmpYears[0] : 'Earlier year') + ', same point';
+  $('#leg22').innerHTML = '<i class="dot" style="background:var(--y22)"></i>' + (cmpYears.length === 1 ? cmpYears[0] : 'Earlier year') + ', same point';
+  if (!CP.some((p) => p.c22 && p.c22k !== 'in person')) $('#leg22').remove();
+  $('#cp-table tbody').innerHTML = CP.map((p) => {
+    const cmp = p.c22 ? (p.c22k === 'in person' ? p.ip : p.all) : null;
+    const f = (v, fl) => v == null ? NA : (fl ? 'over ' : '') + fmt(v);
+    return '<tr><td>' + esc(p.when) + '</td><td>' + f(p.ip, p.ipFloor) + '</td><td>' + f(p.mail, p.mailFloor) + '</td><td>' + f(p.all, p.allFloor) +
+      '</td><td>' + (p.c22 ? fmt(p.c22) + ' <span class="na">(' + esc(p.c22k) + ')</span>' : '<span class="na">not published</span>') + '</td><td>' + (cmp ? chg(cmp, p.c22) : '') + '</td><td class="l">' + (p.href ? '<a href="' + esc(p.href) + '" target="_blank" rel="noopener">' + esc(p.src) + '</a>' : esc(p.src)) + '</td></tr>';
+  }).join('');
+  $('#days-note').textContent = S.days_note || ('Running statewide counts at each reported checkpoint, including every refresh of the official count, rather than a value for every day.' + (CP.some((p) => p.c22) ? ' Purple marks are the earlier year at the same point.' : ''));
+  if (S.cp_note) $('#cp-note').textContent = S.cp_note; else $('#cp-note').remove();
+  const MONS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function drawCheckpoints() {
+    const host = $('#cp-chart'); const W = Math.max(300, host.clientWidth || 600), Hh = 260;
+    const m = { l: 56, r: 34, t: 16, b: 28 };
+    const pts = CP.filter((p) => p.all), p22s = CP.filter((p) => p.c22 && p.c22k !== 'in person');
+    if (!pts.length) { host.innerHTML = '<p class="note">No checkpoints yet.</p>'; return; }
+    const t0 = Math.min(Date.parse(S.count_start + 'T00:00'), Date.parse(pts[0].t));
+    const lastDay = Date.parse(CP[CP.length - 1].t.slice(0, 10) + 'T00:00') + 864e5;
+    const t1 = Math.max(Date.parse(S.ev_end + 'T00:00') + 864e5, lastDay);
+    const vmax = Math.max(...pts.map((p) => p.all), ...p22s.map((p) => p.c22));
+    const steps = [1e3, 2e3, 5e3, 1e4, 2e4, 5e4, 1e5, 2e5, 2.5e5, 5e5, 1e6, 2e6];
+    const step = steps.find((s) => vmax * 1.06 / s <= 6) || 5e6;
+    const top = Math.ceil(vmax * 1.06 / step) * step;
+    const X = (t) => m.l + (Date.parse(t) - t0) / (t1 - t0) * (W - m.l - m.r);
+    const Xn = (n) => m.l + (n - t0) / (t1 - t0) * (W - m.l - m.r);
+    const Y = (v) => Hh - m.b - v / top * (Hh - m.t - m.b);
+    const lab = (v) => v === 0 ? '0' : v >= 1e6 ? (v / 1e6) + 'M' : (v / 1e3) + 'K';
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="presentation">';
+    for (let v = 0; v < top + 1; v += step) s += '<line class="gridl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (m.l - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + lab(v) + '</text>';
+    s += '<line class="axisl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(0) + '" y2="' + Y(0) + '"/>';
+    const ndays = Math.round((t1 - t0) / 864e5), dstep = Math.max(1, Math.ceil(ndays / (W < 460 ? 5 : 10)));
+    for (let i = 0; i <= ndays; i += dstep) { const d = new Date(t0 + i * 864e5); s += '<text x="' + Xn(t0 + i * 864e5) + '" y="' + (Hh - 8) + '" text-anchor="middle">' + d.getDate() + ' ' + MONS[d.getMonth()] + '</text>'; }
+    s += '<polyline fill="none" stroke="var(--y26)" stroke-width="2" stroke-linejoin="round" points="' + pts.map((p) => X(p.t) + ',' + Y(p.all)).join(' ') + '"/>';
+    CP.forEach((p, i) => {
+      if (p.all) s += '<circle data-i="' + i + '" data-y="26" cx="' + X(p.t) + '" cy="' + Y(p.all) + '" r="5" fill="' + (p.allFloor ? 'var(--panel)' : 'var(--y26)') + '" stroke="' + (p.allFloor ? 'var(--y26)' : 'var(--panel)') + '" stroke-width="2"/><circle data-i="' + i + '" data-y="26" cx="' + X(p.t) + '" cy="' + Y(p.all) + '" r="14" fill="transparent"/>';
+      if (p.c22 && p.c22k !== 'in person') s += '<circle data-i="' + i + '" data-y="22" cx="' + X(p.t) + '" cy="' + Y(p.c22) + '" r="5" fill="var(--y22)" stroke="var(--panel)" stroke-width="2"/><circle data-i="' + i + '" data-y="22" cx="' + X(p.t) + '" cy="' + Y(p.c22) + '" r="14" fill="transparent"/>';
+    });
+    const last = pts[pts.length - 1];
+    s += '<text x="' + (X(last.t) - 8) + '" y="' + (Y(last.all) - 8) + '" text-anchor="end" style="fill:var(--fg)">' + fmt(last.all) + '</text>';
+    if (p22s.length) { const q = p22s[p22s.length - 1]; s += '<text x="' + (X(q.t) + 9) + '" y="' + (Y(q.c22) + 4) + '" text-anchor="start">' + (q.c22y || 2022) + ': ' + fmt(q.c22) + '</text>'; }
+    s += '</svg>';
+    host.innerHTML = s;
+    if (!host.dataset.b) {
+      host.dataset.b = 1;
+      bindTips(host, 'circle', (el) => {
+        const p = CP[+el.dataset.i];
+        if (el.dataset.y === '22') return tipRows((p.c22y || 2022) + ', same point as ' + p.when, [['Ballots', fmt(p.c22)], ['2026 change', chg(p.all, p.c22)]]);
+        return tipRows(p.when, [['All ballots', (p.allFloor ? 'over ' : '') + fmt(p.all)], ['In person', p.ip == null ? 'n/a' : fmt(p.ip)], ['Mail', p.mail == null ? 'n/a' : fmt(p.mail)], ['Source', p.src]]);
+      });
+    }
+  }
+
+  /* pace: share of registered voters by day of early voting, when the source publishes it */
+  const PACE = D.pace;
+  function drawPace() {
+    if (!PACE) return;
+    const host = $('#pace-chart'); const W = Math.max(300, host.clientWidth || 600), Hh = 240, m = { l: 44, r: 60, t: 14, b: 40 };
+    const days = Math.max(PACE.days, ...['a', 'b'].map((k) => PACE[k].length));
+    const vmax = Math.max(...PACE.a, ...PACE.b);
+    const top = Math.ceil(vmax * 1.15 / 5) * 5;
+    const X = (i) => m.l + (i - 1) / Math.max(1, days - 1) * (W - m.l - m.r), Y = (v) => Hh - m.b - v / top * (Hh - m.t - m.b);
+    let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" width="' + W + '" height="' + Hh + '" role="presentation">';
+    for (let v = 0; v <= top; v += 5) s += '<line class="gridl" x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text x="' + (m.l - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + v + '%</text>';
+    for (let i = 1; i <= days; i++) s += '<text x="' + X(i) + '" y="' + (Hh - m.b + 16) + '" text-anchor="middle">' + i + '</text>';
+    s += '<text x="' + ((m.l + W - m.r) / 2) + '" y="' + (Hh - 4) + '" text-anchor="middle">Day of early voting</text>';
+    [['b', 'var(--y22)', '2022'], ['a', 'var(--y26)', '2026']].forEach(([k, c, lab]) => {
+      const pts = PACE[k]; if (!pts.length) return;
+      s += '<polyline fill="none" style="stroke:' + c + '" stroke-width="2" points="' + pts.map((v, i) => X(i + 1) + ',' + Y(v)).join(' ') + '"/>';
+      pts.forEach((v, i) => { s += '<circle data-k="' + k + '" data-i="' + i + '" cx="' + X(i + 1) + '" cy="' + Y(v) + '" r="4" style="fill:' + c + ';stroke:var(--panel)" stroke-width="1.5"/><circle data-k="' + k + '" data-i="' + i + '" cx="' + X(i + 1) + '" cy="' + Y(v) + '" r="12" fill="transparent"/>'; });
+      s += '<text x="' + (X(pts.length) + 8) + '" y="' + (Y(pts[pts.length - 1]) + 4) + '" style="fill:' + c + '">' + lab + ' ' + pts[pts.length - 1].toFixed(1) + '%</text>';
+    });
+    s += '</svg>'; host.innerHTML = s;
+    if (!host.dataset.b) { host.dataset.b = 1; bindTips(host, 'circle', (el) => { const i = +el.dataset.i; return tipRows('Day ' + (i + 1), [['2026', PACE.a[i] != null ? PACE.a[i].toFixed(2) + '%' : 'n/a'], ['2022', PACE.b[i] != null ? PACE.b[i].toFixed(2) + '%' : 'n/a']]); }); }
+  }
+  if (PACE) { $('#pace-card').hidden = false; $('#pace-note').textContent = PACE.note || ''; }
+
+  /* ================= WHO ================= */
+  if (GROUPS.length) {
+    const TITLES = { party: 'Registered party', race: 'Race', age: 'Age', gender: 'Gender', history: '2022 voting history', method: 'How they voted' };
+    let html = '';
+    GROUPS.forEach(([dim, g], gi) => {
+      const rows = Object.entries(g.rows).filter(([, v]) => v != null);
+      const tot = rows.reduce((a, [, v]) => a + (+v || 0), 0);
+      const sp = g.same_point_2022 || null, fin = g.final_2022 || null;
+      let mx = 0; rows.forEach(([k, v]) => { mx = Math.max(mx, v / tot * 100, sp && sp[k] != null ? sp[k] : 0, fin && fin[k] != null ? fin[k] : 0); });
+      const sc = niceMax(mx * 1.18);
+      const bar = (v, cl, col) => v == null ? '' : '<div class="t"><div class="bar ' + cl + '" style="width:' + (v / sc * 100) + '%' + (col ? ';background:' + col : '') + '"></div><span style="left:' + (v / sc * 100) + '%">' + pc(v) + '</span></div>';
+      html += '<div class="card"><h2>' + esc(g.label || TITLES[dim] || dim) + '</h2>' +
+        '<div class="legend"><span><i style="background:var(--y26)"></i>2026 ballots so far</span>' + (sp ? '<span><i style="background:var(--y22)"></i>' + esc(g.same_label || '2022 at the same point') + '</span>' : '') + (fin ? '<span><i style="background:var(--axis)"></i>' + esc(g.final_label || '2022 final electorate') + '</span>' : '') + '</div>' +
+        '<div class="rel"><div class="rows" data-g="' + gi + '">' + rows.map(([k, v], i) => '<div class="row nv" data-i="' + i + '"><div class="lab"><b>' + esc(k.replace('-', '–')) + '</b><small>' + fmt(v) + '</small></div><div class="pair">' + bar(v / tot * 100, '') + (sp ? bar(sp[k], 'b22') : '') + (fin ? bar(fin[k], 'bfin') : '') + '</div></div>').join('') + '</div></div>' +
+        '<p class="note">' + esc(g.note || '') + (g.src ? ' <a href="' + esc(g.src) + '" target="_blank" rel="noopener">Source</a>.' : '') + '</p></div>';
+    });
+    if (S.who_note) html += '<div class="card"><p class="note">' + esc(S.who_note) + '</p></div>';
+    $('#who-cards').innerHTML = html;
+    document.querySelectorAll('#who-cards .rows').forEach((el) => {
+      const [dim, g] = GROUPS[+el.dataset.g]; const rows = Object.entries(g.rows); const tot = rows.reduce((a, [, v]) => a + (+v || 0), 0);
+      bindTips(el.parentElement, '.row', (r) => { const [k, v] = rows[+r.dataset.i]; return tipRows(k, [['2026 ballots', fmt(v) + ' (' + pc(v / tot * 100) + ')']].concat(g.same_point_2022 && g.same_point_2022[k] != null ? [['2022, same point', pc(g.same_point_2022[k])]] : []).concat(g.final_2022 && g.final_2022[k] != null ? [['2022 final', pc(g.final_2022[k])]] : [])); });
+    });
+  }
+
+  /* ================= DISTRICTS ================= */
+  if (H.districts) {
+    const DS = D.districts.map((d) => ({ ...d, rvp: d.rv ? d.v / d.rv * 100 : null, sh: d.v / D.districts.reduce((a, x) => a + x.v, 0) * 100, pnet: d.pd != null && d.pr != null ? (d.pd - d.pr) / d.v * 100 : null }));
+    const useRv = DS.every((d) => d.rvp != null), useP = DS.every((d) => d.pnet != null);
+    $('#dist-title').textContent = S.dist_label;
+    $('#dist-note').textContent = (useRv ? 'Share of each district\'s registered voters who have voted so far; the dashed line is the statewide rate. ' : 'Each district\'s share of the state\'s ballots so far. ') + (S.dist_note || '');
+    const vals = DS.map((d) => useRv ? d.rvp : d.sh); const sc = niceMax(Math.max(...vals));
+    const sorted = [...DS].sort((a, b) => (useRv ? b.rvp - a.rvp : b.v - a.v));
+    const ref = useRv ? DS.reduce((a, d) => a + d.v, 0) / DS.reduce((a, d) => a + d.rv, 0) * 100 : null;
+    $('#cd-bars').innerHTML = sorted.map((d, i) => barRow(d.n, fmt(d.v) + ' ballots' + (useP ? ' · party gap ' + fm(d.pnet) : ''), useRv ? d.rvp : d.sh, sc, ref, '', 'data-i="' + i + '"')).join('');
+    bindTips($('#cd-bars').parentElement, '.row', (el) => { const d = sorted[+el.dataset.i]; return tipRows(d.n, [['Ballots so far', fmt(d.v)]].concat(d.e != null ? [['In person', fmt(d.e)]] : []).concat(d.m != null ? [['Mail', fmt(d.m)]] : []).concat(d.rv ? [['Registered', fmt(d.rv)], ['Of registered', pc(d.rvp)]] : []).concat(useP ? [['Party gap', fm(d.pnet)]] : [])); });
+    const cols = [['n', 'District'], ['v', 'Ballots so far'], DS.every((d) => d.e != null) && ['e', 'In person'], DS.every((d) => d.m != null) && ['m', 'Mail'], useRv && ['rv', 'Registered'], useRv && ['rvp', 'Of registered'], ['sh', 'Share of state'], useP && ['pnet', 'Party gap']].filter(Boolean);
+    $('#cd-table thead tr').innerHTML = cols.map(([, l], i) => '<th' + (i ? '' : ' class="l"') + '>' + l + '</th>').join('');
+    $('#cd-table tbody').innerHTML = DS.map((d) => '<tr>' + cols.map(([k]) => k === 'n' ? '<td>' + esc(d.n) + '</td>' : k === 'rvp' || k === 'sh' ? '<td>' + pc(d[k]) + '</td>' : k === 'pnet' ? '<td class="' + (d.pnet >= 0 ? 'd' : 'r') + '">' + fm(d.pnet) + '</td>' : '<td>' + fmt(d[k]) + '</td>').join('') + '</tr>').join('');
+  }
+
+  /* ================= MAP ================= */
+  const byF = Object.fromEntries(C.map((c) => [c.f, c]));
+  const rel = (s0, ks) => ks.map((k) => Math.round(s0 * k));
+  const MEAS = {};
+  if (STATE22) { const e = rel(STATE22, [0.7, 0.85, 1, 1.15, 1.3]); MEAS.p22 = { b: 'Of 2022 vote', title: 'Share of 2022 vote already cast', edges: e, vars: ['--seq-0', '--seq-1', '--seq-2', '--seq-3', '--seq-4', '--seq-5'], labels: ['Under ' + e[0] + '%'].concat(e.slice(0, -1).map((x, i) => x + '–' + e[i + 1] + '%')).concat([e[4] + '% or more']), note: 'Ballots cast so far as a share of each ' + S.unit + '\'s ' + S.base22 + '. Statewide: ' + pc(STATE22) + '.' }; }
+  if (H.reg) { const s0 = TOTAL / RVSUM * 100, e = rel(s0, [0.7, 0.85, 1, 1.15, 1.3]); MEAS.rvp = { b: 'Of registered', title: 'Share of registered voters who have voted', edges: e, vars: ['--seq-0', '--seq-1', '--seq-2', '--seq-3', '--seq-4', '--seq-5'], labels: ['Under ' + e[0] + '%'].concat(e.slice(0, -1).map((x, i) => x + '–' + e[i + 1] + '%')).concat([e[4] + '% or more']), note: 'Ballots cast so far divided by registered voters. Statewide: ' + pc(s0) + '.' }; }
+  const DIV = ['--div-r3', '--div-r2', '--div-r1', '--div-r0', '--div-d0', '--div-d1', '--div-d2', '--div-d3'];
+  if (H.party) MEAS.pnet = { b: 'Party gap', title: 'Registered Democrats minus Republicans among ballots so far', edges: [-40, -20, -10, 0, 10, 20, 40], vars: DIV, labels: ['R+40 or more', 'R+20–40', 'R+10–20', 'R+0–10', 'D+0–10', 'D+10–20', 'D+20–40', 'D+40 or more'], note: 'Registered party of the ballots cast so far. Statewide: ' + (SIG && SIG.type === 'party' ? fm(SIG.now) : '') + '.' };
+  MEAS.mg = { b: '2024 result', title: '2024 presidential result', edges: [-50, -30, -10, 0, 10, 30, 50], vars: DIV, labels: ['R+50 or more', 'R+30–50', 'R+10–30', 'R+0–10', 'D+0–10', 'D+10–30', 'D+30–50', 'D+50 or more'], note: 'Certified 2024 presidential margin, for reference. ' + (S.pres24 || '') };
+  let mKey = Object.keys(MEAS)[0];
+  const binOf = (v, edges) => edges.reduce((i, e) => i + (v >= e ? 1 : 0), 0);
+  function drawMap() {
+    const Mp = D.map; const wrap = $('#mapwrap');
+    $('#map-title').textContent = S.name + ', ' + S.unit + ' by ' + S.unit;
+    $('#map-seg').innerHTML = Object.entries(MEAS).map(([k, m]) => '<button type="button" data-m="' + k + '" aria-pressed="' + (k === mKey) + '">' + m.b + '</button>').join('');
+    document.querySelectorAll('#map-seg button').forEach((b) => b.addEventListener('click', () => { mKey = b.dataset.m; document.querySelectorAll('#map-seg button').forEach((x) => x.setAttribute('aria-pressed', x === b)); paintMap(); }));
+    let s = '<svg viewBox="0 0 ' + Mp.w + ' ' + Mp.h + '" role="img" aria-labelledby="map-title">';
+    Object.entries(Mp.c).forEach(([f, d]) => { s += '<path class="c" data-f="' + f + '" d="' + d + '"/>'; });
+    s += '<path class="o" d="' + Mp.o + '"/></svg>';
+    wrap.innerHTML = s;
+    bindTips(wrap, 'path.c', (el) => {
+      wrap.querySelectorAll('path.on').forEach((p) => p.classList.remove('on')); el.classList.add('on');
+      const c = byF[el.dataset.f]; if (!c) return tipRows('No data', []);
+      return tipRows(c.n + S.unit_suffix, [['Ballots so far', fmt(c.v)]].concat(H.reg ? [['Of registered', pc(c.rvp)]] : []).concat([['Of 2022 vote', pc(c.p22)]]).concat(H.party ? [['Party gap', c.pnet != null ? fm(c.pnet) : 'n/a']] : []).concat([['2024 result', mgl(c.mg)]]));
+    });
+    wrap.addEventListener('pointerleave', () => wrap.querySelectorAll('path.on').forEach((p) => p.classList.remove('on')));
+    paintMap();
+    $('#map-read').innerHTML = ['"Of 2022 vote" compares this year\'s ballots so far with each ' + S.unit + '\'s ' + S.base22 + ', so it rises toward and past 100% as voting goes on.', H.reg ? '"Of registered" divides ballots so far by the ' + S.unit + '\'s registered voters.' : null, H.party ? '"Party gap" is the registered-party makeup of ballots cast so far, not votes.' : null, '"2024 result" is the certified presidential margin, shown so turnout can be read against it. It says nothing about how this year\'s voters are voting.', S.map_note || null, 'Tap or hover a ' + S.unit + ' for its numbers. The table on the ' + UNITCAP + ' tab has every figure.'].filter(Boolean).map((x) => '<li>' + esc(x) + '</li>').join('');
+  }
+  function paintMap() {
+    const m = MEAS[mKey];
+    document.querySelectorAll('#mapwrap path.c').forEach((p) => { const c = byF[p.dataset.f]; p.style.fill = c && c[mKey] != null ? 'var(' + m.vars[binOf(c[mKey], m.edges)] + ')' : 'var(--track)'; });
+    const counts = m.vars.map(() => 0); C.forEach((c) => { if (c[mKey] != null) counts[binOf(c[mKey], m.edges)]++; });
+    $('#map-legend').innerHTML = m.vars.map((v, i) => '<span><i style="background:var(' + v + ')"></i>' + m.labels[i] + ' <span style="opacity:.7">(' + counts[i] + ')</span></span>').join('');
+    $('#map-note').textContent = m.title + '. ' + m.note + ' Numbers in brackets are ' + S.units + '.';
+  }
+
+  /* ================= READ + SOURCES ================= */
+  $('#read-notes').innerHTML = (S.notes_read || []).map((x) => '<li>' + x + '</li>').join('');
+  $('#sources').innerHTML = (S.sources || []).map((x) => '<li>' + x + '</li>').join('');
+
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if ($('#days') && !$('#days').hidden) { drawCheckpoints(); drawPace(); } if (!$('#projection').hidden) drawDials(); }, 150); });
+  const start = (location.hash || '').slice(1);
+  openTab(tabs.some((b) => b.dataset.page === start) ? start : 'projection');
+})();
+</script>
+
+</body></html>
